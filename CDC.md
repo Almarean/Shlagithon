@@ -45,6 +45,8 @@ D'un point de vue fonctionnel, ces besoins sont traduits par :
 * Une interface qui propose, selon un ingrédient ou non, une recette aléatoire dans le cas où la personne manque d'inspiration.
 * Une interface de contact avec le staff qui permet aux membres de faire remonter des problèmes concernant le site.
 * Une interface visiteur qui renseigne les coordonnées des contacts de l'équipe qui gère le site de recette.
+* Une interface d'administration qui affiche l'ensemble des membres permettant de les modifier et de les supprimer.
+* Une interface d'administration qui affiche l'ensemble des recettes et permettant de les modifier et de les supprimer.
 
 
 ## Solutions techniques

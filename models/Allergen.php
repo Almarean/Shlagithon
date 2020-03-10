@@ -21,7 +21,7 @@ class Allergen
      */
     public function __construct(string $label)
     {
-        $this->label = $label;
+        $this->label = ucfirst($label);
     }
 
     /**
@@ -38,12 +38,12 @@ class Allergen
      * Setter of the label of the allergen.
      *
      * @param string $label Label to set to the allergen.
-     * 
+     *
      * @return self
      */
     public function setLabel(string $label): self
     {
-        $this->label = $label;
+        $this->label = ucfirst($label);
         return this;
     }
 }

@@ -21,7 +21,7 @@ class Tag
      */
     public function __construct(string $label)
     {
-        $this->label = $label;
+        $this->label = ucfirst($label);
     }
 
     /**
@@ -38,12 +38,12 @@ class Tag
      * Setter of the label of the tag.
      *
      * @param string $label Label to set to the tag.
-     * 
+     *
      * @return self
      */
     public function setLabel(string $label): self
     {
-        $this->label = $label;
+        $this->label = ucfirst($label);
         return $this;
     }
 }

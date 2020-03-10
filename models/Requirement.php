@@ -28,12 +28,12 @@ abstract class Requirement
      * Setter of the label of the requirement.
      *
      * @param string $label Label to set to the requirement.
-     * 
+     *
      * @return self
      */
     public function setLabel(string $label): self
     {
-        $this->label = $label;
+        $this->label = ucfirst($label);
         return $this;
     }
 }

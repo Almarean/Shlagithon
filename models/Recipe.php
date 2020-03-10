@@ -2,11 +2,9 @@
 
 namespace Models;
 
-use Models\Ingredient;
 use Models\Member;
 use Models\Tag;
 use Models\Requirement;
-use Models\Ustencil;
 
 /**
  * Class Recipe.
@@ -97,7 +95,7 @@ class Recipe
      */
     public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice, Member $author)
     {
-        $this->name = $name;
+        $this->name = ucfirst($name);
         $this->description = $description;
         $this->image = $image;
         $this->difficulty = $difficulty;
@@ -123,12 +121,12 @@ class Recipe
      * Setter of the name of the recipe/
      *
      * @param string $name Name to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = ucfirst($name);
         return $this;
     }
 
@@ -146,7 +144,7 @@ class Recipe
      * Setter of the description of the recipe.
      *
      * @param string $description Description to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setDescription(string $description): self
@@ -169,7 +167,7 @@ class Recipe
      * Setter of the image of the recipe.
      *
      * @param string $image Image to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setImage(string $image): self
@@ -192,7 +190,7 @@ class Recipe
      * Setter of the difficulty of the recipe.
      *
      * @param integer $difficulty Diificulty to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setDifficulty(int $difficulty): self
@@ -215,7 +213,7 @@ class Recipe
      * Setter of the time of the recipe.
      *
      * @param integer $time Time to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setTime(int $time): self
@@ -238,7 +236,7 @@ class Recipe
      * Setter of the number of persons of the recipe.
      *
      * @param integer $nbPersons Number of persons to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setNbPersons(int $nbPersons): self
@@ -261,7 +259,7 @@ class Recipe
      * Setter of the advice of the recipe.
      *
      * @param string $advice Advice to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setAdvice(string $advice): self
@@ -284,7 +282,7 @@ class Recipe
      * Add a tag to the recipe.
      *
      * @param Tag $tag Tag to add to the recipe.
-     * 
+     *
      * @return array
      */
     public function addTag(Tag $tag): array
@@ -297,7 +295,7 @@ class Recipe
      * Remove a tag from the recipe.
      *
      * @param Tag $tag Tag to remove from the recipe.
-     * 
+     *
      * @return array
      */
     public function removeTag(Tag $tag): array
@@ -324,7 +322,7 @@ class Recipe
      * Add a requirement to the recipe.
      *
      * @param Requirement $requirement Requirement to add to the recipe.
-     * 
+     *
      * @return array
      */
     public function addRequirement(Requirement $requirement): array
@@ -336,7 +334,7 @@ class Recipe
      * Remove a requirement from the recipe.
      *
      * @param Requirement $requirement Requirement to remove from the recipe.
-     * 
+     *
      * @return array
      */
     public function removeRequirement(Requirement $requirement): array
@@ -363,7 +361,7 @@ class Recipe
      * Setter of the author of the recipe.
      *
      * @param Member $author Member to set to the recipe.
-     * 
+     *
      * @return self
      */
     public function setAuthor(Member $author): self

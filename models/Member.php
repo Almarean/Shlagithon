@@ -91,8 +91,8 @@ class Member
      */
     public function __construct(string $name, string $firstname, string $email, string $password, string $type)
     {
-        $this->name = $name;
-        $this->firstname = $firstname;
+        $this->name = ucwords($name);
+        $this->firstname = ucwords($firstname);
         $this->email = $email;
         $this->password = $password;
         $this->creationDate = date("Y-m-d h:i:s");
@@ -122,7 +122,7 @@ class Member
      */
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = ucwords($name);
         return $this;
     }
 
@@ -145,7 +145,7 @@ class Member
      */
     public function setFirstname(string $firstname): self
     {
-        $this->firstname = $firstname;
+        $this->firstname = ucwords($firstname);
         return $this;
     }
 
@@ -286,7 +286,7 @@ class Member
      * Add a written recipe to the member.
      *
      * @param Recipe $writtenRecipe Written recipe to add to the member.
-     * 
+     *
      * @return array
      */
     public function addWrittenRecipe(Recipe $writtenRecipe): array
@@ -299,7 +299,7 @@ class Member
      * Remove a written recipe from the member.
      *
      * @param Recipe $writtenRecipe Written recipe to remove from the member.
-     * 
+     *
      * @return array
      */
     public function removeWrittenRecipe(Recipe $writtenRecipe): array
@@ -326,7 +326,7 @@ class Member
      * Add a favorite recipe to the member.
      *
      * @param Recipe $favoriteRecipe Favorite recipe to add to the member.
-     * 
+     *
      * @return array
      */
     public function addFavoriteRecipe(Recipe $favoriteRecipe): array
@@ -339,7 +339,7 @@ class Member
      * Remove a favorite recipe from the member.
      *
      * @param Recipe $favoriteRecipe Favorite recipe to remove from the member.
-     * 
+     *
      * @return array
      */
     public function removeFavoriteRecipe(Recipe $favoriteRecipe): array

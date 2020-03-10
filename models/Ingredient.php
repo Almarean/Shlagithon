@@ -19,12 +19,12 @@ class Ingredient extends Requirement
 
     /**
      * Constructor of the Ingredient class.
-     * 
+     *
      * @param string $label Label to set to the ingredient.
      */
     public function __construct(string $label)
     {
-        $this->label = $label;
+        $this->label = ucwords($label);
         $this->$allergens = [];
     }
 
@@ -42,7 +42,7 @@ class Ingredient extends Requirement
      * Add an allergen to the ingredient.
      *
      * @param Allergen $allergen Allergen to add to the ingredient.
-     * 
+     *
      * @return array
      */
     public function addAllergen(Allergen $allergen): array
@@ -55,7 +55,7 @@ class Ingredient extends Requirement
      * Remove an allergen to the ingredient.
      *
      * @param Allergen $allergen Allergen to remove from the ingredient.
-     * 
+     *
      * @return array
      */
     public function removeAllergen(Allergen $allergen): array

@@ -16,6 +16,6 @@ class Ustencil extends Requirement
      */
     public function __construct(string $label)
     {
-        $this->label = $label;
+        $this->label = ucfirst($label);
     }
 }

@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `step` (
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE IF NOT EXISTS `tag` (
     `t_id` int(11) NOT NULL AUTO_INCREMENT,
-    `t_name` varchar(255) NOT NULL,
+    `t_label` varchar(255) NOT NULL,
     PRIMARY KEY(`t_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `recipe_tag` (
 DROP TABLE IF EXISTS `allergen`;
 CREATE TABLE IF NOT EXISTS `allergen` (
     `a_id` int(11) NOT NULL AUTO_INCREMENT,
-    `a_name` varchar(255) NOT NULL,
+    `a_label` varchar(255) NOT NULL,
     PRIMARY KEY(`a_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

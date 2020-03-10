@@ -1,5 +1,9 @@
 <?php
 
+namespace Models;
+
+use Models\Recipe;
+
 /**
  * Class Member.
  */
@@ -20,11 +24,11 @@ class Member
     private $firstname;
 
     /**
-     * Login of the member.
+     * Email of the member.
      *
      * @var string
      */
-    private $login;
+    private $email;
 
     /**
      * Password of the member.
@@ -63,24 +67,40 @@ class Member
     private $lastConnectionDate;
 
     /**
-     * Constructor of the member class.
+     * Recipes writed by the member.
+     *
+     * @var array
+     */
+    private $writtenRecipes;
+
+    /**
+     * Favorite recipes of the member.
+     *
+     * @var array
+     */
+    private $favoriteRecipes;
+
+    /**
+     * Constructor of the Member class.
      *
      * @param string $name Name to set to the member.
      * @param string $firstname Firstname to set to the member.
-     * @param string $login Login to set to the member.
+     * @param string $email Email to set to the member.
      * @param string $password Password to set to the member.
      * @param string $type Type to set to the member.
      */
-    public function __construct(string $name, string $firstname, string $login, string $password, string $type)
+    public function __construct(string $name, string $firstname, string $email, string $password, string $type)
     {
         $this->name = $name;
         $this->firstname = $firstname;
-        $this->login = $login;
+        $this->email = $email;
         $this->password = $password;
         $this->creationDate = date("Y-m-d h:i:s");
+        $this->getLastConnectionDate = null;
         $this->type = $type;
         $this->isConfirmed = false;
-
+        $this->writtenRecipes = [];
+        $this->favoriteRecipes = [];
     }
 
     /**
@@ -130,25 +150,25 @@ class Member
     }
 
     /**
-     * Getter of the login of the member.
+     * Getter of the email of the member.
      *
      * @return string
      */
-    public function getLogin(): string
+    public function getEmail(): string
     {
-        return $this->login;
+        return $this->email;
     }
 
     /**
-     * Setter of the login of the member.
+     * Setter of the email of the member.
      *
-     * @param string $login Login to set to the member.
+     * @param string $email Email to set to the member.
      *
      * @return self
      */
-    public function setLogin(string $login): self
+    public function setEmail(string $email): self
     {
-        $this->login = $login;
+        $this->email = $email;
         return $this;
     }
 
@@ -250,5 +270,85 @@ class Member
     {
         $this->lastConnectionDate = date("Y-m-d h:i:s");
         return $this;
+    }
+
+    /**
+     * Getter of the written recipes of the member.
+     *
+     * @return array
+     */
+    public function getWrittenRecipes(): array
+    {
+        return $this->writtenRecipes;
+    }
+
+    /**
+     * Add a written recipe to the member.
+     *
+     * @param Recipe $writtenRecipe Written recipe to add to the member.
+     * 
+     * @return array
+     */
+    public function addWrittenRecipe(Recipe $writtenRecipe): array
+    {
+        array_push($this->writtenRecipes, $writtenRecipe);
+        return $this->writtenRecipes;
+    }
+
+    /**
+     * Remove a written recipe from the member.
+     *
+     * @param Recipe $writtenRecipe Written recipe to remove from the member.
+     * 
+     * @return array
+     */
+    public function removeWrittenRecipe(Recipe $writtenRecipe): array
+    {
+        if (in_array($writtenRecipe, $this->writtenRecipes)) {
+            unset($writtenRecipe);
+            return array_values($this->writtenRecipes);
+        } else {
+            return $this->writtenRecipes;
+        }
+    }
+
+    /**
+     * Getter of the favorite recipes of the member.
+     *
+     * @return array
+     */
+    public function getFavoriteRecipes(): array
+    {
+        return $this->favoriteRecipes;
+    }
+
+    /**
+     * Add a favorite recipe to the member.
+     *
+     * @param Recipe $favoriteRecipe Favorite recipe to add to the member.
+     * 
+     * @return array
+     */
+    public function addFavoriteRecipe(Recipe $favoriteRecipe): array
+    {
+        array_push($this->favoriteRecipes, $favoriteRecipe);
+        return $this->favoriteRecipes;
+    }
+
+    /**
+     * Remove a favorite recipe from the member.
+     *
+     * @param Recipe $favoriteRecipe Favorite recipe to remove from the member.
+     * 
+     * @return array
+     */
+    public function removeFavoriteRecipe(Recipe $favoriteRecipe): array
+    {
+        if (in_array($favoriteRecipe, $this->favoriteRecipes)) {
+            unset($favoriteRecipe);
+            return array_values($this->favoriteRecipes);
+        } else {
+            return $this->favoriteRecipes;
+        }
     }
 }

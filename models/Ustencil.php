@@ -1,8 +1,8 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\Requirement;
+use App\Models\Requirement;
 
 /**
  * Class Ustencil extends Requirement.
@@ -12,7 +12,7 @@ class Ustencil extends Requirement
     /**
      * Constructor of the Ustencil class.
      *
-     * @param string $label Label to set to the Ustencil.
+     * @param string $label
      */
     public function __construct(string $label)
     {

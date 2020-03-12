@@ -11,20 +11,9 @@ USE `shlagithon`;
 DROP TABLE IF EXISTS `requirement`;
 CREATE TABLE IF NOT EXISTS `requirement` (
     `req_id` int(11) NOT NULL AUTO_INCREMENT,
-    `req_name` varchar(255) NOT NULL,
+    `req_label` varchar(255) NOT NULL,
+    `req_type` ENUM('USTENCIL', 'INGREDIENT') NOT NULL,
     PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-DROP TABLE IF EXISTS `ustencil`;
-CREATE TABLE IF NOT EXISTS `ustencil` (
-    `u_fk_requirement_id` int(11) NOT NULL,
-    PRIMARY KEY( `u_fk_requirement_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-DROP TABLE IF EXISTS `ingredient`;
-CREATE TABLE IF NOT EXISTS `ingredient` (
-    `i_fk_requirement_id` int(11) NOT NULL,
-    PRIMARY KEY (`i_fk_requirement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `member`;
@@ -100,17 +89,15 @@ CREATE TABLE IF NOT EXISTS `allergen` (
     PRIMARY KEY(`a_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `ingredient_allergen`;
-CREATE TABLE IF NOT EXISTS `ingredient_allergen` (
-    `ia_fk_ingredient_id` int(11) NOT NULL,
-    `ia_fk_allergen_id` int(11) NOT NULL,
-    PRIMARY KEY(`ia_fk_ingredient_id`, `ia_fk_allergen_id`)
+DROP TABLE IF EXISTS `requirement_allergen`;
+CREATE TABLE IF NOT EXISTS `requirement_allergen` (
+    `ra_fk_requirement_id` int(11) NOT NULL,
+    `ra_fk_allergen_id` int(11) NOT NULL,
+    PRIMARY KEY(`ra_fk_requirement_id`, `ra_fk_allergen_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE `ustencil` ADD CONSTRAINT `fk_ustencil` FOREIGN KEY (`u_fk_requirement_id`) REFERENCES `requirement`(`req_id`);
-ALTER TABLE `ingredient` ADD CONSTRAINT `fk_ingredient` FOREIGN KEY (`i_fk_requirement_id`) REFERENCES `requirement`(`req_id`);
-ALTER TABLE `ingredient_allergen` ADD CONSTRAINT `fk_ingredient_allergen_allergen` FOREIGN KEY (`ia_fk_allergen_id`) REFERENCES `allergen`(`a_id`);
-ALTER TABLE `ingredient_allergen` ADD CONSTRAINT `fk_ingredient_allergen_ingredient` FOREIGN KEY (`ia_fk_ingredient_id`) REFERENCES `ingredient`(`i_fk_requirement_id`);
+ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_allergen` FOREIGN KEY (`ra_fk_allergen_id`) REFERENCES `allergen`(`a_id`);
+ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_requirement` FOREIGN KEY (`ra_fk_requirement_id`) REFERENCES `requirement`(`req_id`);
 ALTER TABLE `recipe_requirement` ADD CONSTRAINT `fk_recipe_requirement_requirement` FOREIGN KEY (`rr_fk_requirement_id`) REFERENCES `requirement`(`req_id`);
 ALTER TABLE `recipe_requirement` ADD CONSTRAINT `fk_recipe_requirement_recipe` FOREIGN KEY (`rr_fk_recipe_id`) REFERENCES `recipe`(`rec_id`);
 ALTER TABLE `step` ADD CONSTRAINT `fk_step` FOREIGN KEY (`s_fk_recipe_id`) REFERENCES `recipe`(`rec_id`);

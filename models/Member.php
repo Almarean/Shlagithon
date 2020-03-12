@@ -1,14 +1,22 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\Recipe;
+use App\Models\Recipe;
+use App\Services\MemberManager;
 
 /**
  * Class Member.
  */
 class Member
 {
+    /**
+     * ID of the member.
+     *
+     * @var integer|null
+     */
+    private $id;
+
     /**
      * Name of the member.
      *
@@ -83,24 +91,39 @@ class Member
     /**
      * Constructor of the Member class.
      *
-     * @param string $name Name to set to the member.
-     * @param string $firstname Firstname to set to the member.
-     * @param string $email Email to set to the member.
-     * @param string $password Password to set to the member.
-     * @param string $type Type to set to the member.
+     * @param string $name
+     * @param string $firstname
+     * @param string $email
+     * @param string $password
+     * @param string $type
      */
-    public function __construct(string $name, string $firstname, string $email, string $password, string $type)
+    public function __construct(string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
     {
         $this->name = ucwords($name);
         $this->firstname = ucwords($firstname);
         $this->email = $email;
-        $this->password = $password;
+        $this->password = md5($password);
         $this->creationDate = date("Y-m-d h:i:s");
         $this->getLastConnectionDate = null;
         $this->type = $type;
         $this->isConfirmed = false;
         $this->writtenRecipes = [];
         $this->favoriteRecipes = [];
+        if (MemberManager::exists($this->name)) {
+            $this->id = MemberManager::fetchIdByIdentifier($email);
+        } else {
+            $this->id = null;
+        }
+    }
+
+    /**
+     * Getter of the ID.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     /**
@@ -116,7 +139,7 @@ class Member
     /**
      * Setter of the of the member.
      *
-     * @param string $name Name to set to the member.
+     * @param string $name
      *
      * @return self
      */
@@ -139,7 +162,7 @@ class Member
     /**
      * Setter of the firstname of the member.
      *
-     * @param string $firstname Firstname to set to the member.
+     * @param string $firstname
      *
      * @return self
      */
@@ -162,7 +185,7 @@ class Member
     /**
      * Setter of the email of the member.
      *
-     * @param string $email Email to set to the member.
+     * @param string $email
      *
      * @return self
      */
@@ -185,13 +208,13 @@ class Member
     /**
      * Setter of the password of the member.
      *
-     * @param string $password Password to set to the member.
+     * @param string $password
      *
      * @return self
      */
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = md5($password);
         return $this;
     }
 
@@ -208,7 +231,7 @@ class Member
     /**
      * Setter of the type of the member.
      *
-     * @param string $type Type to set to the member.
+     * @param string $type
      *
      * @return self
      */
@@ -231,7 +254,7 @@ class Member
     /**
      * Setter of the state of confirmation of the member.
      *
-     * @param boolean $isConfirmed State of confirmation to set to the member.
+     * @param boolean $isConfirmed
      *
      * @return self
      */
@@ -285,7 +308,7 @@ class Member
     /**
      * Add a written recipe to the member.
      *
-     * @param Recipe $writtenRecipe Written recipe to add to the member.
+     * @param Recipe $writtenRecipe
      *
      * @return array
      */
@@ -298,7 +321,7 @@ class Member
     /**
      * Remove a written recipe from the member.
      *
-     * @param Recipe $writtenRecipe Written recipe to remove from the member.
+     * @param Recipe $writtenRecipe
      *
      * @return array
      */
@@ -325,7 +348,7 @@ class Member
     /**
      * Add a favorite recipe to the member.
      *
-     * @param Recipe $favoriteRecipe Favorite recipe to add to the member.
+     * @param Recipe $favoriteRecipe
      *
      * @return array
      */
@@ -338,7 +361,7 @@ class Member
     /**
      * Remove a favorite recipe from the member.
      *
-     * @param Recipe $favoriteRecipe Favorite recipe to remove from the member.
+     * @param Recipe $favoriteRecipe
      *
      * @return array
      */

@@ -1,9 +1,9 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\Allergen;
-use Models\Requirement;
+use App\Models\Allergen;
+use App\Models\Requirement;
 
 /**
  * Class Ingredient extends Requirement.
@@ -20,7 +20,7 @@ class Ingredient extends Requirement
     /**
      * Constructor of the Ingredient class.
      *
-     * @param string $label Label to set to the ingredient.
+     * @param string $label
      */
     public function __construct(string $label)
     {
@@ -41,7 +41,7 @@ class Ingredient extends Requirement
     /**
      * Add an allergen to the ingredient.
      *
-     * @param Allergen $allergen Allergen to add to the ingredient.
+     * @param Allergen $allergen
      *
      * @return array
      */
@@ -54,7 +54,7 @@ class Ingredient extends Requirement
     /**
      * Remove an allergen to the ingredient.
      *
-     * @param Allergen $allergen Allergen to remove from the ingredient.
+     * @param Allergen $allergen
      *
      * @return array
      */

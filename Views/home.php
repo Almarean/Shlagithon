@@ -4,7 +4,19 @@
     <?php require __DIR__ . "/templates/head.php"; ?>
 </head>
 <body>
-    <p class="text-center"><?php echo $m->getName(); ?></p>
+    <?php
+    foreach ($tags as $tag) {
+        echo "<pre>";
+        echo $tag->getLabel();
+        echo "</pre>";
+    }
+
+    foreach ($members1 as $m1) {
+        echo "<pre>";
+        echo $m1->getName();
+        echo "</pre>";
+    }
+    ?>
 
     <?php require __DIR__ . "/templates/scriptsjs.php"; ?>
 </body>

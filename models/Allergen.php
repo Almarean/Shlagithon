@@ -1,12 +1,21 @@
 <?php
 
-namespace Models;
+namespace App\Models;
+
+use App\Services\AllergenManager;
 
 /**
  * Class Allergen.
  */
 class Allergen
 {
+    /**
+     * ID of the allergen;
+     *
+     * @var integer|null
+     */
+    private $id;
+
     /**
      * Label of the allergen.
      *
@@ -17,11 +26,26 @@ class Allergen
     /**
      * Constructor of the Allergen class.
      *
-     * @param string $label Label to set to the allergen.
+     * @param string $label
      */
     public function __construct(string $label)
     {
         $this->label = ucfirst($label);
+        if (!AllergenManager::exists($this->label)) {
+            $this->id = AllergenManager::fetchIdByIdentifier($this->label);
+        } else {
+            $this->id = null;
+        }
+    }
+
+    /**
+     * Getter of the ID of the allergen.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     /**
@@ -37,7 +61,7 @@ class Allergen
     /**
      * Setter of the label of the allergen.
      *
-     * @param string $label Label to set to the allergen.
+     * @param string $label
      *
      * @return self
      */

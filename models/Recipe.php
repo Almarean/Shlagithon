@@ -1,16 +1,23 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\Member;
-use Models\Tag;
-use Models\Requirement;
+use App\Models\Member;
+use App\Models\Tag;
+use App\Models\Requirement;
 
 /**
  * Class Recipe.
  */
 class Recipe
 {
+    /**
+     * ID of the recipe
+     *
+     * @var integer
+     */
+    private $id;
+
     /**
      * Name of the recipe.
      *
@@ -35,21 +42,21 @@ class Recipe
     /**
      * Difficulty of the recipe.
      *
-     * @var int
+     * @var integer
      */
     private $difficulty;
 
     /**
      * Time to make the recipe in minutes.
      *
-     * @var int
+     * @var integer
      */
     private $time;
 
     /**
      * Number of persons of the recipe.
      *
-     * @var int
+     * @var integer
      */
     private $nbPersons;
 
@@ -84,14 +91,14 @@ class Recipe
     /**
      * Constructor of the Recipe class.
      *
-     * @param string $name Name to set to the recipe.
-     * @param string $description Description to set to the recipe.
-     * @param string $image Image to set to the recipe.
-     * @param integer $difficulty Difficulty to set to the recipe.
-     * @param integer $time Time to set to the recipe.
-     * @param integer $nbPersons Number of persons to set to the recipe.
-     * @param string $advice Advice to set to the recipe.
-     * @param Member $author Member to set to the recipe.
+     * @param string $name
+     * @param string $description
+     * @param string $image
+     * @param integer $difficulty
+     * @param integer $time
+     * @param integer $nbPersons
+     * @param string $advice
+     * @param Member $author
      */
     public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice, Member $author)
     {
@@ -108,6 +115,16 @@ class Recipe
     }
 
     /**
+     * Getter of the ID of the recipe.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
      * Getter of the name of the recipe.
      *
      * @return string
@@ -120,7 +137,7 @@ class Recipe
     /**
      * Setter of the name of the recipe/
      *
-     * @param string $name Name to set to the recipe.
+     * @param string $name
      *
      * @return self
      */
@@ -143,7 +160,7 @@ class Recipe
     /**
      * Setter of the description of the recipe.
      *
-     * @param string $description Description to set to the recipe.
+     * @param string $description
      *
      * @return self
      */
@@ -166,7 +183,7 @@ class Recipe
     /**
      * Setter of the image of the recipe.
      *
-     * @param string $image Image to set to the recipe.
+     * @param string $image
      *
      * @return self
      */
@@ -189,7 +206,7 @@ class Recipe
     /**
      * Setter of the difficulty of the recipe.
      *
-     * @param integer $difficulty Diificulty to set to the recipe.
+     * @param integer $difficulty
      *
      * @return self
      */
@@ -212,7 +229,7 @@ class Recipe
     /**
      * Setter of the time of the recipe.
      *
-     * @param integer $time Time to set to the recipe.
+     * @param integer $time
      *
      * @return self
      */
@@ -235,7 +252,7 @@ class Recipe
     /**
      * Setter of the number of persons of the recipe.
      *
-     * @param integer $nbPersons Number of persons to set to the recipe.
+     * @param integer $nbPersons
      *
      * @return self
      */
@@ -258,7 +275,7 @@ class Recipe
     /**
      * Setter of the advice of the recipe.
      *
-     * @param string $advice Advice to set to the recipe.
+     * @param string $advice
      *
      * @return self
      */
@@ -281,7 +298,7 @@ class Recipe
     /**
      * Add a tag to the recipe.
      *
-     * @param Tag $tag Tag to add to the recipe.
+     * @param Tag $tag
      *
      * @return array
      */
@@ -294,7 +311,7 @@ class Recipe
     /**
      * Remove a tag from the recipe.
      *
-     * @param Tag $tag Tag to remove from the recipe.
+     * @param Tag $tag
      *
      * @return array
      */
@@ -321,7 +338,7 @@ class Recipe
     /**
      * Add a requirement to the recipe.
      *
-     * @param Requirement $requirement Requirement to add to the recipe.
+     * @param Requirement $requirement
      *
      * @return array
      */
@@ -333,7 +350,7 @@ class Recipe
     /**
      * Remove a requirement from the recipe.
      *
-     * @param Requirement $requirement Requirement to remove from the recipe.
+     * @param Requirement $requirement
      *
      * @return array
      */
@@ -360,7 +377,7 @@ class Recipe
     /**
      * Setter of the author of the recipe.
      *
-     * @param Member $author Member to set to the recipe.
+     * @param Member $author
      *
      * @return self
      */

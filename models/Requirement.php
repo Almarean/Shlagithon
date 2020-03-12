@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 /**
  * Abstract class Requirement
@@ -8,11 +8,28 @@ namespace Models;
 abstract class Requirement
 {
     /**
+     * ID of the requirement.
+     *
+     * @var integer
+     */
+    protected $id;
+
+    /**
      * Label of the requirement.
      *
      * @var string
      */
     protected $label;
+
+    /**
+     * Getter of the ID of the requirement.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * Getter of the label of the requirement.

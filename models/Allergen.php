@@ -31,11 +31,6 @@ class Allergen
     public function __construct(string $label)
     {
         $this->label = ucfirst($label);
-        if (!AllergenManager::exists($this->label)) {
-            $this->id = AllergenManager::fetchIdByIdentifier($this->label);
-        } else {
-            $this->id = null;
-        }
     }
 
     /**

@@ -11,9 +11,39 @@
         echo "</pre>";
     }
 
-    foreach ($members1 as $m1) {
+    foreach ($allergens as $allergen) {
         echo "<pre>";
-        echo $m1->getName();
+        echo $allergen->getLabel();
+        echo "</pre>";
+    }
+
+    foreach ($ustencils as $ustencil) {
+        echo "<pre>";
+        echo $ustencil->getLabel();
+        echo "</pre>";
+    }
+
+    foreach ($ingredients as $ingredient) {
+        echo "<pre>";
+        echo $ingredient->getLabel();
+        echo "</pre>";
+    }
+
+    foreach ($members as $member) {
+        echo "<pre>";
+        echo $member->getName();
+        echo "</pre>";
+    }
+
+    foreach ($recipes as $recipe) {
+        echo "<pre>";
+        echo $recipe->getName();
+        echo "</pre>";
+    }
+
+    foreach ($steps as $step) {
+        echo "<pre>";
+        echo $step->getDescription();
         echo "</pre>";
     }
     ?>

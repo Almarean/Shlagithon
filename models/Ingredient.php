@@ -25,7 +25,7 @@ class Ingredient extends Requirement
     public function __construct(string $label)
     {
         $this->label = ucwords($label);
-        $this->$allergens = [];
+        $this->allergens = [];
     }
 
     /**
@@ -36,6 +36,19 @@ class Ingredient extends Requirement
     public function getAllergens(): array
     {
         return $this->allergens;
+    }
+
+    /**
+     * Setter of the allergens of the ingredient.
+     *
+     * @param array $allergens
+     *
+     * @return $this
+     */
+    public function setAllergens(array $allergens): self
+    {
+        $this->allergens[] = $allergens;
+        return $this;
     }
 
     /**

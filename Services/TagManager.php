@@ -3,35 +3,30 @@
 namespace App\Services;
 
 use PDO;
-use App\Interfaces\IManager;
+use App\Models\Recipe;
 use App\Models\Tag;
-use App\Services\MyPDO;
+use App\Interfaces\IManager;
 
 /**
- * Class TagManager extends MyPDO implements IManager.
+ * Class TagManager implements IManager.
  */
-class TagManager extends MyPDO implements IManager
+class TagManager implements IManager
 {
     /**
      * Insert a tag in database.
      *
      * @param Tag $object
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
      *
      * @return boolean
      */
-    public static function insert($object, ?PDO $connection = null, bool $closeConnection = true): bool
+    public static function insert($object): bool
     {
         if (get_class($object) === "App\\Models\\Tag") {
-            $connection = parent::openConnection($connection);
-            if (self::exists($object->getLabel(), $connection, $closeConnection)) {
-                parent::closeConnection($connection, $closeConnection);
+            if (self::exists($object->getLabel())) {
                 return false;
             }
-            $stmt = $connection->prepare("INSERT INTO tag(t_label) VALUES (:label);");
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO tag(t_label) VALUES (:label);");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            parent::closeConnection($connection, $closeConnection);
             return $stmt->execute();
         } else {
             return false;
@@ -41,19 +36,34 @@ class TagManager extends MyPDO implements IManager
     /**
      * Fetch all tags in database.
      *
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @return array
+     */
+    public static function findAll(): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM tag;");
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objects = [];
+        foreach ($results as $result) {
+            array_push($objects, new Tag($result["t_label"]));
+        }
+        return $objects;
+    }
+
+    /**
+     * Fetch all tags by recipe.
+     *
+     * @param Recipe $recipe
      *
      * @return array
      */
-    public static function fetchAll(?PDO $connection = null, bool $closeConnection = true): array
+    public static function findAllByRecipe(Recipe $recipe): array
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->query("SELECT * FROM tag;");
-        parent::closeConnection($connection, $closeConnection);
-        $results = $stmt->fetchAll();
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM tag INNER JOIN recipe_tag ON tag.t_id = recipe_tag.rt_fk_tag_id WHERE rt_fk_recipe_id = :recipeId;");
+        $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()));
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             array_push($objects, new Tag($result["t_label"]));
         }
         return $objects;
@@ -62,66 +72,44 @@ class TagManager extends MyPDO implements IManager
     /**
      * Fetch a tag.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return Tag|null
      */
-    public static function fetchOneBy(string $identifier, ?PDO $connection = null, bool $closeConnection = true): ?Tag
+    public static function findOneBy($identifier): ?Tag
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->prepare("SELECT * FROM tag WHERE t_label = :label;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM tag WHERE t_label = :label;");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        parent::closeConnection($connection, $closeConnection);
-        $result = $stmt->fetch();
-        if ($result) {
-            return new Tag($result["t_label"]);
-        } else {
-            return null;
-        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? new Tag($result["t_label"]) : null;
     }
 
     /**
      * Fetch the ID of the tag.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return integer|null
      */
-    public static function fetchIdBy(string $identifier, ?PDO $connection = null, bool $closeConnection = true): ?int
+    public static function findIdBy($identifier): ?int
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->prepare("SELECT t_id FROM tag WHERE t_name = :name;");
-        $stmt->bindValue(":name", $identifier, PDO::PARAM_STR);
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT t_id FROM tag WHERE t_label = :label;");
+        $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        parent::closeConnection($connection, $closeConnection);
-        $result = $stmt->fetch();
-        if ($result) {
-            return $result["t_id"];
-        } else {
-            return null;
-        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["t_id"] : null;
     }
 
     /**
      * Verify if the tag exists.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return boolean
      */
-    public static function exists(string $identifier, ?PDO $connection = null, bool $closeConnection = true): bool
+    public static function exists($identifier): bool
     {
-        if (self::fetchOneBy($identifier, $connection, $closeConnection)) {
-            return true;
-        } else {
-            return false;
-        }
+        return self::findOneBy($identifier) ? true : false;
     }
 }

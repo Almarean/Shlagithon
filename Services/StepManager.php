@@ -5,36 +5,31 @@ namespace App\Models;
 use PDO;
 use App\Interfaces\IManager;
 use App\Models\Step;
-use App\Services\MyPDO;
+use App\Services\PDOManager;
 use App\Services\RecipeManager;
 
 /**
- * Class AllergenManager extends MyPDO implements IManager.
+ * Class AllergenManager implements IManager.
  */
-class StepManager extends MyPDO implements IManager
+class StepManager implements IManager
 {
     /**
      * Insert a step in database.
      *
      * @param Step $object
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
      *
      * @return boolean
      */
-    public static function insert($object, ?PDO $connection = null, bool $closeConnection = true): bool
+    public static function insert($object): bool
     {
         if (get_class($object) === "App\\Models\\Step") {
-            $connection = parent::openConnection($connection);
-            if (self::exists($object->getLabel(), $connection, $closeConnection)) {
-                parent::closeConnection($connection, $closeConnection);
+            if (self::exists($object->getDescription())) {
                 return false;
             }
-            $stmt = $connection->prepare("INSERT INTO step(s_description, s_order, s_fk_recipe) VALUES (:description, :order, :recipe);");
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO step(s_description, s_order, s_fk_recipe_id) VALUES (:description, :order, :recipeId);");
             $stmt->bindValue(":description", $object->getDescription(), PDO::PARAM_STR);
             $stmt->bindValue(":order", $object->getOrder(), PDO::PARAM_INT);
-            $stmt->bindValue(":recipe", $object->getRecipe()->getId(), PDO::PARAM_INT);
-            parent::closeConnection($connection, $closeConnection);
+            $stmt->bindValue(":recipeId", RecipeManager::findIdBy($object->getRecipe()->getName()), PDO::PARAM_INT);
             return $stmt->execute();
         } else {
             return false;
@@ -44,21 +39,35 @@ class StepManager extends MyPDO implements IManager
     /**
      * Fetch all steps in database.
      *
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @return array
+     */
+    public static function findAll(): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM step;");
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objects = [];
+        foreach ($results as $result) {
+            array_push($objects, new Step($result["s_description"], $result["s_order"], RecipeManager::findOneById($result["s_fk_recipe_id"])));
+        }
+        return $objects;
+    }
+
+    /**
+     * Fetch all step by recipe.
+     *
+     * @param Recipe $recipe
      *
      * @return array
      */
-    public static function fetchAll(?PDO $connection = null, bool $closeConnection = true): array
+    public static function findAllByRecipe(Recipe $recipe): array
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->query("SELECT * FROM step;");
-        parent::closeConnection($connection, $closeConnection);
-        $results = $stmt->fetchAll();
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM step WHERE s_fk_recipe_id = :recipeId;");
+        $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
-        foreach($results as $result) {
-            //$recipe = RecipeManager::
-            //array_push($objects, new Step($result["s_description"], $result["s_order"]));
+        foreach ($results as $result) {
+            array_push($objects, new Step($result["s_description"], $result["s_order"], RecipeManager::findOneBy($recipe->getName())));
         }
         return $objects;
     }
@@ -66,66 +75,44 @@ class StepManager extends MyPDO implements IManager
     /**
      * Fetch a step.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
-     * @return Allergen|null
+     * @return Step|null
      */
-    public static function fetchOneBy(string $identifier, ?PDO $connection = null, bool $closeConnection = true): ?Allergen
+    public static function findOneBy($identifier): ?Step
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->prepare("SELECT * FROM step WHERE ");
-        $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM step WHERE s_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->execute();
-        parent::closeConnection($connection, $closeConnection);
-        $result = $stmt->fetch();
-        if ($result) {
-            return new Allergen($result["a_label"]);
-        } else {
-            return null;
-        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? new Step($result["s_description"], $result["s_order"], RecipeManager::fetchOneBy($result["s_fk_recipe_id"])) : null;
     }
 
     /**
-     * Fetch the ID of the allergen.
+     * Fetch the ID of the step.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return integer|null
      */
-    public static function fetchIdBy(string $identifier, ?PDO $connection = null, bool $closeConnection = true): ?int
+    public static function findIdBy($identifier): ?int
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->prepare("SELECT a_id FROM allergen WHERE a_name = :name;");
-        $stmt->bindValue(":name", $identifier, PDO::PARAM_STR);
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT s_id FROM step WHERE s_description = :description;");
+        $stmt->bindValue(":description", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        parent::closeConnection($connection, $closeConnection);
-        $result = $stmt->fetch();
-        if ($result) {
-            return $result["a_id"];
-        } else {
-            return null;
-        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["s_id"] : null;
     }
 
     /**
-     * Verify if the allergen exists.
+     * Verify if the step exists.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return boolean
      */
-    public static function exists(string $identifier, ?PDO $connection = null, bool $closeConnection = true): bool
+    public static function exists($identifier): bool
     {
-        if (self::fetchOneBy($identifier, $connection, $closeConnection)) {
-            return true;
-        } else {
-            return false;
-        }
+        return self::findOneBy($identifier) ? true : false;
     }
 }

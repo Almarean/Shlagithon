@@ -5,33 +5,29 @@ namespace App\Services;
 use PDO;
 use App\Interfaces\IManager;
 use App\Models\Allergen;
-use App\Services\MyPDO;
+use App\Models\Ingredient;
+use App\Services\PDOManager;
 
 /**
- * Class AllergenManager extends MyPDO implements IManager.
+ * Class AllergenManager implements IManager.
  */
-class AllergenManager extends MyPDO implements IManager
+class AllergenManager implements IManager
 {
     /**
      * Insert an allergen in database.
      *
      * @param Allergen $object
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
      *
      * @return boolean
      */
-    public static function insert($object, ?PDO $connection = null, bool $closeConnection = true): bool
+    public static function insert($object): bool
     {
         if (get_class($object) === "App\\Models\\Allergen") {
-            $connection = parent::openConnection($connection);
-            if (self::exists($object->getLabel(), $connection, $closeConnection)) {
-                parent::closeConnection($connection, $closeConnection);
+            if (self::exists($object->getLabel())) {
                 return false;
             }
-            $stmt = $connection->prepare("INSERT INTO allergen(a_label) VALUES (:label);");
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO allergen(a_label) VALUES (:label);");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            parent::closeConnection($connection, $closeConnection);
             return $stmt->execute();
         } else {
             return false;
@@ -41,17 +37,12 @@ class AllergenManager extends MyPDO implements IManager
     /**
      * Fetch all tags in database.
      *
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
-     *
      * @return array
      */
-    public static function fetchAll(?PDO $connection = null, bool $closeConnection = true): array
+    public static function findAll(): array
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->query("SELECT * FROM allergen;");
-        parent::closeConnection($connection, $closeConnection);
-        $results = $stmt->fetchAll();
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM allergen;");
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
             array_push($objects, new Allergen($result["a_label"]));
@@ -62,66 +53,64 @@ class AllergenManager extends MyPDO implements IManager
     /**
      * Fetch an allergen.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return Allergen|null
      */
-    public static function fetchOneBy(string $identifier, ?PDO $connection = null, bool $closeConnection = true): ?Allergen
+    public static function findOneBy($identifier): ?Allergen
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->prepare("SELECT * FROM allergen WHERE a_label = :label;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM allergen WHERE a_label = :label;");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        parent::closeConnection($connection, $closeConnection);
-        $result = $stmt->fetch();
-        if ($result) {
-            return new Allergen($result["a_label"]);
-        } else {
-            return null;
-        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? new Allergen($result["a_label"]) : null;
     }
 
     /**
      * Fetch the ID of the allergen.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return integer|null
      */
-    public static function fetchIdBy(string $identifier, ?PDO $connection = null, bool $closeConnection = true): ?int
+    public static function findIdBy($identifier): ?int
     {
-        $connection = parent::openConnection($connection);
-        $stmt = $connection->prepare("SELECT a_id FROM allergen WHERE a_name = :name;");
-        $stmt->bindValue(":name", $identifier, PDO::PARAM_STR);
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT a_id FROM allergen WHERE a_label = :label;");
+        $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        parent::closeConnection($connection, $closeConnection);
-        $result = $stmt->fetch();
-        if ($result) {
-            return $result["a_id"];
-        } else {
-            return null;
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["a_id"] : null;
+    }
+
+    /**
+     * Fetch all the allergens by the ingredient.
+     *
+     * @param Ingredient $ingredient
+     *
+     * @return array
+     */
+    public static function findAllByIngredient(Ingredient $ingredient): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM allergen INNER JOIN requirement_allergen ON allergen.a_id = requirement_allergen.ra_fk_allergen_id WHERE ra_fk_requirement_id = :ingredientId;");
+        $stmt->bindValue(":ingredientId", IngredientManager::findIdBy($ingredient->getLabel()));
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objects = [];
+        foreach ($results as $result) {
+            array_push($objects, new Allergen($result["a_label"]));
         }
+        return $objects;
     }
 
     /**
      * Verify if the allergen exists.
      *
-     * @param string $identifier
-     * @param PDO|null $connection
-     * @param boolean $closeConnection
+     * @param void $identifier
      *
      * @return boolean
      */
-    public static function exists(string $identifier, ?PDO $connection = null, bool $closeConnection = true): bool
+    public static function exists($identifier): bool
     {
-        if (self::fetchOneByIdentifier($identifier, $connection, $closeConnection)) {
-            return true;
-        } else {
-            return false;
-        }
+        return self::findOneBy($identifier) ? true : false;
     }
 }

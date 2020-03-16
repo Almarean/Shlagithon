@@ -104,16 +104,16 @@ class Member
         $this->email = $email;
         $this->password = md5($password);
         $this->creationDate = date("Y-m-d h:i:s");
-        $this->getLastConnectionDate = null;
+        $this->lastConnectionDate = null;
         $this->type = $type;
         $this->isConfirmed = false;
         $this->writtenRecipes = [];
         $this->favoriteRecipes = [];
-        if (MemberManager::exists($this->name)) {
-            $this->id = MemberManager::fetchIdByIdentifier($email);
+        /*if (MemberManager::exists($this->email)) {
+            $this->id = MemberManager::fetchIdBy($email);
         } else {
             $this->id = null;
-        }
+        }*/
     }
 
     /**
@@ -275,6 +275,19 @@ class Member
     }
 
     /**
+     * Setter of the creation date of the member.
+     *
+     * @param string $creationDate
+     *
+     * @return self
+     */
+    public function setCreationDate(string $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+        return $this;
+    }
+
+    /**
      * Getter of the last connection date of the member.
      *
      * @return string|null
@@ -287,11 +300,13 @@ class Member
     /**
      * Setter of the last connection date of the member.
      *
+     * @param string $lastConnectionDate
+     *
      * @return self
      */
-    public function setLastConnectionDate(): self
+    public function setLastConnectionDate(string $lastConnectionDate): self
     {
-        $this->lastConnectionDate = date("Y-m-d h:i:s");
+        $this->lastConnectionDate = $lastConnectionDate;
         return $this;
     }
 
@@ -303,6 +318,19 @@ class Member
     public function getWrittenRecipes(): array
     {
         return $this->writtenRecipes;
+    }
+
+    /**
+     * Setter of the written recipes of the member.
+     *
+     * @param array $writtenRecipes
+     *
+     * @return $this
+     */
+    public function setWrittenRecipes(array $writtenRecipes): self
+    {
+        $this->writtenRecipes = $writtenRecipes;
+        return $this;
     }
 
     /**
@@ -343,6 +371,19 @@ class Member
     public function getFavoriteRecipes(): array
     {
         return $this->favoriteRecipes;
+    }
+
+    /**
+     * Setter of the favorite recipes of the member.
+     *
+     * @param array $favoriteRecipes
+     *
+     * @return $this
+     */
+    public function setFavoriteRecipes(array $favoriteRecipes): self
+    {
+        $this->favoriteRecipes = $favoriteRecipes;
+        return $this;
     }
 
     /**

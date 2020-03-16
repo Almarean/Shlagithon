@@ -75,11 +75,18 @@ class Recipe
     private $tags;
 
     /**
-     * Requirements of the recipe.
+     * Ustencils of the recipe.
      *
      * @var array
      */
-    private $requirements;
+    private $ustencils;
+
+    /**
+     * Ingredients of the recipe.
+     *
+     * @var array
+     */
+    private $ingredients;
 
     /**
      * Member who writes the recipe.
@@ -87,6 +94,13 @@ class Recipe
      * @var Member
      */
     private $author;
+
+    /**
+     * Steps of the recipe.
+     *
+     * @var
+     */
+    private $steps;
 
     /**
      * Constructor of the Recipe class.
@@ -97,10 +111,10 @@ class Recipe
      * @param integer $difficulty
      * @param integer $time
      * @param integer $nbPersons
-     * @param string $advice
      * @param Member $author
+     * @param string|null $advice
      */
-    public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice, Member $author)
+    public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, Member $author, string $advice = null)
     {
         $this->name = ucfirst($name);
         $this->description = $description;
@@ -109,9 +123,11 @@ class Recipe
         $this->time = $time;
         $this->nbPersons = $nbPersons;
         $this->advice = $advice;
-        $this->tag = [];
-        $this->requirements = [];
+        $this->tags = [];
+        $this->ustencils = [];
+        $this->ingredients = [];
         $this->author = $author;
+        $this->steps = [];
     }
 
     /**
@@ -269,7 +285,7 @@ class Recipe
      */
     public function getAdvice(): ?string
     {
-        return $this->advice();
+        return $this->advice;
     }
 
     /**
@@ -293,6 +309,19 @@ class Recipe
     public function getTags(): array
     {
         return $this->tags;
+    }
+
+    /**
+     * Setter of the tags of the recipe.
+     *
+     * @param array $tags
+     *
+     * @return $this
+     */
+    public function setTags(array $tags): self
+    {
+        $this->tags = $tags;
+        return $this;
     }
 
     /**
@@ -326,41 +355,106 @@ class Recipe
     }
 
     /**
-     * Getter of the requirements of the recipe.
+     * Getter of the ustencils of the recipe.
      *
      * @return array
      */
-    public function getRequirements(): array
+    public function getUstencils(): array
     {
-        return $this->requirements;
+        return $this->ustencils;
     }
 
     /**
-     * Add a requirement to the recipe.
+     * Setter of the ustencils of the recipe.
      *
-     * @param Requirement $requirement
+     * @param array $ustencils
      *
-     * @return array
+     * @return $this
      */
-    public function addRequirement(Requirement $requirement): array
+    public function setUstencils(array $ustencils): self
     {
-        array_push($this->requirements, $requirement);
+        $this->ustencils = $ustencils;
+        return $this;
     }
 
     /**
-     * Remove a requirement from the recipe.
+     * Add a ustencil to the recipe.
      *
-     * @param Requirement $requirement
+     * @param Ustencil $ustencil
      *
      * @return array
      */
-    public function removeRequirement(Requirement $requirement): array
+    public function addUstencil(Ustencil $ustencil): array
     {
-        if (in_array($requirement, $this->requirements)) {
-            unset($requirement);
-            return array_values($this->requirements);
+        array_push($this->ustencils, $ustencil);
+    }
+
+    /**
+     * Remove a ustencil from the recipe.
+     *
+     * @param Ustencil $ustencil
+     *
+     * @return array
+     */
+    public function removeUstencil(Ustencil $ustencil): array
+    {
+        if (in_array($ustencil, $this->ustencils)) {
+            unset($ustencil);
+            return array_values($this->ustencils);
         } else {
-            return $this->requirements;
+            return $this->ustencils;
+        }
+    }
+
+    /**
+     * Getter of the ingredients of the recipe.
+     *
+     * @return array
+     */
+    public function getIngredients(): array
+    {
+        return $this->ingredients;
+    }
+
+    /**
+     * Setter of the ingredients of the recipe.
+     *
+     * @param array $ingredients
+     *
+     * @return $this
+     */
+    public function setIngredients(array $ingredients): self
+    {
+        $this->ingredients = $ingredients;
+        return $this;
+    }
+
+    /**
+     * Add a ingredient to the recipe.
+     *
+     * @param Ingredient $ingredient
+     *
+     * @return array
+     */
+    public function addIngredient(Ingredient $ingredient): array
+    {
+        array_push($this->ingredients, $ingredient);
+    }
+
+    /**
+     * Remove a ingredient from the recipe.
+     *
+     * @param Ingredient $ingredient
+     *
+     * @return array
+     */
+    public function removeIngredient(Ingredient $ingredient): array
+    {
+        if (in_array($ingredient, $this->ingredients)) {
+            unset($ingredient);
+            return array_values($this->ingredients);
+        } else {
+            return $this->ingredients;
         }
     }
 
@@ -385,5 +479,57 @@ class Recipe
     {
         $this->author = $author;
         return $this;
+    }
+
+    /**
+     * Getter of the steps of the recipe.
+     *
+     * @return array
+     */
+    public function getSteps(): array
+    {
+        return $this->steps;
+    }
+
+    /**
+     * Setter of the steps of the recipe.
+     *
+     * @param array $steps
+     *
+     * @return $this
+     */
+    public function setSteps(array $steps): self
+    {
+        $this->steps = $steps;
+        return $this;
+    }
+
+    /**
+     * Add a step to the recipe.
+     *
+     * @param Step $step
+     *
+     * @return array
+     */
+    public function addStep(Step $step): array
+    {
+        array_push($this->steps, $step);
+    }
+
+    /**
+     * Remove a step from the recipe.
+     *
+     * @param Step $step
+     *
+     * @return array
+     */
+    public function removeStep(Step $step): array
+    {
+        if (in_array($step, $this->steps)) {
+            unset($step);
+            return array_values($this->steps);
+        } else {
+            return $this->steps;
+        }
     }
 }

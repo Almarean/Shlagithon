@@ -8,8 +8,11 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
 require_once __DIR__ . "/autoload.php";
 
 switch ($request) {
-    case '/test':
+    case "/test":
         require __DIR__ . "/Controllers/test.php";
+        break;
+    case "/registration":
+        require __DIR__ . "/Controllers/RegistrationController.php";
         break;
     default:
         http_response_code(404);

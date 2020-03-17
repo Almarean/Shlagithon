@@ -17,6 +17,9 @@ switch ($request) {
     case "/login":
         require __DIR__ . "/Controllers/LoginController.php";
         break;
+    case "/members-editor":
+        require __DIR__ . "/Controllers/AdminShowMembersController.php";
+        break;
     default:
         http_response_code(404);
         break;

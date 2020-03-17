@@ -85,7 +85,7 @@ class StepManager implements IManager
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? new Step($result["s_description"], $result["s_order"], RecipeManager::fetchOneBy($result["s_fk_recipe_id"])) : null;
+        return $result ? new Step($result["s_description"], $result["s_order"], RecipeManager::findOneBy($result["s_fk_recipe_id"])) : null;
     }
 
     /**

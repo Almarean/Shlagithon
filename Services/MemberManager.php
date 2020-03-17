@@ -38,17 +38,17 @@ class MemberManager implements IManager
     }
 
     /**
-     * Fetch all members in database.
-     *
-     * @return array
-     */
+ * Fetch all members in database.
+ *
+ * @return array
+ */
     public static function findAll(): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM member;");
         $results = $stmt->fetchAll();
         $objects = [];
         foreach($results as $result) {
-            $member = new Member($result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -60,6 +60,31 @@ class MemberManager implements IManager
         }
         return $objects;
     }
+
+    /**
+     * Fetch all members in database by date creation.
+     *
+     * @return array
+     */
+    public static function findAllByDateCreation(): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM member order by m_creation_date asc;");
+        $results = $stmt->fetchAll();
+        $objects = [];
+        foreach($results as $result) {
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member->setCreationDate($result["m_creation_date"]);
+            if ($result["m_last_connection_date"] !== null) {
+                $member->setLastConnectionDate($result["m_last_connection_date"]);
+            }
+            $member->setIsConfirmed($result["m_is_confirmed"]);
+            $member->setFavoriteRecipes(RecipeManager::findFavoriteRecipes($member));
+            $member->setWrittenRecipes(RecipeManager::findWrittenRecipes($member));
+            array_push($objects, $member);
+        }
+        return $objects;
+    }
+
 
     /**
      * Fetch a member.
@@ -75,7 +100,7 @@ class MemberManager implements IManager
         $stmt->execute();
         $result = $stmt->fetch();
         if ($result) {
-            $member = new Member($result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -103,7 +128,7 @@ class MemberManager implements IManager
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            $member = new Member($result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -131,6 +156,20 @@ class MemberManager implements IManager
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result["m_id"] : null;
+    }
+
+    /**
+     * Delete a member by his ID.
+     *
+     * @param int $identifier
+     *
+     * @return void
+     */
+    public static function deleteOneById(int $identifier): void
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM member WHERE m_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        $stmt->execute();
     }
 
     /**

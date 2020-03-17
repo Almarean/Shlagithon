@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Services\AllergenManager;
-
 /**
  * Class Allergen.
  */
@@ -63,6 +61,6 @@ class Allergen
     public function setLabel(string $label): self
     {
         $this->label = ucfirst($label);
-        return this;
+        return $this;
     }
 }

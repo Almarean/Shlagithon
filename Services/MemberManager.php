@@ -48,7 +48,7 @@ class MemberManager implements IManager
         $results = $stmt->fetchAll();
         $objects = [];
         foreach($results as $result) {
-            $member = new Member($result["m_id"],$result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -72,7 +72,7 @@ class MemberManager implements IManager
         $results = $stmt->fetchAll();
         $objects = [];
         foreach($results as $result) {
-            $member = new Member($result["m_id"],$result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -100,7 +100,7 @@ class MemberManager implements IManager
         $stmt->execute();
         $result = $stmt->fetch();
         if ($result) {
-            $member = new Member($result["m_id"],$result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -128,7 +128,7 @@ class MemberManager implements IManager
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            $member = new Member($result["m_id"],$result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -159,11 +159,11 @@ class MemberManager implements IManager
     }
 
     /**
-     * Fetch the ID of the member.
+     * Delete a member by his ID.
      *
-     * @param void $identifier
+     * @param int $identifier
      *
-     * @return integer|null
+     * @return void
      */
     public static function deleteOneById(int $identifier): void
     {

@@ -98,7 +98,7 @@ class Member
      * @param string $password
      * @param string $type
      */
-    public function __construct(int $id,string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
+    public function __construct(int $id, string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
     {
         $this->id = $id;
         $this->name = ucwords($name);
@@ -111,11 +111,6 @@ class Member
         $this->isConfirmed = false;
         $this->writtenRecipes = [];
         $this->favoriteRecipes = [];
-        /*if (MemberManager::exists($this->email)) {
-            $this->id = MemberManager::fetchIdBy($email);
-        } else {
-            $this->id = null;
-        }*/
     }
 
     /**

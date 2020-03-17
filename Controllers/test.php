@@ -36,7 +36,7 @@ $i = new Ingredient("Farine");
 IngredientManager::insert($i);
 $ingredients = IngredientManager::findAll();
 
-$m = new Member("laure", "thomas", "thomaslaure3@gmail.com", "password");
+$m = new Member(0, "laure", "thomas", "thomaslaure3@gmail.com", "password");
 MemberManager::insert($m);
 $members = MemberManager::findAll();
 

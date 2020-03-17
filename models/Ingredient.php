@@ -75,7 +75,7 @@ class Ingredient extends Requirement
     {
         if (in_array($allergen, $this->allergens)) {
             unset($allergen);
-            return array_values($this->$allergens);
+            return array_values($this->allergens);
         } else {
             return $this->allergens;
         }

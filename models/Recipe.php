@@ -387,6 +387,7 @@ class Recipe
     public function addUstencil(Ustencil $ustencil): array
     {
         array_push($this->ustencils, $ustencil);
+        return $this->ustencils;
     }
 
     /**
@@ -439,6 +440,7 @@ class Recipe
     public function addIngredient(Ingredient $ingredient): array
     {
         array_push($this->ingredients, $ingredient);
+        return $this->ingredients;
     }
 
     /**
@@ -514,6 +516,7 @@ class Recipe
     public function addStep(Step $step): array
     {
         array_push($this->steps, $step);
+        return $this->steps;
     }
 
     /**

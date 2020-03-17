@@ -14,6 +14,9 @@ switch ($request) {
     case "/registration":
         require __DIR__ . "/Controllers/RegistrationController.php";
         break;
+    case "/login":
+        require __DIR__ . "/Controllers/LoginController.php";
+        break;
     default:
         http_response_code(404);
         break;

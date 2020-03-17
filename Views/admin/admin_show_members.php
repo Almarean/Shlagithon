@@ -2,11 +2,11 @@
 <html lang="fr-FR">
 
 <head>
-    <?php include __DIR__ . "/templates/head.php"; ?>
+    <?php include __DIR__ . "/../templates/head.php"; ?>
 </head>
 
 <body>
-    <?php include __DIR__ . "/templates/header_admin.php"; ?>
+    <?php include __DIR__ . "/../templates/header_admin.php"; ?>
 
     <div class="container">
         <div class="row">
@@ -16,7 +16,7 @@
                         <table class="table user-list">
                             <thead>
                                 <tr>
-                                    <th><span>Status</span></th>
+                                    <th><span>Statut</span></th>
                                     <th><span>Identité</span></th>
                                     <th><span>Date de création</span></th>
                                     <th><span>Dernière connexion</span></th>
@@ -53,8 +53,8 @@
             </div>
         </div>
     </div>
-    <?php include __DIR__ . "/templates/footer.php"; ?>
-    <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
+    <?php include __DIR__ . "/../templates/footer.php"; ?>
+    <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
 </body>
 
 </html>

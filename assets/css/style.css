@@ -5,3 +5,7 @@ footer div > div {
 #member-tab{
     margin: 20px;
 }
+
+.logo {
+    font-size: 4rem;
+}

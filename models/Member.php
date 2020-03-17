@@ -91,14 +91,16 @@ class Member
     /**
      * Constructor of the Member class.
      *
+     * @param int    $id
      * @param string $name
      * @param string $firstname
      * @param string $email
      * @param string $password
      * @param string $type
      */
-    public function __construct(string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
+    public function __construct(int $id,string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
     {
+        $this->id = $id;
         $this->name = ucwords($name);
         $this->firstname = ucwords($firstname);
         $this->email = $email;

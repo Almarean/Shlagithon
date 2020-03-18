@@ -6,9 +6,9 @@
 </head>
 
 <body>
-<?php include __DIR__ . "/../templates/header_admin.php"; ?>
+    <?php include __DIR__ . "/../templates/header_admin.php"; ?>
 
-<div class="container">
+    <div class="container">
         <section class="mt-5">
             <h1 class="text-center">Édition d'un membre</h1>
             <article>
@@ -29,16 +29,19 @@
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="name" value="<?php echo $member->getEmail(); ?>" required>
                     </div>
-
                     <div class="form-group col-md-6 m-auto">
-                        <label for="typeRadio">Type d'utilisateur</label>
-                        <input type="radio" name="typeRadio" id="typeRadio" value="ADMIN">Administrateur<br>
-                        <input type="radio" name="typeRadio" id="typeRadio" value="MEMBER" checked>Membre
+                        <p>Type d'utilisateur</p>
+                        <div class="form-check">
+                            <input type="radio" name="radioAdmin" id="radio-admin" value="ADMIN">
+                            <label for="radio-admin">Administrateur</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="radioMember" id="radio-member" value="MEMBER" checked>
+                            <label for="radio-member">Member</label>
+                        </div>
                     </div>
-
-
                     <div class="text-center mt-3">
-                        <button type="submit" name="validate" value="<?php echo $member->getId(); ?>" class="btn btn-success">Appliquer les modifications</button>
+                        <button type="submit" name="validate" value="<?php echo $member->getId(); ?>" class="btn btn-dark">Appliquer les modifications</button>
                         <button type="submit" name="return" class="btn btn-warning">Retour</button>
                     </div>
                 </form>
@@ -46,9 +49,8 @@
         </section>
     </div>
 
-
-<?php include __DIR__ . "/../templates/footer.php"; ?>
-<?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
+    <?php include __DIR__ . "/../templates/footer.php"; ?>
+    <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
 </body>
 
 </html>

@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Member;
 use App\Services\MemberManager;
-if(isset($_GET['editId'])){
+
+if (isset($_GET['editId'])) {
     $member = MemberManager::findOneByID($_GET["editId"]);
 }
 
@@ -18,6 +19,5 @@ if (isset($_POST["validate"])) {
 if (isset($_POST["return"])) {
     header("Location: members-editor");
 }
-
 
 require __DIR__ . "/../Views/admin/admin_edit_member.php";

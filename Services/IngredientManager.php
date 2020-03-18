@@ -12,7 +12,7 @@ use App\Models\Recipe;
  */
 class IngredientManager implements IManager
 {
-/**
+    /**
      * Insert a ingredient in database.
      *
      * @param Ingredient $object
@@ -43,7 +43,7 @@ class IngredientManager implements IManager
         $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'INGREDIENT';");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             array_push($objects, new Ingredient($result["req_label"]));
         }
         return $objects;

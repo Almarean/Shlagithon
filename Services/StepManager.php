@@ -78,7 +78,7 @@ class StepManager implements IManager
      * @param void $identifier
      * @param bool $convertIntoObject
      *
-     * @return Step|null
+     * @return Step|null|array
      */
     public static function findOneBy($identifier, bool $convertIntoObject = true)
     {

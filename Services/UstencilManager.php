@@ -55,7 +55,7 @@ class UstencilManager implements IManager
      * @param void $identifier
      * @param bool $convertIntoObject
      *
-     * @return null|Ustencil
+     * @return null|Ustencil|array
      */
     public static function findOneBy($identifier, bool $convertIntoObject = true)
     {

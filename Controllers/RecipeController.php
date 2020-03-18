@@ -18,7 +18,7 @@ use App\Services\StepManager;
 use App\Services\TagManager;
 use App\Services\UstencilManager;
 
-if(isset($_GET['recipeId'])){
+if (isset($_GET['recipeId'])) {
     $recipe = RecipeManager::findOneBy($_GET['recipeId']);
     var_dump($recipe);
 }

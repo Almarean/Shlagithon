@@ -38,16 +38,16 @@ class MemberManager implements IManager
     }
 
     /**
- * Fetch all members in database.
- *
- * @return array
- */
+     * Fetch all members in database.
+     *
+     * @return array
+     */
     public static function findAll(): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM member;");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
@@ -71,7 +71,7 @@ class MemberManager implements IManager
         $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM member order by m_creation_date asc;");
         $results = $stmt->fetchAll();
         $objects = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
@@ -84,7 +84,6 @@ class MemberManager implements IManager
         }
         return $objects;
     }
-
 
     /**
      * Fetch a member.
@@ -177,21 +176,24 @@ class MemberManager implements IManager
     }
 
     /**
+     * Update a member.
+     *
      * @param int $identifier
-     * @param $email
-     * @param $type
+     * @param string $name
+     * @param string $firstname
+     * @param string $email
+     * @param string $type
      */
-    public static function updateMember(int $identifier, $name, $firstname, $email, $type) : void
+    public static function updateMember(int $identifier, string $name, string $firstname, string $email, string $type): void
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_name=:name, m_firstname=:firstname, m_email=:email, m_type=:type WHERE m_id = :id;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_name = :name, m_firstname = :firstname, m_email = :email, m_type = :type WHERE m_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->bindValue(":name", $name, PDO::PARAM_STR);
         $stmt->bindValue(":firstname", $firstname, PDO::PARAM_STR);
         $stmt->bindValue(":email", $email, PDO::PARAM_STR);
-        $stmt->bindValue(":type", $type,PDO::PARAM_STR);
+        $stmt->bindValue(":type", $type, PDO::PARAM_STR);
         $stmt->execute();
     }
-
 
     /**
      * Verify if the member exists.

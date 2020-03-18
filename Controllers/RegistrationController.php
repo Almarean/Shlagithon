@@ -17,7 +17,7 @@ if (count($_POST) > 0) {
         $errors["email_format"] = "Le format de l'e-mail n'est pas valide.";
     }
     if (count($errors) === 0) {
-        MemberManager::insert(new Member(0, $_POST["name"], $_POST["firstname"], $_POST["email"], $_POST["password"]));
+        MemberManager::insert(new Member(0,$_POST["name"], $_POST["firstname"], $_POST["email"], $_POST["password"]));
         header("Location: login");
     }
     require __DIR__ . "/../Views/registration_account.php";

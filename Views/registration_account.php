@@ -12,7 +12,7 @@
         <section class="mt-5">
             <h1 class="text-center">Inscription</h1>
             <article>
-                <form action="../Controllers/RegistrationController.php" method="POST">
+                <form action="" method="POST">
                     <div class="form-group col-md-6 m-auto">
                         <label for="inputName">Nom</label>
                         <input type="text" class="form-control" id="input-name" name="name" required>

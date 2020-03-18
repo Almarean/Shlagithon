@@ -27,7 +27,7 @@
                             <?php foreach ($members as $member) { ?>
                                 <tr>
                                     <td>
-                                        <span class="user-subhead"><?php echo ($member->getIsConfirmed()) ? 'Admin' : 'Membre'; ?> </span>
+                                        <span class="user-subhead"><?php echo $member->getType() ?></span>
                                     </td>
                                     <td>
                                         <a href="#" class="user-link"><?php echo $member->getName() . ' ' . $member->getFirstname(); ?> </a>
@@ -42,7 +42,7 @@
                                         <a href="#"><?php echo $member->getEmail(); ?></a>
                                     </td>
                                     <td style="width: 30%;">
-                                        <div class="mx-2 d-inline"><a href="#" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
+                                        <div class="mx-2 d-inline"><a href="?editId=<?php echo $member->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
                                         <div class="mx-2 d-inline"><a href="?deleteLogin=<?php echo $member->getId(); ?>" class="table-link"><i class="fas fa-trash" style="color: red"></i></a></div>
                                     </td>
                                 </tr>

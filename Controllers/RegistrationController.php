@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . "/../Interfaces/IManager.php";
+require_once __DIR__ . "/../Services/PDOManager.php";
+require_once __DIR__ . "/../Services/MemberManager.php";
+
 use App\Models\Member;
 use App\Services\MemberManager;
 

@@ -37,7 +37,7 @@ switch ($request) {
         require __DIR__ . "/Controllers/RecipeController.php";
         break;
     case "/member-profile":
-        require __DIR__ . "/Controllers/MemberProfile.php";
+        require __DIR__ . "/Controllers/MemberProfileController.php";
         break;
     default:
         http_response_code(404);

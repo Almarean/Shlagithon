@@ -45,7 +45,7 @@ class MemberManager implements IManager
     public static function findAll(): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM member;");
-        $results = $stmt->fetchAll();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
             $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
@@ -98,7 +98,7 @@ class MemberManager implements IManager
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM member WHERE m_email = :email;");
         $stmt->bindValue(":email", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        $result = $stmt->fetch();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
@@ -122,12 +122,12 @@ class MemberManager implements IManager
      *
      * @return Member|array|null
      */
-    public static function fetchOneBy($identifier, bool $convertIntoObject = true): ?Member
+    public static function fetchOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM member WHERE m_email = :email;");
         $stmt->bindValue(":email", $identifier, PDO::PARAM_STR);
         $stmt->execute();
-        $result = $stmt->fetch();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$convertIntoObject) {
             return $result;
         }

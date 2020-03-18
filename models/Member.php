@@ -103,7 +103,7 @@ class Member
         $this->name = ucwords($name);
         $this->firstname = ucwords($firstname);
         $this->email = $email;
-        $this->password = md5($password);
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
         $this->creationDate = date("Y-m-d h:i:s");
         $this->lastConnectionDate = null;
         $this->type = $type;
@@ -210,7 +210,7 @@ class Member
      */
     public function setPassword(string $password): self
     {
-        $this->password = md5($password);
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
         return $this;
     }
 

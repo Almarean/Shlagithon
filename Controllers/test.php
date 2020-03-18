@@ -38,6 +38,9 @@ $ingredients = IngredientManager::findAll();
 
 $m = new Member(0, "laure", "thomas", "thomaslaure3@gmail.com", "password");
 MemberManager::insert($m);
+
+$m2 = new Member(0, "febvre", "ludovic", "lfebvre@gmail.com", "password");
+MemberManager::insert($m2);
 $members = MemberManager::findAll();
 
 $allergenIngredient = AllergenManager::findAllByIngredient($i);

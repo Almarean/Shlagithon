@@ -1,14 +1,21 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\Recipe;
+use App\Models\Recipe;
 
 /**
  * Class Member.
  */
 class Member
 {
+    /**
+     * ID of the member.
+     *
+     * @var integer|null
+     */
+    private $id;
+
     /**
      * Name of the member.
      *
@@ -83,24 +90,36 @@ class Member
     /**
      * Constructor of the Member class.
      *
-     * @param string $name Name to set to the member.
-     * @param string $firstname Firstname to set to the member.
-     * @param string $email Email to set to the member.
-     * @param string $password Password to set to the member.
-     * @param string $type Type to set to the member.
+     * @param int    $id
+     * @param string $name
+     * @param string $firstname
+     * @param string $email
+     * @param string $password
+     * @param string $type
      */
-    public function __construct(string $name, string $firstname, string $email, string $password, string $type)
+    public function __construct(int $id, string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
     {
+        $this->id = $id;
         $this->name = ucwords($name);
         $this->firstname = ucwords($firstname);
         $this->email = $email;
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
         $this->creationDate = date("Y-m-d h:i:s");
-        $this->getLastConnectionDate = null;
+        $this->lastConnectionDate = null;
         $this->type = $type;
         $this->isConfirmed = false;
         $this->writtenRecipes = [];
         $this->favoriteRecipes = [];
+    }
+
+    /**
+     * Getter of the ID.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     /**
@@ -116,7 +135,7 @@ class Member
     /**
      * Setter of the of the member.
      *
-     * @param string $name Name to set to the member.
+     * @param string $name
      *
      * @return self
      */
@@ -139,7 +158,7 @@ class Member
     /**
      * Setter of the firstname of the member.
      *
-     * @param string $firstname Firstname to set to the member.
+     * @param string $firstname
      *
      * @return self
      */
@@ -162,7 +181,7 @@ class Member
     /**
      * Setter of the email of the member.
      *
-     * @param string $email Email to set to the member.
+     * @param string $email
      *
      * @return self
      */
@@ -185,13 +204,13 @@ class Member
     /**
      * Setter of the password of the member.
      *
-     * @param string $password Password to set to the member.
+     * @param string $password
      *
      * @return self
      */
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
         return $this;
     }
 
@@ -208,7 +227,7 @@ class Member
     /**
      * Setter of the type of the member.
      *
-     * @param string $type Type to set to the member.
+     * @param string $type
      *
      * @return self
      */
@@ -231,7 +250,7 @@ class Member
     /**
      * Setter of the state of confirmation of the member.
      *
-     * @param boolean $isConfirmed State of confirmation to set to the member.
+     * @param boolean $isConfirmed
      *
      * @return self
      */
@@ -252,6 +271,19 @@ class Member
     }
 
     /**
+     * Setter of the creation date of the member.
+     *
+     * @param string $creationDate
+     *
+     * @return self
+     */
+    public function setCreationDate(string $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+        return $this;
+    }
+
+    /**
      * Getter of the last connection date of the member.
      *
      * @return string|null
@@ -264,11 +296,13 @@ class Member
     /**
      * Setter of the last connection date of the member.
      *
+     * @param string $lastConnectionDate
+     *
      * @return self
      */
-    public function setLastConnectionDate(): self
+    public function setLastConnectionDate(string $lastConnectionDate): self
     {
-        $this->lastConnectionDate = date("Y-m-d h:i:s");
+        $this->lastConnectionDate = $lastConnectionDate;
         return $this;
     }
 
@@ -283,9 +317,22 @@ class Member
     }
 
     /**
+     * Setter of the written recipes of the member.
+     *
+     * @param array $writtenRecipes
+     *
+     * @return $this
+     */
+    public function setWrittenRecipes(array $writtenRecipes): self
+    {
+        $this->writtenRecipes = $writtenRecipes;
+        return $this;
+    }
+
+    /**
      * Add a written recipe to the member.
      *
-     * @param Recipe $writtenRecipe Written recipe to add to the member.
+     * @param Recipe $writtenRecipe
      *
      * @return array
      */
@@ -298,7 +345,7 @@ class Member
     /**
      * Remove a written recipe from the member.
      *
-     * @param Recipe $writtenRecipe Written recipe to remove from the member.
+     * @param Recipe $writtenRecipe
      *
      * @return array
      */
@@ -323,9 +370,22 @@ class Member
     }
 
     /**
+     * Setter of the favorite recipes of the member.
+     *
+     * @param array $favoriteRecipes
+     *
+     * @return $this
+     */
+    public function setFavoriteRecipes(array $favoriteRecipes): self
+    {
+        $this->favoriteRecipes = $favoriteRecipes;
+        return $this;
+    }
+
+    /**
      * Add a favorite recipe to the member.
      *
-     * @param Recipe $favoriteRecipe Favorite recipe to add to the member.
+     * @param Recipe $favoriteRecipe
      *
      * @return array
      */
@@ -338,7 +398,7 @@ class Member
     /**
      * Remove a favorite recipe from the member.
      *
-     * @param Recipe $favoriteRecipe Favorite recipe to remove from the member.
+     * @param Recipe $favoriteRecipe
      *
      * @return array
      */

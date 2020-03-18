@@ -76,15 +76,19 @@ class StepManager implements IManager
      * Fetch a step.
      *
      * @param void $identifier
+     * @param bool $convertIntoObject
      *
      * @return Step|null
      */
-    public static function findOneBy($identifier): ?Step
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM step WHERE s_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Step($result["s_description"], $result["s_order"], RecipeManager::findOneBy($result["s_fk_recipe_id"])) : null;
     }
 

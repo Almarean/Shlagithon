@@ -73,15 +73,19 @@ class TagManager implements IManager
      * Fetch a tag.
      *
      * @param void $identifier
+     * @param bool $convertIntoObject
      *
-     * @return Tag|null
+     * @return Tag|null|array
      */
-    public static function findOneBy($identifier): ?Tag
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM tag WHERE t_label = :label;");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Tag($result["t_label"]) : null;
     }
 

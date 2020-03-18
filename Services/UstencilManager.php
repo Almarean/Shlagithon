@@ -53,15 +53,19 @@ class UstencilManager implements IManager
      * Fetch a ustencil.
      *
      * @param void $identifier
+     * @param bool $convertIntoObject
      *
      * @return null|Ustencil
      */
-    public static function findOneBy($identifier): ?Ustencil
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement WHERE req_label = :label AND req_type = 'USTENCIL';");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Ustencil($result["req_label"]) : null;
     }
 

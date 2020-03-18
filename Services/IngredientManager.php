@@ -53,15 +53,19 @@ class IngredientManager implements IManager
      * Fetch an ingredient.
      *
      * @param void $identifier
+     * @param bool $convertIntoObject
      *
-     * @return null|Ingredient
+     * @return null|Ingredient|array
      */
-    public static function findOneBy($identifier): ?Ingredient
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement WHERE req_label = :label AND req_type = 'INGREDIENT';");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Ingredient($result["req_label"]) : null;
     }
 

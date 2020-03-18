@@ -70,15 +70,19 @@ class RecipeManager implements IManager
      * Fetch a tag.
      *
      * @param void $identifier
+     * @param bool $convertIntoObject
      *
-     * @return Recipe|null
+     * @return Recipe|null|array
      */
-    public static function findOneBy($identifier): ?Recipe
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_name = :name;");
         $stmt->bindValue(":name", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Recipe($result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"]) : null;
     }
 

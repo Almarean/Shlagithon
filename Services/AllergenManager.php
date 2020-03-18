@@ -54,15 +54,19 @@ class AllergenManager implements IManager
      * Fetch an allergen.
      *
      * @param void $identifier
+     * @param bool $convertIntoObject
      *
-     * @return Allergen|null
+     * @return Allergen|array|null
      */
-    public static function findOneBy($identifier): ?Allergen
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM allergen WHERE a_label = :label;");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Allergen($result["a_label"]) : null;
     }
 

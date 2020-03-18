@@ -27,7 +27,7 @@
                             <?php foreach ($members as $member) { ?>
                                 <tr>
                                     <td>
-                                        <span class="user-subhead"><?php echo ($member->getIsConfirmed()) ? 'Admin' : 'Membre'; ?> </span>
+                                        <span class="user-subhead"><?php echo $member->getType() ?></span>
                                     </td>
                                     <td>
                                         <a href="#" class="user-link"><?php echo $member->getName() . ' ' . $member->getFirstname(); ?> </a>

@@ -1,14 +1,21 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\Recipe;
+use App\Models\Recipe;
 
 /**
  * Class Step.
  */
 class Step
 {
+    /**
+     * ID of the step.
+     *
+     * @var integer
+     */
+    private $id;
+    
     /**
      * Description of the step.
      *
@@ -19,7 +26,7 @@ class Step
     /**
      * Order of the step.
      *
-     * @var int
+     * @var integer
      */
     private $order;
 
@@ -33,15 +40,25 @@ class Step
     /**
      * Constructor of the Step class.
      *
-     * @param string $description Description to set to the step.
-     * @param integer $order Order to set to the step.
-     * @param Recipe $recipe Recipe to set to the step.
+     * @param string $description
+     * @param integer $order
+     * @param Recipe $recipe
      */
     public function __construct(string $description, int $order, Recipe $recipe)
     {
         $this->description = $description;
         $this->order = $order;
         $this->recipe = $recipe;
+    }
+
+    /**
+     * Getter of the ID of the step.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     /**
@@ -57,7 +74,7 @@ class Step
     /**
      * Setter of the description of the step.
      *
-     * @param string $description Description to set to the step.
+     * @param string $description
      * 
      * @return self
      */
@@ -80,7 +97,7 @@ class Step
     /**
      * Setter of the order of the step
      *
-     * @param integer $order Order to set to the step.
+     * @param integer $order 
      * 
      * @return self
      */
@@ -103,7 +120,7 @@ class Step
     /**
      * Setter of the recipe of the step.
      *
-     * @param Recipe $recipe Recipe to set to the step.
+     * @param Recipe $recipe
      * 
      * @return self
      */

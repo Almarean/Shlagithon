@@ -1,12 +1,19 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 /**
  * Class Allergen.
  */
 class Allergen
 {
+    /**
+     * ID of the allergen;
+     *
+     * @var integer|null
+     */
+    private $id;
+
     /**
      * Label of the allergen.
      *
@@ -17,11 +24,21 @@ class Allergen
     /**
      * Constructor of the Allergen class.
      *
-     * @param string $label Label to set to the allergen.
+     * @param string $label
      */
     public function __construct(string $label)
     {
         $this->label = ucfirst($label);
+    }
+
+    /**
+     * Getter of the ID of the allergen.
+     *
+     * @return integer|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     /**
@@ -37,13 +54,13 @@ class Allergen
     /**
      * Setter of the label of the allergen.
      *
-     * @param string $label Label to set to the allergen.
+     * @param string $label
      *
      * @return self
      */
     public function setLabel(string $label): self
     {
         $this->label = ucfirst($label);
-        return this;
+        return $this;
     }
 }

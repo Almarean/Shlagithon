@@ -1,3 +1,7 @@
-p {
-    color: red;
+footer div > div {
+    font-size: 2rem;
+}
+
+#member-tab{
+    margin: 20px;
 }

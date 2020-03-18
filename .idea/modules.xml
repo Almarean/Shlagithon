@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Shlagithon.iml" filepath="$PROJECT_DIR$/.idea/Shlagithon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Shlagithon.iml" filepath="$PROJECT_DIR$/Shlagithon.iml" />
     </modules>
   </component>
 </project>

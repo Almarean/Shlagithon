@@ -20,6 +20,9 @@ switch ($request) {
     case "/members-editor":
         require __DIR__ . "/Controllers/AdminShowMembersController.php";
         break;
+    case "/member-editor":
+        require __DIR__ . "/Controllers/AdminEditMembersController.php";
+        break;
     default:
         http_response_code(404);
         break;

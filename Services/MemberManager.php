@@ -90,39 +90,11 @@ class MemberManager implements IManager
      * Fetch a member.
      *
      * @param void $identifier
-     *
-     * @return Member|null
-     */
-    public static function findOneBy($identifier): ?Member
-    {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM member WHERE m_email = :email;");
-        $stmt->bindValue(":email", $identifier, PDO::PARAM_STR);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
-            $member->setCreationDate($result["m_creation_date"]);
-            if ($result["m_last_connection_date"] !== null) {
-                $member->setLastConnectionDate($result["m_last_connection_date"]);
-            }
-            $member->setIsConfirmed($result["m_is_confirmed"]);
-            $member->setFavoriteRecipes(RecipeManager::findFavoriteRecipes($member));
-            //$member->setWrittenRecipes(RecipeManager::findWrittenRecipes($member));
-            return $member;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Fetch a member.
-     *
-     * @param void $identifier
      * @param bool $convertIntoObject
      *
-     * @return Member|array|null
+     * @return Member|null|array
      */
-    public static function fetchOneBy($identifier, bool $convertIntoObject = true)
+    public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM member WHERE m_email = :email;");
         $stmt->bindValue(":email", $identifier, PDO::PARAM_STR);

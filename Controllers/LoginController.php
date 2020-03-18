@@ -15,11 +15,20 @@ if (count($_POST) > 0) {
     $email = htmlspecialchars($_POST["email"]);
     $password = htmlspecialchars($_POST["password"]);
     $result = MemberManager::findOneBy($email, false);
-    if (password_verify($password, $result["m_password"])) {
+    $errors = [];
+    if (!$result) {
+        $errors[] = "Aucun compte n'existe avec cet e-mail.";
+    } else if (password_verify($password, $result["m_password"])) {
         $member = new Member(0, $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
-        var_dump($member);
         session_start();
         $_SESSION["member"] = serialize($member);
+        if ($member->getType() === "ADMIN") {
+            header("Location: /Shlagithon/index.php/members-editor");
+        } else {
+            header("Location: /Shlagithon/index.php/member-profile");
+        }
+    } else {
+        $errors[] = "Les mots de passe ne correspondent pas.";
     }
 }
 

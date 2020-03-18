@@ -5,6 +5,10 @@ namespace App\Controllers;
 use App\Models\Member;
 use App\Services\MemberManager;
 
+if (!isset($_SESSION["member"])) {
+    header("Location: logout");
+}
+
 if (isset($_GET['editId'])) {
     $member = MemberManager::findOneByID($_GET["editId"]);
 }

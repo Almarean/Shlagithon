@@ -17,11 +17,19 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Chercher" aria-label="Chercher">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
+        <?php
+        if (isset($_SESSION["member"])) {
+            echo "<span><a class='nav-link text-dark' href='logout'><i class='fas fa-sign-out-alt'></i> Déconnexion</span>";
+        } else {
+        ?>
         <span>
-            <a class="nav-link text-dark" href="#">Connexion</a>
+            <a class="nav-link text-dark" href="login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
         </span>
         <span>
-            <a class="nav-link text-dark" href="<?php  ?>">Inscription</a>
+            <a class="nav-link text-dark" href="registration"><i class="fas fa-user-plus"></i> Inscription</a>
         </span>
+        <?php
+        }
+        ?>
     </div>
 </nav>

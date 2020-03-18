@@ -5,6 +5,12 @@ namespace App\Controllers;
 use App\Models\Member;
 use App\Services\MemberManager;
 
+if (!isset($_SESSION["member"])) {
+    header("Location: logout");
+} else if (isset($_SESSION["member"]) && unserialize($_SESSION["member"])->getType() !== "ADMIN") {
+    header("Location: logout");
+}
+
 $members = MemberManager::findAllByDateCreation();
 if (isset($_GET["deleteLogin"])) {
     MemberManager::deleteOneById($_GET["deleteLogin"]);

@@ -7,14 +7,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-            <a class="nav-link" href="#">Page d'administration des membres</a>
+            <a class="nav-link" href="members-editor">Page d'administration des membres</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="#">Page d'administration des recettes</a>
             </li>
         </ul>
         <span>
-            <a class="nav-link text-dark" href="<?php  ?>">Déconnexion</a>
+            <a class="nav-link text-dark" href="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
         </span>
     </div>
 </nav>

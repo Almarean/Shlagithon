@@ -12,6 +12,15 @@
         <section class="mt-5">
             <h1 class="text-center">Inscription</h1>
             <article>
+                <?php
+                    if (isset($errors) && count($errors) > 0) {
+                        echo "<div class='col-md-6 m-auto'>";
+                        foreach ($errors as $error) {
+                            echo "<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> " . $error . "</p>";
+                        }
+                        echo "</div>";
+                    }
+                ?>
                 <form action="" method="POST">
                     <div class="form-group col-md-6 m-auto">
                         <label for="inputName">Nom</label>
@@ -42,7 +51,6 @@
     </div>
 
     <?php include __DIR__ . "/templates/footer.php"; ?>
-
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
 </body>
 

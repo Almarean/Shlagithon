@@ -32,11 +32,11 @@
                     <div class="form-group col-md-6 m-auto">
                         <p>Type d'utilisateur</p>
                         <div class="form-check">
-                            <input type="radio" name="radioAdmin" id="radio-admin" value="ADMIN">
+                            <input type="radio" name="typeRadio" id="radio-admin" value="ADMIN">
                             <label for="radio-admin">Administrateur</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" name="radioMember" id="radio-member" value="MEMBER" checked>
+                            <input type="radio" name="typeRadio" id="radio-member" value="MEMBER" checked>
                             <label for="radio-member">Member</label>
                         </div>
                     </div>

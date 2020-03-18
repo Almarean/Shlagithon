@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Models;
 
-use App\Models\Allergen;
-use App\Models\Requirement;
+use Models\Allergen;
+use Models\Requirement;
 
 /**
  * Class Ingredient extends Requirement.
@@ -20,12 +20,12 @@ class Ingredient extends Requirement
     /**
      * Constructor of the Ingredient class.
      *
-     * @param string $label
+     * @param string $label Label to set to the ingredient.
      */
     public function __construct(string $label)
     {
         $this->label = ucwords($label);
-        $this->allergens = [];
+        $this->$allergens = [];
     }
 
     /**
@@ -39,22 +39,9 @@ class Ingredient extends Requirement
     }
 
     /**
-     * Setter of the allergens of the ingredient.
-     *
-     * @param array $allergens
-     *
-     * @return $this
-     */
-    public function setAllergens(array $allergens): self
-    {
-        $this->allergens[] = $allergens;
-        return $this;
-    }
-
-    /**
      * Add an allergen to the ingredient.
      *
-     * @param Allergen $allergen
+     * @param Allergen $allergen Allergen to add to the ingredient.
      *
      * @return array
      */
@@ -67,7 +54,7 @@ class Ingredient extends Requirement
     /**
      * Remove an allergen to the ingredient.
      *
-     * @param Allergen $allergen
+     * @param Allergen $allergen Allergen to remove from the ingredient.
      *
      * @return array
      */
@@ -75,7 +62,7 @@ class Ingredient extends Requirement
     {
         if (in_array($allergen, $this->allergens)) {
             unset($allergen);
-            return array_values($this->allergens);
+            return array_values($this->$allergens);
         } else {
             return $this->allergens;
         }

@@ -1,19 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace Models;
 
 /**
  * Class Tag;
  */
 class Tag
 {
-    /**
-     * ID of the tag.
-     *
-     * @var integer
-     */
-    private $id;
-
     /**
      * Label of the tag.
      *
@@ -32,16 +25,6 @@ class Tag
     }
 
     /**
-     * Getter of the ID of the tag.
-     *
-     * @return integer|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
      * Getter of the label of the tag.
      *
      * @return string
@@ -54,7 +37,7 @@ class Tag
     /**
      * Setter of the label of the tag.
      *
-     * @param string $label
+     * @param string $label Label to set to the tag.
      *
      * @return self
      */

@@ -1,23 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace Models;
 
-use App\Models\Member;
-use App\Models\Tag;
-use App\Models\Requirement;
+use Models\Member;
+use Models\Tag;
+use Models\Requirement;
 
 /**
  * Class Recipe.
  */
 class Recipe
 {
-    /**
-     * ID of the recipe
-     *
-     * @var integer
-     */
-    private $id;
-
     /**
      * Name of the recipe.
      *
@@ -42,21 +35,21 @@ class Recipe
     /**
      * Difficulty of the recipe.
      *
-     * @var integer
+     * @var int
      */
     private $difficulty;
 
     /**
      * Time to make the recipe in minutes.
      *
-     * @var integer
+     * @var int
      */
     private $time;
 
     /**
      * Number of persons of the recipe.
      *
-     * @var integer
+     * @var int
      */
     private $nbPersons;
 
@@ -75,18 +68,11 @@ class Recipe
     private $tags;
 
     /**
-     * Ustencils of the recipe.
+     * Requirements of the recipe.
      *
      * @var array
      */
-    private $ustencils;
-
-    /**
-     * Ingredients of the recipe.
-     *
-     * @var array
-     */
-    private $ingredients;
+    private $requirements;
 
     /**
      * Member who writes the recipe.
@@ -96,25 +82,18 @@ class Recipe
     private $author;
 
     /**
-     * Steps of the recipe.
-     *
-     * @var
-     */
-    private $steps;
-
-    /**
      * Constructor of the Recipe class.
      *
-     * @param string $name
-     * @param string $description
-     * @param string $image
-     * @param integer $difficulty
-     * @param integer $time
-     * @param integer $nbPersons
-     * @param Member $author
-     * @param string|null $advice
+     * @param string $name Name to set to the recipe.
+     * @param string $description Description to set to the recipe.
+     * @param string $image Image to set to the recipe.
+     * @param integer $difficulty Difficulty to set to the recipe.
+     * @param integer $time Time to set to the recipe.
+     * @param integer $nbPersons Number of persons to set to the recipe.
+     * @param string $advice Advice to set to the recipe.
+     * @param Member $author Member to set to the recipe.
      */
-    public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, Member $author, string $advice = null)
+    public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice, Member $author)
     {
         $this->name = ucfirst($name);
         $this->description = $description;
@@ -123,21 +102,9 @@ class Recipe
         $this->time = $time;
         $this->nbPersons = $nbPersons;
         $this->advice = $advice;
-        $this->tags = [];
-        $this->ustencils = [];
-        $this->ingredients = [];
+        $this->tag = [];
+        $this->requirements = [];
         $this->author = $author;
-        $this->steps = [];
-    }
-
-    /**
-     * Getter of the ID of the recipe.
-     *
-     * @return integer|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
@@ -153,7 +120,7 @@ class Recipe
     /**
      * Setter of the name of the recipe/
      *
-     * @param string $name
+     * @param string $name Name to set to the recipe.
      *
      * @return self
      */
@@ -176,7 +143,7 @@ class Recipe
     /**
      * Setter of the description of the recipe.
      *
-     * @param string $description
+     * @param string $description Description to set to the recipe.
      *
      * @return self
      */
@@ -199,7 +166,7 @@ class Recipe
     /**
      * Setter of the image of the recipe.
      *
-     * @param string $image
+     * @param string $image Image to set to the recipe.
      *
      * @return self
      */
@@ -222,7 +189,7 @@ class Recipe
     /**
      * Setter of the difficulty of the recipe.
      *
-     * @param integer $difficulty
+     * @param integer $difficulty Diificulty to set to the recipe.
      *
      * @return self
      */
@@ -245,7 +212,7 @@ class Recipe
     /**
      * Setter of the time of the recipe.
      *
-     * @param integer $time
+     * @param integer $time Time to set to the recipe.
      *
      * @return self
      */
@@ -268,7 +235,7 @@ class Recipe
     /**
      * Setter of the number of persons of the recipe.
      *
-     * @param integer $nbPersons
+     * @param integer $nbPersons Number of persons to set to the recipe.
      *
      * @return self
      */
@@ -285,13 +252,13 @@ class Recipe
      */
     public function getAdvice(): ?string
     {
-        return $this->advice;
+        return $this->advice();
     }
 
     /**
      * Setter of the advice of the recipe.
      *
-     * @param string $advice
+     * @param string $advice Advice to set to the recipe.
      *
      * @return self
      */
@@ -312,22 +279,9 @@ class Recipe
     }
 
     /**
-     * Setter of the tags of the recipe.
-     *
-     * @param array $tags
-     *
-     * @return $this
-     */
-    public function setTags(array $tags): self
-    {
-        $this->tags = $tags;
-        return $this;
-    }
-
-    /**
      * Add a tag to the recipe.
      *
-     * @param Tag $tag
+     * @param Tag $tag Tag to add to the recipe.
      *
      * @return array
      */
@@ -340,7 +294,7 @@ class Recipe
     /**
      * Remove a tag from the recipe.
      *
-     * @param Tag $tag
+     * @param Tag $tag Tag to remove from the recipe.
      *
      * @return array
      */
@@ -355,108 +309,41 @@ class Recipe
     }
 
     /**
-     * Getter of the ustencils of the recipe.
+     * Getter of the requirements of the recipe.
      *
      * @return array
      */
-    public function getUstencils(): array
+    public function getRequirements(): array
     {
-        return $this->ustencils;
+        return $this->requirements;
     }
 
     /**
-     * Setter of the ustencils of the recipe.
+     * Add a requirement to the recipe.
      *
-     * @param array $ustencils
-     *
-     * @return $this
-     */
-    public function setUstencils(array $ustencils): self
-    {
-        $this->ustencils = $ustencils;
-        return $this;
-    }
-
-    /**
-     * Add a ustencil to the recipe.
-     *
-     * @param Ustencil $ustencil
+     * @param Requirement $requirement Requirement to add to the recipe.
      *
      * @return array
      */
-    public function addUstencil(Ustencil $ustencil): array
+    public function addRequirement(Requirement $requirement): array
     {
-        array_push($this->ustencils, $ustencil);
-        return $this->ustencils;
+        array_push($this->requirements, $requirement);
     }
 
     /**
-     * Remove a ustencil from the recipe.
+     * Remove a requirement from the recipe.
      *
-     * @param Ustencil $ustencil
+     * @param Requirement $requirement Requirement to remove from the recipe.
      *
      * @return array
      */
-    public function removeUstencil(Ustencil $ustencil): array
+    public function removeRequirement(Requirement $requirement): array
     {
-        if (in_array($ustencil, $this->ustencils)) {
-            unset($ustencil);
-            return array_values($this->ustencils);
+        if (in_array($requirement, $this->requirements)) {
+            unset($requirement);
+            return array_values($this->requirements);
         } else {
-            return $this->ustencils;
-        }
-    }
-
-    /**
-     * Getter of the ingredients of the recipe.
-     *
-     * @return array
-     */
-    public function getIngredients(): array
-    {
-        return $this->ingredients;
-    }
-
-    /**
-     * Setter of the ingredients of the recipe.
-     *
-     * @param array $ingredients
-     *
-     * @return $this
-     */
-    public function setIngredients(array $ingredients): self
-    {
-        $this->ingredients = $ingredients;
-        return $this;
-    }
-
-    /**
-     * Add a ingredient to the recipe.
-     *
-     * @param Ingredient $ingredient
-     *
-     * @return array
-     */
-    public function addIngredient(Ingredient $ingredient): array
-    {
-        array_push($this->ingredients, $ingredient);
-        return $this->ingredients;
-    }
-
-    /**
-     * Remove a ingredient from the recipe.
-     *
-     * @param Ingredient $ingredient
-     *
-     * @return array
-     */
-    public function removeIngredient(Ingredient $ingredient): array
-    {
-        if (in_array($ingredient, $this->ingredients)) {
-            unset($ingredient);
-            return array_values($this->ingredients);
-        } else {
-            return $this->ingredients;
+            return $this->requirements;
         }
     }
 
@@ -473,7 +360,7 @@ class Recipe
     /**
      * Setter of the author of the recipe.
      *
-     * @param Member $author
+     * @param Member $author Member to set to the recipe.
      *
      * @return self
      */
@@ -481,58 +368,5 @@ class Recipe
     {
         $this->author = $author;
         return $this;
-    }
-
-    /**
-     * Getter of the steps of the recipe.
-     *
-     * @return array
-     */
-    public function getSteps(): array
-    {
-        return $this->steps;
-    }
-
-    /**
-     * Setter of the steps of the recipe.
-     *
-     * @param array $steps
-     *
-     * @return $this
-     */
-    public function setSteps(array $steps): self
-    {
-        $this->steps = $steps;
-        return $this;
-    }
-
-    /**
-     * Add a step to the recipe.
-     *
-     * @param Step $step
-     *
-     * @return array
-     */
-    public function addStep(Step $step): array
-    {
-        array_push($this->steps, $step);
-        return $this->steps;
-    }
-
-    /**
-     * Remove a step from the recipe.
-     *
-     * @param Step $step
-     *
-     * @return array
-     */
-    public function removeStep(Step $step): array
-    {
-        if (in_array($step, $this->steps)) {
-            unset($step);
-            return array_values($this->steps);
-        } else {
-            return $this->steps;
-        }
     }
 }

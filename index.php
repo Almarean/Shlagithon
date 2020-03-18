@@ -23,6 +23,9 @@ switch ($request) {
     case "/member-editor":
         require __DIR__ . "/Controllers/AdminEditMembersController.php";
         break;
+    case "/recipe":
+        require __DIR__ . "/Controllers/RecipeController.php";
+        break;
     default:
         http_response_code(404);
         break;

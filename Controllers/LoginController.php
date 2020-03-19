@@ -24,6 +24,7 @@ if (count($_POST) > 0) {
         $_SESSION["member"] = serialize($member);
         if ($member->getType() === "ADMIN") {
             header("Location: /Shlagithon/index.php/members-editor");
+            exit();
         } else {
             header("Location: /Shlagithon/index.php/member-profile");
         }

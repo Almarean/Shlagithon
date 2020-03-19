@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controllers;
+session_start();
 
-use App\Models\Member;
+
+
 use App\Services\MemberManager;
 
 if (!isset($_SESSION["member"])) {

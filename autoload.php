@@ -14,7 +14,7 @@ require_once __DIR__ . "/Interfaces/IManager.php";
 require_once __DIR__ . "/Services/PDOManager.php";
 require_once __DIR__ . "/Services/TagManager.php";
 require_once __DIR__ . "/Services/AllergenManager.php";
-require_once __DIR__ . "/Services/RequirementManager.php";
+//require_once __DIR__ . "/Services/RequirementManager.php";
 require_once __DIR__ . "/Services/UstencilManager.php";
 require_once __DIR__ . "/Services/RecipeManager.php";
 require_once __DIR__ . "/Services/IngredientManager.php";

@@ -22,7 +22,7 @@
                     echo "</div>";
                 }
                 ?>
-                <form class="form-signin" action="../Controllers/LoginController.php" method="POST">
+                <form class="form-signin" action="" method="POST">
                     <label for="input-email" class="sr-only">E-mail</label>
                     <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" required autofocus>
                     <label for="input-password" class="sr-only">Mot de passe</label>

@@ -13,9 +13,9 @@
             <h1 class="text-center">Édition d'un membre</h1>
             <article>
                 <form action="?" method="POST">
-                    <div class="form-group col-md-6 m-auto">
-                        <label for="id">Id</label>
-                        <input type="text" class="form-control" name="id" id="id" value="<?php echo $member->getId(); ?>" disabled>
+                    <div class="form-group col-md-6 m-auto" hidden>
+                        <label for="id" hidden>Id</label>
+                        <input type="text" class="form-control" name="id" id="id" value="<?php echo $member->getId(); ?>" disabled hidden>
                     </div>
                     <div class="form-group col-md-6 m-auto">
                         <label for="name">Nom</label>

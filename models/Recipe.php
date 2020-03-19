@@ -114,8 +114,9 @@ class Recipe
      * @param Member $author
      * @param string|null $advice
      */
-    public function __construct(string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, Member $author, string $advice = null)
+    public function __construct(int $id, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, Member $author, string $advice = null)
     {
+        $this->id = $id;
         $this->name = ucfirst($name);
         $this->description = $description;
         $this->image = $image;

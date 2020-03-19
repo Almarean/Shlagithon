@@ -9,3 +9,10 @@ footer div > div {
 .logo {
     font-size: 4rem;
 }
+
+.imgRecipe{
+    position: relative;
+    max-width: 50px;
+    float: left;
+    margin-right: 15px;
+}

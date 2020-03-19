@@ -10,7 +10,7 @@
             <a class="nav-link" href="members-editor">Page d'administration des membres</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Page d'administration des recettes</a>
+            <a class="nav-link" href="recipes-editor">Page d'administration des recettes</a>
             </li>
         </ul>
         <span>

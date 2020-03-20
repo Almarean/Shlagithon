@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Services\RecipeManager;
 
 session_start();
@@ -12,6 +14,17 @@ if (!isset($_SESSION["member"])) {
 
 if (isset($_GET['editId'])) {
     $recipe = RecipeManager::findOneByID($_GET["editId"]);
+}
+
+if (isset($_POST["validate"])) {
+    if (isset($_POST["name"]) && $_POST["description"] && $_POST["time"] && $_POST["difficulty"] && $_POST["nbPersons"]) {
+        RecipeManager::updateRecipe($_POST["validate"], $_POST["name"], $_POST["description"], "TODO", $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $_POST["advice"]);
+        header("Location: recipe-editor?editId=" . $_POST["validate"]);
+    }
+}
+
+if (isset($_POST["return"])) {
+    header("Location: recipes-editor");
 }
 
 require __DIR__ . "/../Views/admin/admin_edit_recipe.php";

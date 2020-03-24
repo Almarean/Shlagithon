@@ -1,4 +1,4 @@
-<footer class="mt-5 py-3 bg-light"><!--mt-auto fixed-bottom-->
+<footer class="mt-5 py-3 bg-light">
     <div class="container text-center">
         <div>
             <div class="mx-2 d-inline"><a href="#" class="text-dark"><i class="fab fa-twitter-square"></i></a></div>

@@ -184,9 +184,9 @@ class RecipeManager implements IManager
         $stmt->execute();
     }
 
-
     /**
      * Update a recipe by his ID.
+     *
      * @param int $identifier
      * @param string $name
      * @param string $description
@@ -200,13 +200,11 @@ class RecipeManager implements IManager
      */
     public static function updateRecipe(int $identifier, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice): void
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE recipe SET rec_name = :name, rec_description = :description, rec_image = :image,
-                                                                        rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice
-                                                                         WHERE rec_id = :id;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE recipe SET rec_name = :name, rec_description = :description, rec_image = :image, rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice WHERE rec_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->bindValue(":name", $name, PDO::PARAM_STR);
         $stmt->bindValue(":description", $description, PDO::PARAM_STR);
-        $stmt->bindValue(":image", 'todo.png', PDO::PARAM_STR);
+        $stmt->bindValue(":image", $image, PDO::PARAM_LOB);
         $stmt->bindValue(":difficulty", $difficulty, PDO::PARAM_INT);
         $stmt->bindValue(":timeToCook", $time, PDO::PARAM_INT);
         $stmt->bindValue(":nbPersons", $nbPersons, PDO::PARAM_INT);

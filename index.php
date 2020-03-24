@@ -41,7 +41,6 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
             http_response_code(404);
             break;
     }
-}else{
+} else {
     http_response_code(404);
 }
-

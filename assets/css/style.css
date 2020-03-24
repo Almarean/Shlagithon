@@ -16,3 +16,7 @@ footer div > div {
     float: left;
     margin-right: 15px;
 }
+
+footer a:hover {
+    text-decoration: none;
+}

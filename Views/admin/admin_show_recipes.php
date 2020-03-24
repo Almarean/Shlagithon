@@ -29,7 +29,7 @@
                                 <?php foreach ($recipes as $recipe) { ?>
                                     <tr>
                                         <td style="width: 10%;">
-                                            <img class="imgRecipe" src="<?php echo $recipe->getImage();?>" alt="">
+                                            <img class="img-recipe" src="<?php echo $recipe->getImage();?>" alt="">
                                             <span class="user-subhead"><?php echo $recipe->getName(); ?></span>
                                         </td>
                                         <td style="width: 20%;">

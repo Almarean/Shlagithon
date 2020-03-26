@@ -23,25 +23,53 @@
                     <label for="description">Description</label>
                     <textarea class="form-control" name="description" id="description" rows="5"><?php echo $recipe->getDescription(); ?></textarea>
                 </div>
-                <div class="form-group col-md-6 mx-auto mt-3">
-                    <label for="time">Temps de préparation (en minutes)</label>
-                    <input type="number" name="time" id="time" value="<?php echo $recipe->getTime(); ?>" min="1" max="1440" step="1" />
+                <div class="form-row col-md-6 mx-auto mt-3">
+                    <div class="col">
+                        <label for="time">Temps de préparation (en minutes)</label>
+                        <input type="number" name="time" class="form-control w-25" id="time" value="<?php echo $recipe->getTime(); ?>" min="1" max="1440" step="1" />
+                    </div>
+                    <div class="col">
+                        <label for="type">Type</label>
+                        <select name="type" class="form-control" id="type">
+                            <?php
+                            if ($recipe->getType() === "ENTREE") {
+                                echo "<option value='ENTREE' selected='selected'>Entrée</option>";
+                            } else {
+                                echo "<option value='ENTREE'>Entrée</option>";
+                            }
+                            if ($recipe->getType() === "PLAT") {
+                                echo "<option value='PLAT' selected='selected'>Plat</option>";
+                            } else {
+                                echo "<option value='PLAT'>Plat</option>";
+                            }
+                            if ($recipe->getType() === "DESSERT") {
+                                echo "<option value='DESSERT' selected='selected'>Dessert</option>";
+                            } else {
+                                echo "<option value='DESSERT'>Dessert</option>";
+                            }
+                            if ($recipe->getType() === "AUTRE") {
+                                echo "<option value='AUTRE' selected='selected'>Autre</option>";
+                            } else {
+                                echo "<option value='AUTRE'>Autre</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-row col-md-6 mx-auto mt-3">
                     <div class="col">
                         <label for="difficulty">Difficulté</label>
-                        <input type="number" id="difficulty" name="difficulty" value="<?php echo $recipe->getDifficulty(); ?>" min="1" max="10" step="1" />
+                        <input type="number" class="form-control" id="difficulty" name="difficulty" value="<?php echo $recipe->getDifficulty(); ?>" min="1" max="10" step="1" />
                     </div>
                     <div class="col">
                         <label for="nb-persons">Nombre de personnes</label>
-                        <input type="number" id="nb-persons" name="nbPersons" value="<?php echo $recipe->getNbPersons(); ?>" min="1" max="20" step="1" />
+                        <input type="number" id="nb-persons" class="form-control" name="nbPersons" value="<?php echo $recipe->getNbPersons(); ?>" min="1" max="20" step="1" />
                     </div>
                 </div>
                 <div class="form-group col-md-6 mx-auto mt-3">
                     <label for="advice">Conseils de préparation</label>
                     <textarea class="form-control" name="advice" id="advice" rows="5"><?php echo $recipe->getAdvice(); ?></textarea>
                 </div>
-
                 <div class="text-center mt-3">
                     <button type="submit" name="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
                         Appliquer les modifications

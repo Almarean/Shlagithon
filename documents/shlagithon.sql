@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
     `rec_id` int(11) NOT NULL AUTO_INCREMENT,
     `rec_name` varchar(255) NOT NULL,
     `rec_description` text NOT NULL,
-    `rec_image` BLOB NOT NULL,
+    `rec_image` LONGBLOB NOT NULL,
     `rec_difficulty` ENUM('1', '2', '3', '4', '5') NOT NULL,
     `rec_time` int(11) NOT NULL,
     `rec_nb_persons` int(11) NOT NULL,

@@ -15,9 +15,8 @@ if (isset($_GET["deleteId"])) {
     RecipeManager::deleteOneById($_GET["deleteId"]);
     header("Location: recipes-editor");
 }
-if(isset($_GET['editId'])){
+if (isset($_GET['editId'])) {
     header("Location: recipe-editor?editId=" . $_GET['editId']);
 }
-
 
 require __DIR__ . "/../Views/admin/admin_show_recipes.php";

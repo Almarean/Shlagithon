@@ -26,9 +26,9 @@ class RecipeManager implements IManager
                 return false;
             }
             if (!$object->getAdvice()) {
-                $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :memberId);";
+                $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_type rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :type, :memberId);";
             } else {
-                $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_advice, rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :advice, :memberId);";
+                $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_advice, rec_type, rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :advice, :type, :memberId);";
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare($query);
             $stmt->bindValue(":name", $object->getName(), PDO::PARAM_STR);
@@ -40,6 +40,7 @@ class RecipeManager implements IManager
             if ($object->getAdvice()) {
                 $stmt->bindValue(":advice", $object->getAdvice(), PDO::PARAM_STR);
             }
+            $stmt->bindValue(":type", $object->getType(), PDO::PARAM_STR);
             $stmt->bindValue(":memberId", MemberManager::findIdBy($object->getAuthor()->getEmail()), PDO::PARAM_INT);
             return $stmt->execute();
         } else {
@@ -59,7 +60,7 @@ class RecipeManager implements IManager
         $objects = [];
         foreach ($results as $result) {
             $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
-            $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_advice"]);
+            $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_advice"], $result["rec_type"]);
             $recipe->setTags(TagManager::findAllByRecipe($recipe));
             array_push($objects, $recipe);
         }
@@ -83,7 +84,7 @@ class RecipeManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"]) : null;
+        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"], $result["rec_type"]) : null;
     }
 
     /**
@@ -99,7 +100,7 @@ class RecipeManager implements IManager
         $stmt->bindValue(":recipeId", $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"]) : null;
+        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"], $result["rec_type"]) : null;
     }
 
     /**
@@ -145,7 +146,7 @@ class RecipeManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"]));
+            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"], $result["rec_type"]));
         }
         return $objects;
     }
@@ -165,7 +166,7 @@ class RecipeManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"]));
+            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_advice"], $result["rec_type"]));
         }
         return $objects;
     }
@@ -175,13 +176,13 @@ class RecipeManager implements IManager
      *
      * @param int $identifier
      *
-     * @return void
+     * @return bool
      */
-    public static function deleteOneById(int $identifier): void
+    public static function deleteOneById(int $identifier): bool
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM recipe WHERE rec_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     /**
@@ -195,12 +196,13 @@ class RecipeManager implements IManager
      * @param int $time
      * @param int $nbPersons
      * @param string $advice
+     * @param string $type
      *
-     * @return void
+     * @return bool
      */
-    public static function updateRecipe(int $identifier, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice): void
+    public static function updateRecipe(int $identifier, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice, string $type): bool
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE recipe SET rec_name = :name, rec_description = :description, rec_image = :image, rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice WHERE rec_id = :id;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE recipe SET rec_name = :name, rec_description = :description, rec_image = :image, rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice, rec_type = :type WHERE rec_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->bindValue(":name", $name, PDO::PARAM_STR);
         $stmt->bindValue(":description", $description, PDO::PARAM_STR);
@@ -209,6 +211,7 @@ class RecipeManager implements IManager
         $stmt->bindValue(":timeToCook", $time, PDO::PARAM_INT);
         $stmt->bindValue(":nbPersons", $nbPersons, PDO::PARAM_INT);
         $stmt->bindValue(":advice", $advice, PDO::PARAM_STR);
-        $stmt->execute();
+        $stmt->bindValue(":type", $type, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 }

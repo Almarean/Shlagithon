@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `member` (
     `m_email` varchar(255) NOT NULL,
     `m_password` varchar(255) NOT NULL,
     `m_type` ENUM('MEMBER', 'ADMIN') NOT NULL DEFAULT 'MEMBER',
-    `m_is_confirmed` boolean NOT NULL,
+    `m_is_confirmed` boolean NOT NULL DEFAULT 0,
     `m_creation_date` date NOT NULL,
     `m_last_connection_date` date NULL,
     PRIMARY KEY (`m_id`)
@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
     `rec_time` int(11) NOT NULL,
     `rec_nb_persons` int(11) NOT NULL,
     `rec_advice` text NULL,
+    `rec_type` ENUM('ENTREE', 'PLAT', 'DESSERT', 'AUTRE') NOT NULL,
     `rec_fk_member_id` int(11) NOT NULL,
     PRIMARY KEY (`rec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

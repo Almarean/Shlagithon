@@ -68,6 +68,13 @@ class Recipe
     private $advice;
 
     /**
+     * Type of the recipe.
+     *
+     * @var string
+     */
+    private $type;
+
+    /**
      * Tags of the recipe.
      *
      * @var array
@@ -75,18 +82,11 @@ class Recipe
     private $tags;
 
     /**
-     * Ustencils of the recipe.
+     * Requirements of the recipe.
      *
      * @var array
      */
-    private $ustencils;
-
-    /**
-     * Ingredients of the recipe.
-     *
-     * @var array
-     */
-    private $ingredients;
+    private $requirements;
 
     /**
      * Member who writes the recipe.
@@ -112,9 +112,10 @@ class Recipe
      * @param integer $time
      * @param integer $nbPersons
      * @param Member $author
+     * @param string $type
      * @param string|null $advice
      */
-    public function __construct(int $id, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, Member $author, string $advice = null)
+    public function __construct(int $id, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, Member $author, string $type, string $advice = null)
     {
         $this->id = $id;
         $this->name = ucfirst($name);
@@ -124,9 +125,9 @@ class Recipe
         $this->time = $time;
         $this->nbPersons = $nbPersons;
         $this->advice = $advice;
+        $this->type = $type;
         $this->tags = [];
-        $this->ustencils = [];
-        $this->ingredients = [];
+        $this->requirements = [];
         $this->author = $author;
         $this->steps = [];
     }
@@ -303,6 +304,29 @@ class Recipe
     }
 
     /**
+     * Getter of the type of the recipe.
+     *
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * Setter of the type of the recipe.
+     *
+     * @param string $type
+     *
+     * @return self
+     */
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
      * Getter of the tags of the recipe.
      *
      * @return array
@@ -356,108 +380,55 @@ class Recipe
     }
 
     /**
-     * Getter of the ustencils of the recipe.
+     * Getter of the requirements of the recipe.
      *
      * @return array
      */
-    public function getUstencils(): array
+    public function getRequirements(): array
     {
-        return $this->ustencils;
+        return $this->requirements;
     }
 
     /**
-     * Setter of the ustencils of the recipe.
+     * Setter of the requirements of the recipe.
      *
-     * @param array $ustencils
+     * @param array $requirements
      *
      * @return $this
      */
-    public function setUstencils(array $ustencils): self
+    public function setRequirements(array $requirements): self
     {
-        $this->ustencils = $ustencils;
+        $this->requirements = $requirements;
         return $this;
     }
 
     /**
-     * Add a ustencil to the recipe.
+     * Add a requirement to the recipe.
      *
-     * @param Ustencil $ustencil
+     * @param Requirement $requirement
      *
      * @return array
      */
-    public function addUstencil(Ustencil $ustencil): array
+    public function addRequirement(Requirement $requirement): array
     {
-        array_push($this->ustencils, $ustencil);
-        return $this->ustencils;
+        array_push($this->requirements, $requirement);
+        return $this->requirements;
     }
 
     /**
-     * Remove a ustencil from the recipe.
+     * Remove a requirement from the recipe.
      *
-     * @param Ustencil $ustencil
+     * @param Requirement $requirement
      *
      * @return array
      */
-    public function removeUstencil(Ustencil $ustencil): array
+    public function removeRequirement(Requirement $requirement): array
     {
-        if (in_array($ustencil, $this->ustencils)) {
-            unset($ustencil);
-            return array_values($this->ustencils);
+        if (in_array($requirement, $this->requirements)) {
+            unset($requirement);
+            return array_values($this->requirements);
         } else {
-            return $this->ustencils;
-        }
-    }
-
-    /**
-     * Getter of the ingredients of the recipe.
-     *
-     * @return array
-     */
-    public function getIngredients(): array
-    {
-        return $this->ingredients;
-    }
-
-    /**
-     * Setter of the ingredients of the recipe.
-     *
-     * @param array $ingredients
-     *
-     * @return $this
-     */
-    public function setIngredients(array $ingredients): self
-    {
-        $this->ingredients = $ingredients;
-        return $this;
-    }
-
-    /**
-     * Add a ingredient to the recipe.
-     *
-     * @param Ingredient $ingredient
-     *
-     * @return array
-     */
-    public function addIngredient(Ingredient $ingredient): array
-    {
-        array_push($this->ingredients, $ingredient);
-        return $this->ingredients;
-    }
-
-    /**
-     * Remove a ingredient from the recipe.
-     *
-     * @param Ingredient $ingredient
-     *
-     * @return array
-     */
-    public function removeIngredient(Ingredient $ingredient): array
-    {
-        if (in_array($ingredient, $this->ingredients)) {
-            unset($ingredient);
-            return array_values($this->ingredients);
-        } else {
-            return $this->ingredients;
+            return $this->requirements;
         }
     }
 

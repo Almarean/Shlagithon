@@ -48,7 +48,7 @@ class MemberManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_is_confirmed"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -72,7 +72,7 @@ class MemberManager implements IManager
         $results = $stmt->fetchAll();
         $objects = [];
         foreach ($results as $result) {
-            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_is_confirmed"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -103,7 +103,7 @@ class MemberManager implements IManager
             return $result;
         }
         if ($result) {
-            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_is_confirmed"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -131,7 +131,7 @@ class MemberManager implements IManager
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"]);
+            $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_is_confirmed"], $result["m_type"]);
             $member->setCreationDate($result["m_creation_date"]);
             if ($result["m_last_connection_date"] !== null) {
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
@@ -166,13 +166,13 @@ class MemberManager implements IManager
      *
      * @param int $identifier
      *
-     * @return void
+     * @return bool
      */
-    public static function deleteOneById(int $identifier): void
+    public static function deleteOneById(int $identifier): bool
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM member WHERE m_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
-        $stmt->execute();
+        return $stmt->execute();
     }
 
     /**
@@ -183,8 +183,10 @@ class MemberManager implements IManager
      * @param string $firstname
      * @param string $email
      * @param string $type
+     *
+     * @return bool
      */
-    public static function updateMember(int $identifier, string $name, string $firstname, string $email, string $type): void
+    public static function updateMember(int $identifier, string $name, string $firstname, string $email, string $type): bool
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_name = :name, m_firstname = :firstname, m_email = :email, m_type = :type WHERE m_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
@@ -192,7 +194,23 @@ class MemberManager implements IManager
         $stmt->bindValue(":firstname", $firstname, PDO::PARAM_STR);
         $stmt->bindValue(":email", $email, PDO::PARAM_STR);
         $stmt->bindValue(":type", $type, PDO::PARAM_STR);
-        $stmt->execute();
+        return $stmt->execute();
+    }
+
+    /**
+     * Update the state of confirmation of a member.
+     *
+     * @param string $email
+     * @param boolean $confirmation
+     *
+     * @return boolean
+     */
+    public static function updateMemberConfirmation(string $email, bool $confirmation): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_is_confirmed = :isConfirmed WHERE m_email = :email;");
+        $stmt->bindValue(":isConfirmed", $confirmation, PDO::PARAM_BOOL);
+        $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
     /**

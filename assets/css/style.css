@@ -1,22 +1,22 @@
-footer div > div {
-    font-size: 2rem;
+footer div>div {
+  font-size: 2rem;
 }
 
-#member-tab{
-    margin: 20px;
+#member-tab {
+  margin: 20px;
 }
 
 .logo {
-    font-size: 4rem;
+  font-size: 4rem;
 }
 
-.img-recipe{
-    position: relative;
-    max-width: 50px;
-    float: left;
-    margin-right: 15px;
+.img-recipe {
+  position: relative;
+  max-width: 50px;
+  float: left;
+  margin-right: 15px;
 }
 
 footer a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }

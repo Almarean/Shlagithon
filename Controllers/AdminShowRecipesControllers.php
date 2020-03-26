@@ -1,8 +1,8 @@
 <?php
-namespace App\Controllers;
-use App\Services\RecipeManager;
 
-session_start();
+namespace App\Controllers;
+
+use App\Services\RecipeManager;
 
 if (!isset($_SESSION["member"])) {
     header("Location: logout");

@@ -3,18 +3,25 @@
 $request = $_SERVER["REQUEST_URI"];
 if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
     $request = $matches[1];
-
+    session_start();
     require_once __DIR__ . "/autoload.php";
-
     switch ($request) {
-        case '/test':
-            require __DIR__ . "/Controllers/test.php";
+        case '/home':
+            echo "home";
             break;
         case "/registration":
-            require __DIR__ . "/Controllers/RegistrationController.php";
+            if (isset($_SESSION["member"])) {
+                header("Location: home");
+            } else {
+                require __DIR__ . "/Controllers/RegistrationController.php";
+            }
             break;
         case "/login":
-            require __DIR__ . "/Controllers/LoginController.php";
+            if (isset($_SESSION["member"])) {
+                header("Location: home");
+            } else {
+                require __DIR__ . "/Controllers/LoginController.php";
+            }
             break;
         case "/logout":
             require __DIR__ . "/Controllers/LogoutController.php";
@@ -29,13 +36,20 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
             require __DIR__ . "/Controllers/RecipeController.php";
             break;
         case "/recipes-editor":
-            require_once __DIR__ . "/Controllers/AdminShowRecipesControllers.php";
+            require __DIR__ . "/Controllers/AdminShowRecipesControllers.php";
             break;
         case "/recipe-editor":
-            require_once __DIR__ . "/Controllers/AdminEditRecipeController.php";
+            require __DIR__ . "/Controllers/AdminEditRecipeController.php";
             break;
         case "/member-profile":
             require __DIR__ . "/Controllers/MemberProfileController.php";
+            break;
+        case "/verify":
+            if (isset($_GET["email"]) && isset($_GET["hash"])) {
+                require __DIR__ . "/Controllers/EmailVerifyController.php";
+            } else {
+                http_response_code(404);
+            }
             break;
         default:
             http_response_code(404);

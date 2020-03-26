@@ -2,10 +2,15 @@
 
 namespace App\Controllers;
 
-session_start();
-var_dump(unserialize($_SESSION["member"]));
-exit();
-if (!isset($_SESSION["member"])) {
+if (isset($_SESSION["member"])) {
+    $member = unserialize($_SESSION["member"]);
+    if ($member->getIsConfirmed()) {
+        var_dump($member);
+        exit();
+    } else {
+        header("Location: logout");
+    }
+} else {
     header("Location: logout");
 }
 

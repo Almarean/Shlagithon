@@ -95,9 +95,10 @@ class Member
      * @param string $firstname
      * @param string $email
      * @param string $password
+     * @param bool $isConfirmed
      * @param string $type
      */
-    public function __construct(int $id, string $name, string $firstname, string $email, string $password, string $type = "MEMBER")
+    public function __construct(int $id, string $name, string $firstname, string $email, string $password, bool $isConfirmed = false, string $type = "MEMBER")
     {
         $this->id = $id;
         $this->name = ucwords($name);
@@ -107,7 +108,7 @@ class Member
         $this->creationDate = date("Y-m-d h:i:s");
         $this->lastConnectionDate = null;
         $this->type = $type;
-        $this->isConfirmed = false;
+        $this->isConfirmed = $isConfirmed;
         $this->writtenRecipes = [];
         $this->favoriteRecipes = [];
     }

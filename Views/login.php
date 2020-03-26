@@ -21,10 +21,24 @@
                     }
                     echo "</div>";
                 }
+                if (isset($_GET["success"])) {
+                    if ($_GET["success"] === "1") {
+                        echo "<p class='text-success text-center'><i class='far fa-envelope-open'></i> Un mail de confirmation vous a été envoyé.</p>";
+                    } else {
+                        echo "<p class='text-warning text-center'><i class='fas fa-exclamation-triangle'></i> Une erreur est survenue lors de l'envoi du mail de confirmation.</p>";
+                    }
+                }
+                if (isset($_GET["confirmed"])) {
+                    if ($_GET["confirmed"] === "1") {
+                        echo "<p class='text-success text-center'><i class='fas fa-check'></i> Votre compte a été confirmé.</p>";
+                    } else {
+                        echo "<p class='text-warning text-center'><i class='fas fa-exclamation-triangle'></i> Une erreur est survenue lors de la confirmation de votre compte.</p>";
+                    }
+                }
                 ?>
-                <form class="form-signin" action="" method="POST">
+                <form class="form-signin" action="?" method="POST">
                     <label for="input-email" class="sr-only">E-mail</label>
-                    <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" required autofocus>
+                    <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" value="<?php if (isset($_GET["email"])) { echo $_GET["email"]; } ?>" required autofocus>
                     <label for="input-password" class="sr-only">Mot de passe</label>
                     <input type="password" id="input-password" class="form-control" placeholder="Mot de passe" name="password" required>
                     <button class="btn btn-lg btn-dark btn-block mt-5" type="submit">Se connecter</button>

@@ -3,7 +3,7 @@
 <head>
     <?php include __DIR__ . "/../templates/head.php"; ?>
 </head>
-<body>
+<body class="position-relative">
     <?php include __DIR__ . "/../templates/header_client.php"; ?>
 
     <?php var_dump(unserialize($_SESSION["member"])); ?>

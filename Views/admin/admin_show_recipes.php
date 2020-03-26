@@ -5,7 +5,7 @@
     <?php include __DIR__ . "/../templates/head.php"; ?>
 </head>
 
-<body>
+<body class="position-relative">
     <?php include __DIR__ . "/../templates/header_admin.php"; ?>
 
     <div class="container-fluid">

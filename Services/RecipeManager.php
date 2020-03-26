@@ -146,7 +146,7 @@ class RecipeManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
+            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "image.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
         }
         return $objects;
     }

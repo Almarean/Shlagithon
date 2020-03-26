@@ -22,19 +22,16 @@ if (count($_POST) > 0) {
         $errors[] = "Le format de l'e-mail n'est pas valide.";
     }
     if (count($errors) === 0) {
-        MemberManager::insert(new Member(0, $_POST["name"], $_POST["firstname"], $email, $password));
-        $verifyLink = "https://thomaslaure.alwaysdata.net/shlagithon/index.php/verify?email=";
-        if (isset($_GET["env"])) {
-            if ($_GET["env"] === "dev") {
-                $verifyLink = "http://localhost/Shlagithon/index.php/verify?email=";
-            }
-        }
-        $message = "Bonjour,\r\n
-            Merci de vous être enregistré sur Shlagithon.\r\n
-            Votre comte vient d\'être créé, vous pourrez vous connecter après avoir confirmé votre e-mail.\r\n
-            Pour ce faire, veuillez cliquer sur le lien suivant :\r\n
-            " . $verifyLink . $email . "&hash=" . password_hash($password, PASSWORD_DEFAULT) . "\r\n
-            À bientôt !\r\n
+        $member = new Member(0, $_POST["name"], $_POST["firstname"], $email, $password);
+        MemberManager::insert($member);
+        $verifyLink = "http://localhost/Shlagithon/index.php/verify?email=";
+        // $verifyLink = "https://thomaslaure.alwaysdata.net/shlagithon/index.php/verify?email=";
+        $message = "Bonjour,
+            Merci de vous être enregistré sur Shlagithon.
+            Votre compte vient d\'être créé, vous pourrez vous connecter après avoir confirmé votre e-mail.
+            Pour ce faire, veuillez cliquer sur le lien suivant :
+            " . $verifyLink . $email . "&hash=" . password_hash($password, PASSWORD_DEFAULT) . "
+            À bientôt !
             L'équipe de Shlagithon";
         // ini_set("SMTP", "tls://smtp.gmail.com");
         // ini_set("smtp_port", "587");

@@ -1,3 +1,7 @@
+body {
+  min-height: 100vh;
+}
+
 footer div>div {
   font-size: 2rem;
 }
@@ -19,4 +23,12 @@ footer div>div {
 
 footer a:hover {
   text-decoration: none;
+}
+
+footer {
+  bottom: 0;
+}
+
+body > .container {
+  padding-bottom: 10rem;
 }

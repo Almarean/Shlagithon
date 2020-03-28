@@ -41,8 +41,11 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/recipe-editor":
             require __DIR__ . "/Controllers/AdminEditRecipeController.php";
             break;
-        case "/member-profile":
-            require __DIR__ . "/Controllers/MemberProfileController.php";
+        case "/profile":
+            require __DIR__ . "/Controllers/MemberEditProfileController.php";
+            break;
+        case "/recipes":
+            require __DIR__ . "/Controllers/MemberShowRecipes.php";
             break;
         case "/verify":
             if (isset($_GET["email"]) && isset($_GET["hash"])) {

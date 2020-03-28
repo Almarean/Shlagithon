@@ -7,10 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto">
             <li class="nav-item">
-                <a class="nav-link" href="members-editor"><i class="fas fa-users-cog"></i> Page d'administration des membres</a>
+                <a class="nav-link" href="profile"><i class="fas fa-user-edit"></i> Gérer le compte</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="recipes-editor"><i class="fas fa-edit"></i> Page d'administration des recettes</a>
+                <a class="nav-link" href="#"><i class="fas fa-book"></i> Recettes publiées</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-edit"></i> Publier une recette</a>
             </li>
         </ul>
         <span>

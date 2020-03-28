@@ -19,6 +19,7 @@
         </form>
         <?php
         if (isset($_SESSION["member"])) {
+            echo "<span><a class='nav-link text-dark' href='#'><i class='fas fa-user'></i> Compte</span>";
             echo "<span><a class='nav-link text-dark' href='logout'><i class='fas fa-sign-out-alt'></i> Déconnexion</span>";
         } else {
         ?>

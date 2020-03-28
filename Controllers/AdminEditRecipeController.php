@@ -10,7 +10,7 @@ if (!isset($_SESSION["member"])) {
     header("Location: logout");
 }
 
-if (isset($_GET['editId'])) {
+if (isset($_GET["editId"])) {
     $recipe = RecipeManager::findOneByID($_GET["editId"]);
 }
 

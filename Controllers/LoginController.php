@@ -20,7 +20,7 @@ if (count($_POST) > 0) {
         if ($member->getType() === "ADMIN") {
             header("Location: /Shlagithon/index.php/members-editor");
         } else {
-            header("Location: /Shlagithon/index.php/member-profile");
+            header("Location: /Shlagithon/index.php/profile");
         }
     } else {
         $errors[] = "Les mots de passe ne correspondent pas.";

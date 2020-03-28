@@ -183,12 +183,18 @@ class MemberManager implements IManager
      * @param string $firstname
      * @param string $email
      * @param string $type
+     * @param string $password
      *
      * @return bool
      */
-    public static function updateMember(int $identifier, string $name, string $firstname, string $email, string $type): bool
+    public static function updateMember(int $identifier, string $name, string $firstname, string $email, string $type, string $password = null): bool
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_name = :name, m_firstname = :firstname, m_email = :email, m_type = :type WHERE m_id = :id;");
+        if ($password) {
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_name = :name, m_firstname = :firstname, m_email = :email, m_type = :type, m_password = :password WHERE m_id = :id;");
+            $stmt->bindValue(":password", $password, PDO::PARAM_STR);
+        } else {
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_name = :name, m_firstname = :firstname, m_email = :email, m_type = :type WHERE m_id = :id;");
+        }
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->bindValue(":name", $name, PDO::PARAM_STR);
         $stmt->bindValue(":firstname", $firstname, PDO::PARAM_STR);

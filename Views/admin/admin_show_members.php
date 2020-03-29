@@ -31,7 +31,7 @@
                                             <span class="user-subhead"><?php echo $member->getType(); ?></span>
                                         </td>
                                         <td style="width: 20%;">
-                                            <?php echo strtoupper($member->getName()) . ' ' . $member->getFirstname(); ?>
+                                            <?php echo strtoupper($member->getName()) . " " . $member->getFirstname(); ?>
                                         </td>
                                         <td style="width: 20%;">
                                             <?php echo $member->getCreationDate(); ?>

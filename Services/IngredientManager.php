@@ -44,7 +44,7 @@ class IngredientManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ingredient($result["req_label"]));
+            array_push($objects, new Ingredient($result["req_id"], $result["req_label"]));
         }
         return $objects;
     }
@@ -66,7 +66,7 @@ class IngredientManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Ingredient($result["req_label"]) : null;
+        return $result ? new Ingredient($result["req_id"], $result["req_label"]) : null;
     }
 
     /**
@@ -112,7 +112,7 @@ class IngredientManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ingredient($result["req_label"]));
+            array_push($objects, new Ingredient($result["req_id"], $result["req_label"]));
         }
         return $objects;
     }

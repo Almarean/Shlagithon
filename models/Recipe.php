@@ -98,7 +98,7 @@ class Recipe
     /**
      * Steps of the recipe.
      *
-     * @var
+     * @var array
      */
     private $steps;
 

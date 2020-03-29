@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `recipe_requirement`;
 CREATE TABLE IF NOT EXISTS `recipe_requirement` (
     `rr_fk_recipe_id` int(11) NOT NULL,
     `rr_fk_requirement_id` int(11) NOT NULL,
-    `rr_quantity` int(11) NOT NULL,
+    `rr_quantity` varchar(255) NOT NULL,
     PRIMARY KEY (`rr_fk_recipe_id`, `rr_fk_requirement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

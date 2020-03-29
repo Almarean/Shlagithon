@@ -10,7 +10,7 @@
                 <a class="nav-link" href="profile"><i class="fas fa-user-edit"></i> Gérer le compte</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-book"></i> Recettes publiées</a>
+                <a class="nav-link" href="recipes"><i class="fas fa-book"></i> Recettes publiées</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fas fa-edit"></i> Publier une recette</a>

@@ -44,7 +44,7 @@ class UstencilManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
-            array_push($objects, new Ustencil($result["req_label"]));
+            array_push($objects, new Ustencil($result["req_id"], $result["req_label"]));
         }
         return $objects;
     }
@@ -66,7 +66,7 @@ class UstencilManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Ustencil($result["req_label"]) : null;
+        return $result ? new Ustencil($result["req_id"], $result["req_label"]) : null;
     }
 
     /**
@@ -112,7 +112,7 @@ class UstencilManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ustencil($result["req_label"]));
+            array_push($objects, new Ustencil($result["req_id"], $result["req_label"]));
         }
         return $objects;
     }

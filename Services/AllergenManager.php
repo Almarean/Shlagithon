@@ -45,7 +45,7 @@ class AllergenManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
-            array_push($objects, new Allergen($result["a_label"]));
+            array_push($objects, new Allergen($result["a_id"], $result["a_label"]));
         }
         return $objects;
     }
@@ -67,7 +67,7 @@ class AllergenManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Allergen($result["a_label"]) : null;
+        return $result ? new Allergen($result["a_id"], $result["a_label"]) : null;
     }
 
     /**
@@ -101,7 +101,7 @@ class AllergenManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Allergen($result["a_label"]));
+            array_push($objects, new Allergen($result["a_id"], $result["a_label"]));
         }
         return $objects;
     }

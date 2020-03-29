@@ -22,6 +22,13 @@ abstract class Requirement
     protected $label;
 
     /**
+     * Quantity of the requirement for the recipe.
+     *
+     * @var string
+     */
+    protected $quantity;
+
+    /**
      * Getter of the ID of the requirement.
      *
      * @return integer|null
@@ -51,6 +58,29 @@ abstract class Requirement
     public function setLabel(string $label): self
     {
         $this->label = ucfirst($label);
+        return $this;
+    }
+
+    /**
+     * Getter of the quantity of the requirement for the recipe.
+     *
+     * @return string
+     */
+    public function getQuantity(): string
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Setter of the quantity of the requirement for the recipe.
+     *
+     * @param string $quantity
+     *
+     * @return self
+     */
+    public function setQuantity(string $quantity): self
+    {
+        $this->quantity = $quantity;
         return $this;
     }
 }

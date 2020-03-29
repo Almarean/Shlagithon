@@ -15,8 +15,8 @@ if (isset($_GET["deleteLogin"])) {
     MemberManager::deleteOneById($_GET["deleteLogin"]);
     header("Location: members-editor");
 }
-if (isset($_GET['editId'])) {
-    header("Location: member-editor?editId=" . $_GET['editId']);
+if (isset($_GET["editId"])) {
+    header("Location: member-editor?editId=" . $_GET["editId"]);
 }
 
 require __DIR__ . "/../Views/admin/admin_show_members.php";

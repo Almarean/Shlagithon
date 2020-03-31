@@ -68,6 +68,33 @@ class RecipeManager implements IManager
     }
 
     /**
+     * Fetch all recipes in database by given type.
+     *
+     * @param $type string Enum ('ENTREE','PLAT','DESSERT','AUTRE')
+     * @return array
+     */
+    public static function findAllByType($type): array
+    {
+        if ($type === "ENTREE" || $type === "PLAT" || $type === "DESSERT" || $type === "AUTRE") {
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type= :type LIMIT 20");
+            $stmt->bindValue(":type", $type, PDO::PARAM_STR);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $objects = [];
+            foreach ($results as $result) {
+                $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
+                $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "uneimage.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
+                $recipe->setTags(TagManager::findAllByRecipe($recipe));
+                array_push($objects, $recipe);
+            }
+            return $objects;
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
      * Fetch a tag.
      *
      * @param void $identifier

@@ -11,7 +11,13 @@
     <div class="container">
         <section class="mt-5">
             <h1 class="text-center">Édition d'une recette</h1>
-            <form action="?" method="POST">
+            <form action="?" method="POST" enctype="multipart/form-data">
+                <div class="form-group col-md-6 m-auto">
+                    <label for="image">Image de la recette</label>
+                    <br>
+                    <img src="<?php echo "/Shlagithon/assets/images/" .$recipe->getImage();?>" alt=".." style="border-radius: 50%; width: 30%; height: 30%;" class="mx-auto"/>
+                    <input type="file" name="image" id="image" required>
+                </div>
                 <div class="form-group col-md-6 m-auto">
                     <label for="name">Nom de la recette</label>
                     <input type="text" class="form-control" name="name" id="name" value="<?php echo $recipe->getName(); ?>" required>
@@ -71,10 +77,10 @@
                     <textarea class="form-control" name="advice" id="advice" rows="5"><?php echo $recipe->getAdvice(); ?></textarea>
                 </div>
                 <div class="text-center mt-3">
-                    <button type="submit" name="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
+                    <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
                         Appliquer les modifications
                     </button>
-                    <button type="submit" name="return" class="btn btn-warning">Retour</button>
+                    <a href="recipes-editor" name="return" class="btn btn-warning">Retour</a>
                 </div>
             </form>
         </section>
@@ -82,6 +88,7 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
+    <script src="/Shlagithon/assets/js/registration.js"></script>
 </body>
 
 </html>

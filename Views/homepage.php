@@ -6,7 +6,15 @@
 </head>
 
 <body class="position-relative">
-<?php include __DIR__ . "/templates/header_client.php"; ?>
+<?php
+if (isset($_SESSION["admin"])) {
+    include __DIR__ . "/templates/header_admin.php";
+} elseif (isset($_SESSION["member"])) {
+    include __DIR__ . "/templates/header_member.php";
+} else {
+    include __DIR__ . "/templates/header_client.php";
+}
+?>
 <div class="container">
     <div id="homeCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -16,20 +24,20 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src=" <?php echo $dessertCaroussel->getImage(); ?>" alt="..">
+                <img src="<?php echo "/Shlagithon/assets/images/" . $dessertCaroussel->getImage(); ?>" alt="..">
                 <div class="carousel-caption d-none d-md-block">
                     <h5><?php echo $dessertCaroussel->getName(); ?></h5>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src=" <?php echo $platCaroussel->getImage(); ?>" alt="..">
+                <img src="<?php echo "/Shlagithon/assets/images/" . $platCaroussel->getImage(); ?>" alt="..">
                 <div class="carousel-caption d-none d-md-block">
                     <h5><?php echo $platCaroussel->getName(); ?></h5>
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <img src=" <?php echo $entreeCaroussel->getImage(); ?>" alt="..">
+            <img src="<?php echo "/Shlagithon/assets/images/" . $entreeCaroussel->getImage(); ?>" alt="..">
             <div class="carousel-caption d-none d-md-block">
                 <h5><?php echo $entreeCaroussel->getName(); ?></h5>
             </div>
@@ -64,7 +72,9 @@
             <?php foreach ($desserts as $dessert) { ?>
                 <div class="col-md-4">
                     <div class="card mb-5 mx-auto" style="width: 18rem;">
-                        <img class="card-img-top" src="<?php echo $dessert->getImage(); ?>" alt="..">
+                        <img class="card-img-top mx-auto"
+                             src="<?php echo "/Shlagithon/assets/images/" . $dessert->getImage(); ?>"
+                             style="width: 250px; height: 250px;" alt="..">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $dessert->getName(); ?></h5>
                             <p class="card-text"><?php echo $dessert->getDescription(); ?></p>
@@ -94,7 +104,9 @@
             <?php foreach ($plats as $plat) { ?>
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="<?php echo $plat->getImage(); ?>" alt="..">
+                        <img class="card-img-top mx-auto"
+                             src="<?php echo "/Shlagithon/assets/images/" . $plat->getImage(); ?>"
+                             style="width: 250px; height: 250px;" alt="..">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $plat->getName(); ?></h5>
                             <p class="card-text"><?php echo $plat->getDescription(); ?></p>
@@ -122,7 +134,9 @@
             <?php foreach ($entrees as $entree) { ?>
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="<?php echo $entree->getImage(); ?>" alt="..">
+                        <img class="card-img-top mx-auto"
+                             src="<?php echo "/Shlagithon/assets/images/" . $entree->getImage(); ?>"
+                             style="width: 250px; height: 250px;" alt="..">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $entree->getName(); ?></h5>
                             <p class="card-text"><?php echo $entree->getDescription(); ?></p>

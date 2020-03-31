@@ -24,23 +24,30 @@ if (isset($_SESSION["admin"])) {
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?php echo "/Shlagithon/assets/images/" . $dessertCaroussel->getImage(); ?>" alt="..">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5><?php echo $dessertCaroussel->getName(); ?></h5>
-                </div>
+                <a href="recipe-details?id=<?php echo $dessertCaroussel->getId(); ?>">
+                    <img src="<?php echo "/Shlagithon/assets/images/" . $dessertCaroussel->getImage(); ?>" alt="..">
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><?php echo $dessertCaroussel->getName(); ?></h5>
+                    </div>
+                </a>
             </div>
             <div class="carousel-item">
-                <img src="<?php echo "/Shlagithon/assets/images/" . $platCaroussel->getImage(); ?>" alt="..">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5><?php echo $platCaroussel->getName(); ?></h5>
-                </div>
+                <a href="recipe-details?id=<?php echo $platCaroussel->getId(); ?>">
+                    <img src="<?php echo "/Shlagithon/assets/images/" . $platCaroussel->getImage(); ?>" alt="..">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><?php echo $platCaroussel->getName(); ?></h5>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="<?php echo "/Shlagithon/assets/images/" . $entreeCaroussel->getImage(); ?>" alt="..">
-            <div class="carousel-caption d-none d-md-block">
-                <h5><?php echo $entreeCaroussel->getName(); ?></h5>
-            </div>
+            <a href="recipe-details?id=<?php echo $platCaroussel->getId(); ?>">
+                <img src="<?php echo "/Shlagithon/assets/images/" . $entreeCaroussel->getImage(); ?>" alt="..">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><?php echo $entreeCaroussel->getName(); ?></h5>
+                </div>
+            </a>
         </div>
     </div>
     <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">

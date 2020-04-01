@@ -8,14 +8,6 @@ use App\Services\RequirementManager;
 use App\Services\StepManager;
 use App\Services\TagManager;
 
-if (!isset($_SESSION["member"])) {
-    header("Location: logout");
-}
-$member = unserialize($_SESSION["member"]);
-if (!$member->getIsConfirmed()) {
-    header("Location: logout");
-}
-
 if (isset($_GET["id"])) {
     $recipe = RecipeManager::findOneById($_GET["id"]);
     $recipe->setSteps(StepManager::findAllByRecipe($recipe));

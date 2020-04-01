@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Member;
 use App\Services\MemberManager;
+use PHPMailer\PHPMailer\PHPMailer;
 
 if (count($_POST) > 0) {
     $errors = [];
@@ -26,25 +27,29 @@ if (count($_POST) > 0) {
         MemberManager::insert($member);
         $verifyLink = "http://localhost/Shlagithon/index.php/verify?email=";
         // $verifyLink = "https://thomaslaure.alwaysdata.net/shlagithon/index.php/verify?email=";
-        $message = "Bonjour,
-            Merci de vous être enregistré sur Shlagithon.
-            Votre compte vient d\'être créé, vous pourrez vous connecter après avoir confirmé votre e-mail.
-            Pour ce faire, veuillez cliquer sur le lien suivant :
-            " . $verifyLink . $email . "&hash=" . password_hash($password, PASSWORD_DEFAULT) . "
-            À bientôt !
-            L'équipe de Shlagithon";
-        // ini_set("SMTP", "tls://smtp.gmail.com");
-        // ini_set("smtp_port", "587");
-        // ini_set("SMTP", "ssl://smtp.gmail.com");
-        // ini_set("smtp_port", "465");
-        ini_set("SMTP", "smtp.free.fr"); // Faire fonctionner avec le SMTP Google
-        ini_set("smtp_port", "25"); // Faire fonctionner avec le port SMTP de Google
-        ini_set("sendmail_from", "mdesligues@gmail.com");
-        $headers = "From: mdesligues@gmail.com" . "\r\n";
-        $headers .= "Reply-To: mdesligues@gmail.com" . "\r\n";
-        $headers .= "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
-        if (mail($_POST["email"], "Enregistrement | Vérification", $message, $headers)) {
+        $mail = new PHPMailer();
+        $mail->IsHTML(true);
+        $mail->IsSMTP();
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'tls';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->Username = 'mdesligues@gmail.com';
+        $mail->Password = '$$MaisonDesLigues2018';
+        $mail->SetFrom('mdesligues@gmail.com');
+        $mail->Subject = 'Vérification de compte';
+        $mail->Body = "<p>Bonjour,</p>
+            <p>Merci de vous être enregistré sur Shlagithon.</p>
+            <p>Votre compte vient d'être créé, vous pourrez vous connecter après avoir confirmé votre e-mail.</p>
+            <p>Pour ce faire, veuillez cliquer sur le lien suivant :</p>
+            <p>" . $verifyLink . $email . "&hash=" . password_hash($password, PASSWORD_DEFAULT) . "</p>
+            <p>À bientôt !</p>
+            <p>L'équipe de Shlagithon</p>";
+        $mail->AddAddress($email);
+        $mail->send();
+        if ($mail->send()) {
             header("Location: login?success=1&email=" . $email);
         } else {
             header("Location: login?success=0");

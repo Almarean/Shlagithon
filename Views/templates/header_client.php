@@ -6,31 +6,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-            <a class="nav-link" href="#">Toutes les recettes</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Recette au hasard</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Toutes les recettes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Recette au hasard</a></li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Chercher" aria-label="Chercher">
-            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        <form class="form-inline my-2 my-lg-0" method="POST" action="">
+            <input class="form-control mr-sm-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
+            <button class="btn btn-outline-dark my-2 my-sm-0" id="search-button"><i class="fas fa-search"></i></button>
         </form>
-        <?php
-        if (isset($_SESSION["member"])) {
-            echo "<span><a class='nav-link text-dark' href='#'><i class='fas fa-user'></i> Compte</span>";
-            echo "<span><a class='nav-link text-dark' href='logout'><i class='fas fa-sign-out-alt'></i> Déconnexion</span>";
-        } else {
-        ?>
-        <span>
-            <a class="nav-link text-dark" href="login"><i class="fas fa-sign-in-alt"></i> Connexion</a>
-        </span>
-        <span>
-            <a class="nav-link text-dark" href="registration"><i class="fas fa-user-plus"></i> Inscription</a>
-        </span>
-        <?php
-        }
-        ?>
+        <?php if (isset($_SESSION["member"])) { ?>
+            <span><a class="nav-link text-dark" href="profile"><i class="fas fa-user"></i> Compte</span>
+            <span><a class="nav-link text-dark" href="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</span>
+        <?php } else { ?>
+            <span><a class="nav-link text-dark" href="login"><i class="fas fa-sign-in-alt"></i> Connexion</a></span>
+            <span><a class="nav-link text-dark" href="registration"><i class="fas fa-user-plus"></i> Inscription</a></span>
+        <?php } ?>
     </div>
 </nav>

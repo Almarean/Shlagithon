@@ -10,7 +10,7 @@
 
     <div class="container">
         <section class="mt-5">
-            <h1 class="text-center"> <?php echo $recipe->getName(); ?></h1>
+            <h1 class="text-center"><?php echo $recipe->getName(); ?></h1>
             <h4 class="text-center mt-3 font-weight-lighter">
                 <?php
                 echo ucwords(strtolower($recipe->getType()));

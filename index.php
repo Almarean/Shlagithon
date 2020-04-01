@@ -7,7 +7,7 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
     require_once __DIR__ . "/autoload.php";
     switch ($request) {
         case '/home':
-            echo "home";
+            require __DIR__ . "/Controllers/HomeController.php";
             break;
         case "/registration":
             if (isset($_SESSION["member"])) {
@@ -50,12 +50,17 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/recipe-details":
             require __DIR__ . "/Controllers/MemberRecipeDetailsController.php";
             break;
+        // Verify the email address.
         case "/verify":
             if (isset($_GET["email"]) && isset($_GET["hash"])) {
                 require __DIR__ . "/Controllers/EmailVerifyController.php";
             } else {
                 http_response_code(404);
             }
+            break;
+        // AJAX
+        case "/filter-recipes":
+            require __DIR__ . "/Tools/ajax_recipes.php";
             break;
         default:
             http_response_code(404);

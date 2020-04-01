@@ -214,4 +214,63 @@ class RecipeManager implements IManager
         $stmt->bindValue(":type", $type, PDO::PARAM_STR);
         return $stmt->execute();
     }
+
+    /**
+     * Find all recipes that contain the specified text in their name.
+     *
+     * @param string $text
+     *
+     * @return array
+     */
+    public static function findRecipesByText(string $text): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE LOWER(rec_name) LIKE :text;");
+        $filter = "%{$text}%";
+        $stmt->bindValue(":text", $filter, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Find all recipes that
+     *
+     * @param array $tags
+     *
+     * @return array
+     */
+    // public static function findRecipesByTag(array $tags): array
+    // {
+    //     $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe INNER JOIN recipe_tag ON recipe.rec_id = recipe_tag.rt_fk_recipe_id ");
+
+    //     $stmt->execute();
+    //     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     $objects = [];
+    //     foreach ($results as $result) {
+    //         array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
+    //     }
+    //     return $objects;
+    // }
+
+    /**
+     * Find all recipes by a given type.
+     *
+     * @param string $type
+     *
+     * @return array
+     */
+    public static function findAllByType(string $type): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type = :type;");
+        $stmt->bindValue(":type", $type, PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objects = [];
+        foreach ($results as $result) {
+            $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
+            $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "uneimage.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
+            $recipe->setTags(TagManager::findAllByRecipe($recipe));
+            array_push($objects, $recipe);
+        }
+        return $objects;
+    }
 }

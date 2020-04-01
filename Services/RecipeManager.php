@@ -60,12 +60,39 @@ class RecipeManager implements IManager
         $objects = [];
         foreach ($results as $result) {
             $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
-            $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "uneimage.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
+            $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
             $recipe->setTags(TagManager::findAllByRecipe($recipe));
             array_push($objects, $recipe);
         }
         return $objects;
     }
+
+    /**
+     * Fetch all recipes in database by given type.
+     *
+     * @param $type string Enum ('ENTREE','PLAT','DESSERT','AUTRE')
+     * @return array
+     */
+    public static function findAllByType($type): array
+    {
+        if ($type === "ENTREE" || $type === "PLAT" || $type === "DESSERT" || $type === "AUTRE") {
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type= :type LIMIT 20");
+            $stmt->bindValue(":type", $type, PDO::PARAM_STR);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $objects = [];
+            foreach ($results as $result) {
+                $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
+                $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
+                $recipe->setTags(TagManager::findAllByRecipe($recipe));
+                array_push($objects, $recipe);
+            }
+            return $objects;
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * Fetch a tag.
@@ -84,7 +111,7 @@ class RecipeManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "image.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]) : null;
+        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]) : null;
     }
 
     /**
@@ -100,7 +127,7 @@ class RecipeManager implements IManager
         $stmt->bindValue(":recipeId", $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "image.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]) : null;
+        return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]) : null;
     }
 
     /**
@@ -146,7 +173,7 @@ class RecipeManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "image.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
+            array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
         }
         return $objects;
     }

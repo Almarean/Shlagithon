@@ -2,13 +2,10 @@
 
 $request = $_SERVER["REQUEST_URI"];
 session_start();
-require_once __DIR__ . "/autoload.php";
+require_once __DIR__ . "/load.php";
 if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
     $request = $matches[1];
     switch ($request) {
-        case '/home':
-            require __DIR__ . "/Controllers/HomeController.php";
-            break;
         case "/registration":
             if (isset($_SESSION["member"])) {
                 header("Location: home");
@@ -31,9 +28,6 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
             break;
         case "/member-editor":
             require __DIR__ . "/Controllers/AdminEditMembersController.php";
-            break;
-        case "/recipe":
-            require __DIR__ . "/Controllers/RecipeController.php";
             break;
         case "/recipes-editor":
             require __DIR__ . "/Controllers/AdminShowRecipesControllers.php";
@@ -67,5 +61,5 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
             break;
     }
 } else {
-    require __DIR__ . "/Controllers/homepageController.php";
+    require __DIR__ . "/Controllers/HomepageController.php";
 }

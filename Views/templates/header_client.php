@@ -4,16 +4,11 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="#">Toutes les recettes</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Recette au hasard</a></li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0" method="POST" action="">
-            <input class="form-control mr-sm-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
-            <button class="btn btn-outline-dark my-2 my-sm-0" id="search-button"><i class="fas fa-search"></i></button>
-        </form>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <?php if (isset($_SESSION["member"])) { ?>
+            <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
+                <span><a class="nav-link text-dark" href="members-editor"><i class="fas fa-cogs"></i> Espace d'administration</span>
+            <?php } ?>
             <span><a class="nav-link text-dark" href="profile"><i class="fas fa-user"></i> Compte</span>
             <span><a class="nav-link text-dark" href="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</span>
         <?php } else { ?>

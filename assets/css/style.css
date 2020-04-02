@@ -32,3 +32,22 @@ footer {
 body > .container {
   padding-bottom: 12rem;
 }
+
+a:hover {
+  text-decoration: none;
+}
+
+.card-footer {
+  background-color: transparent;
+  border: none;
+}
+
+#filtered-recipes img {
+  width: 375px;
+  height: auto;
+}
+
+.carousel-inner {
+  max-width: 900px;
+  max-height: 600px
+}

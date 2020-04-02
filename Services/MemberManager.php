@@ -204,6 +204,21 @@ class MemberManager implements IManager
     }
 
     /**
+     * Update the last connection date of the given member.
+     *
+     * @param integer $identifier
+     *
+     * @return boolean
+     */
+    public static function updateLastConnectionDate(int $identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_last_connection_date = :lastConnectionDate WHERE m_id = :id;");
+        $stmt->bindValue(":lastConnectionDate", date("Y-m-d h:i:s"), PDO::PARAM_STR);
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    /**
      * Update the state of confirmation of a member.
      *
      * @param string $email

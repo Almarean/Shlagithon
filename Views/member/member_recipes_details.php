@@ -21,12 +21,12 @@
             </h4>
             <div class="lead text-center mt-5">
                 <p class="d-inline mx-5"><i class="fas fa-stopwatch"></i> <?php echo $recipe->getTime(); ?> min</p>
-                <p class="d-inline mx-5"><i class="fas fa-users"></i> <?php echo $recipe->getNbPersons(); ?> personnes</p>
+                <p class="d-inline mx-5"><i class="fas fa-users"></i> <?php echo $recipe->getNbPersons(); ?> personne.s</p>
                 <p class="d-inline mx-5">Difficulté
                     <?php
                     $difficulty = $recipe->getDifficulty();
                     $difference = 5 - $difficulty;
-                    for ($i = 0; $i < $recipe->getDifficulty(); $i++) {
+                    for ($i = 0; $i < $difficulty; $i++) {
                         echo "<span><i class='fas fa-circle'></i></span>";
                     }
                     for ($i = 0; $i < $difference; $i++) {
@@ -38,8 +38,10 @@
             <div class="col mx-auto mt-5">
                 <p class="lead text-justify"><?php echo $recipe->getDescription(); ?></p>
             </div>
-            <!-- TODO : mettre l'image ici -->
-            <div class="row mx-auto">
+            <div class="text-center">
+                <img src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="img-fluid rounded" alt="image">
+            </div>
+            <div class="row mx-auto mt-5">
                 <article class="col-md-3">
                     <h5>Ustensiles</h5>
                     <ul>

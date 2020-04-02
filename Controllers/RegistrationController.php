@@ -48,7 +48,6 @@ if (count($_POST) > 0) {
             <p>À bientôt !</p>
             <p>L'équipe de Shlagithon</p>";
         $mail->AddAddress($email);
-        $mail->send();
         if ($mail->send()) {
             header("Location: login?success=1&email=" . $email);
         } else {

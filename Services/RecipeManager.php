@@ -76,14 +76,14 @@ class RecipeManager implements IManager
     public static function findAllByType($type): array
     {
         if ($type === "ENTREE" || $type === "PLAT" || $type === "DESSERT" || $type === "AUTRE") {
-            $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type= :type LIMIT 20");
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type = :type LIMIT 20;");
             $stmt->bindValue(":type", $type, PDO::PARAM_STR);
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objects = [];
             foreach ($results as $result) {
                 $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
-                $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
+                $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
                 $recipe->setTags(TagManager::findAllByRecipe($recipe));
                 array_push($objects, $recipe);
             }
@@ -92,7 +92,6 @@ class RecipeManager implements IManager
             return null;
         }
     }
-
 
     /**
      * Fetch a tag.
@@ -277,27 +276,4 @@ class RecipeManager implements IManager
     //     }
     //     return $objects;
     // }
-
-    /**
-     * Find all recipes by a given type.
-     *
-     * @param string $type
-     *
-     * @return array
-     */
-    public static function findAllByType(string $type): array
-    {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type = :type;");
-        $stmt->bindValue(":type", $type, PDO::PARAM_STR);
-        $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $objects = [];
-        foreach ($results as $result) {
-            $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
-            $recipe = new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], "uneimage.png", $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], $author, $result["rec_type"], $result["rec_advice"]);
-            $recipe->setTags(TagManager::findAllByRecipe($recipe));
-            array_push($objects, $recipe);
-        }
-        return $objects;
-    }
 }

@@ -22,4 +22,5 @@
 <link rel="apple-touch-icon" href="">
 <meta name="msapplication-square310x310logo" content="">
 <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/all.min.css">
 <link rel="stylesheet" href="../assets/css/style.css">

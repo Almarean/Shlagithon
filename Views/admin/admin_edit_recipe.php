@@ -6,19 +6,20 @@
 </head>
 
 <body class="position-relative">
-    <?php include __DIR__ . "/../templates/header_admin.php"; ?>
+    <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
     <div class="container">
         <section class="mt-5">
             <h1 class="text-center">Édition d'une recette</h1>
             <form action="?" method="POST" enctype="multipart/form-data">
-                <div class="form-group col-md-6 m-auto">
+                <div class="form-group col-md-6 mt-3 mx-auto">
                     <label for="image">Image de la recette</label>
-                    <br>
-                    <img src="<?php echo "/Shlagithon/assets/images/" .$recipe->getImage();?>" alt=".." style="border-radius: 50%; width: 30%; height: 30%;" class="mx-auto"/>
-                    <input type="file" name="image" id="image" required>
+                    <div class="mt-2">
+                        <img src="<?php echo "/Shlagithon/assets/images/" . $recipe->getImage(); ?>" alt="image" class="mx-auto img-thumbnail">
+                        <input type="file" name="image" id="image" required>
+                    </div>
                 </div>
-                <div class="form-group col-md-6 m-auto">
+                <div class="form-group col-md-6 mt-3 mx-auto">
                     <label for="name">Nom de la recette</label>
                     <input type="text" class="form-control" name="name" id="name" value="<?php echo $recipe->getName(); ?>" required>
                 </div>
@@ -32,7 +33,7 @@
                 <div class="form-row col-md-6 mx-auto mt-3">
                     <div class="col">
                         <label for="time">Temps de préparation (en minutes)</label>
-                        <input type="number" name="time" class="form-control w-25" id="time" value="<?php echo $recipe->getTime(); ?>" min="1" max="1440" step="1" />
+                        <input type="number" name="time" class="form-control w-25" id="time" value="<?php echo $recipe->getTime(); ?>" min="1" max="1440" step="1">
                     </div>
                     <div class="col">
                         <label for="type">Type</label>
@@ -65,11 +66,11 @@
                 <div class="form-row col-md-6 mx-auto mt-3">
                     <div class="col">
                         <label for="difficulty">Difficulté</label>
-                        <input type="number" class="form-control" id="difficulty" name="difficulty" value="<?php echo $recipe->getDifficulty(); ?>" min="1" max="10" step="1" />
+                        <input type="number" class="form-control" id="difficulty" name="difficulty" value="<?php echo $recipe->getDifficulty(); ?>" min="1" max="5" step="1">
                     </div>
                     <div class="col">
                         <label for="nb-persons">Nombre de personnes</label>
-                        <input type="number" id="nb-persons" class="form-control" name="nbPersons" value="<?php echo $recipe->getNbPersons(); ?>" min="1" max="20" step="1" />
+                        <input type="number" id="nb-persons" class="form-control" name="nbPersons" value="<?php echo $recipe->getNbPersons(); ?>" min="1" max="20" step="1">
                     </div>
                 </div>
                 <div class="form-group col-md-6 mx-auto mt-3">
@@ -88,7 +89,6 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/registration.js"></script>
 </body>
 
 </html>

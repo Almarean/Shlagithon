@@ -27,7 +27,7 @@
                     <tbody>
                         <?php foreach ($member->getWrittenRecipes() as $recipe) { ?>
                             <tr>
-                                <td><?php echo $recipe->getImage(); ?></td>
+                                <td><img class="img-recipe" src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" alt="image"></td>
                                 <td><?php echo $recipe->getName(); ?></td>
                                 <td><?php echo $recipe->getDifficulty(); ?></td>
                                 <td><?php echo $recipe->getTime(); ?></td>

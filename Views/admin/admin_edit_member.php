@@ -6,13 +6,7 @@
 </head>
 
 <body class="position-relative">
-    <?php
-    if ($member->getType() === "ADMIN") {
-        include __DIR__ . "/../templates/header_admin.php";
-    } else {
-        include __DIR__ . "/../templates/header_member.php";
-    }
-    ?>
+    <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
     <div class="container">
         <section class="mt-5">

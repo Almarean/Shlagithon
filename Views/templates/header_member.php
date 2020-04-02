@@ -15,6 +15,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fas fa-edit"></i> Publier une recette</a>
             </li>
+            <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="members-editor"><i class="fas fa-users-cog"></i> Page d'administration des membres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="recipes-editor"><i class="fas fa-edit"></i> Page d'administration des recettes</a>
+                </li>
+            <?php } ?>
         </ul>
         <span>
             <a class="nav-link text-dark" href="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>

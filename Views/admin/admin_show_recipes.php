@@ -6,7 +6,7 @@
 </head>
 
 <body class="position-relative">
-    <?php include __DIR__ . "/../templates/header_admin.php"; ?>
+    <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
     <div class="container-fluid">
         <div class="row">
@@ -16,39 +16,35 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th style="width: 10%;"><span>Recette</span></th>
-                                    <th style="width: 10%;"><span>Utilisateur</span></th>
-                                    <th style="width: 10%;"><span>Description</span></th>
-                                    <th style="width: 10%;"><span>Difficulté</span></th>
-                                    <th style="width: 10%;"><span>Nombre de personnes</span></th>
-                                    <th style="width: 10%;"><span>Temps de préparation</span></th>
-                                    <th style="width: 10%;"><span>Type</span></th>
-                                    <th style="width: 10%;"><span>Actions</span></th>
+                                    <th><span>Recette</span></th>
+                                    <th><span>Auteur</span></th>
+                                    <th><span>Difficulté</span></th>
+                                    <th><span>Nombre de personnes</span></th>
+                                    <th><span>Temps de préparation</span></th>
+                                    <th><span>Type</span></th>
+                                    <th><span>Actions</span></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($recipes as $recipe) { ?>
                                     <tr>
-                                        <td style="width: 10%;">
-                                            <img class="img-recipe" src="<?php echo $recipe->getImage();?>" alt="">
+                                        <td>
+                                            <img class="img-recipe" src="/Shlagithon/assets/images/<?php echo $recipe->getImage();?>" alt="image">
                                             <span class="user-subhead"><?php echo $recipe->getName(); ?></span>
                                         </td>
-                                        <td style="width: 10%;">
-                                            <?php echo strtoupper($recipe->getAuthor()->getName() . ' ' . $recipe->getAuthor()->getFirstname()); ?>
+                                        <td>
+                                            <?php echo strtoupper($recipe->getAuthor()->getName() . " " . $recipe->getAuthor()->getFirstname()); ?>
                                         </td>
-                                        <td style="width: 10%;">
-                                            <?php echo $recipe->getDescription(); ?>
-                                        </td>
-                                        <td style="width: 10%;">
+                                        <td>
                                             <?php echo $recipe->getDifficulty(); ?>
                                         </td>
-                                        <td style="width: 10%;">
+                                        <td>
                                             <?php echo $recipe->getNbPersons(); ?>
                                         </td>
-                                        <td style="width: 10%;">
+                                        <td>
                                             <?php echo $recipe->getTime(); ?>
                                         </td>
-                                        <td style="width: 10%;">
+                                        <td>
                                             <?php echo $recipe->getType(); ?>
                                         </td>
                                         <td style="display: inline-block; width: 100px; border-top: hidden;">

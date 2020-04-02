@@ -6,7 +6,7 @@
 </head>
 
 <body class="position-relative">
-    <?php include __DIR__ . "/../templates/header_admin.php"; ?>
+    <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
     <div class="container">
         <div class="row">

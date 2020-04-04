@@ -6,7 +6,11 @@
 </head>
 
 <body class="position-relative">
-    <?php include __DIR__ . "/../templates/header_member.php"; ?>
+    <?php if (isset($_SESSION["member"])) {
+        include __DIR__ . "/../templates/header_member.php";
+    } else {
+        include __DIR__ . "/../templates/header_client.php";
+    } ?>
 
     <div class="container">
         <section class="mt-5">

@@ -21,12 +21,12 @@ if (isset($_GET["admin"])) {
     $recipes = $member->getWrittenRecipes();
 }
 
-if (isset($_GET["delete-id"])) {
-    RecipeManager::deleteOneById($_GET["delete-id"]);
-    header("Location: recipes-editor");
+if (isset($_GET["delete"])) {
+    RecipeManager::deleteOneById($_GET["delete"]);
+    header("Location: recipes");
 }
-if (isset($_GET["edit-id"])) {
-    header("Location: recipe-editor?edit-id=" . $_GET["edit-id"]);
+if (isset($_GET["edit"])) {
+    header("Location: recipe?edit=" . $_GET["edit"]);
 }
 if (isset($_GET["id"])) {
     header("Location: recipe-details?id=" . $_GET["id"]);

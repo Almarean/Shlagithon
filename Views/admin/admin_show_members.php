@@ -15,35 +15,27 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="width: 10%;"><span>Statut</span></th>
-                            <th style="width: 20%;"><span>Identité</span></th>
-                            <th style="width: 20%;"><span>Date de création</span></th>
-                            <th style="width: 20%;"><span>Dernière connexion</span></th>
-                            <th style="width: 20%;"><span>Email</span></th>
-                            <th style="width: 10%;"><span>Actions</span></th>
+                            <th>Statut</th>
+                            <th>Identité</th>
+                            <th>Date de création</th>
+                            <th>Dernière connexion</th>
+                            <th>Email</th>
+                            <th>Supprimé</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($members as $member) { ?>
                             <tr>
-                                <td style="width: 10%;">
-                                    <span class="user-subhead"><?php echo $member->getType(); ?></span>
-                                </td>
-                                <td style="width: 20%;">
-                                    <?php echo strtoupper($member->getName()) . " " . $member->getFirstname(); ?>
-                                </td>
-                                <td style="width: 20%;">
-                                    <?php echo $member->getCreationDate(); ?>
-                                </td>
-                                <td style="width: 20%;">
-                                    <?php echo $member->getLastConnectionDate(); ?>
-                                </td>
-                                <td style="width: 20%;">
-                                    <a href="mailto:<?php echo $member->getEmail(); ?>"><?php echo $member->getEmail(); ?></a>
-                                </td>
-                                <td style="width: 10%;">
-                                    <div class="ml-1 d-inline"><a href="?edit-id=<?php echo $member->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?delete-login=<?php echo $member->getId(); ?>" class="table-link text-danger"><i class="fas fa-trash"></i></a></div>
+                                <td><?php echo $member->getType(); ?></td>
+                                <td><?php echo strtoupper($member->getName()) . " " . $member->getFirstname(); ?></td>
+                                <td><?php echo $member->getCreationDate(); ?></td>
+                                <td><?php echo $member->getLastConnectionDate(); ?></td>
+                                <td><a href="mailto:<?php echo $member->getEmail(); ?>"><?php echo $member->getEmail(); ?></a></td>
+                                <td><?php if ($member->getIsDeleted()) { echo "Oui"; } ?></td>
+                                <td>
+                                    <div class="ml-1 d-inline"><a href="?edit=<?php echo $member->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $member->getId(); ?>" class="table-link text-danger"><i class="fas fa-trash"></i></a></div>
                                 </td>
                             </tr>
                         <?php } ?>

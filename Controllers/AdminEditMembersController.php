@@ -11,19 +11,19 @@ if (!isset($_SESSION["member"])) {
 }
 $member = unserialize($_SESSION["member"]);
 
-if (isset($_GET["edit-id"])) {
-    $memberToModify = MemberManager::findOneByID($_GET["edit-id"]);
+if (isset($_GET["edit"])) {
+    $memberToModify = MemberManager::findOneByID($_GET["edit"]);
 }
 
 if (isset($_POST["validate"])) {
     if (isset($_POST["name"]) && isset($_POST["firstname"]) && $_POST["email"] && $_POST["typeRadio"]) {
         MemberManager::updateMember($_POST["validate"], $_POST["name"], $_POST["firstname"], $_POST["email"], $_POST["typeRadio"]);
-        header("Location: member-editor?editId=" . $_POST["validate"]);
+        header("Location: member?edit=" . $_POST["validate"]);
     }
 }
 
 if (isset($_POST["return"])) {
-    header("Location: members-editor");
+    header("Location: members");
 }
 
 require __DIR__ . "/../Views/edit_member.php";

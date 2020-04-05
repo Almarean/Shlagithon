@@ -81,7 +81,7 @@
                     <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
                         Appliquer les modifications
                     </button>
-                    <a href="recipes-editor" name="return" class="btn btn-warning">Retour</a>
+                    <a href="recipes" name="return" class="btn btn-warning">Retour</a>
                 </div>
             </form>
         </section>

@@ -17,7 +17,7 @@
             </li>
             <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="members-editor"><i class="fas fa-users-cog"></i> Gérer les membres</a>
+                    <a class="nav-link" href="members"><i class="fas fa-users-cog"></i> Gérer les membres</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="recipes?admin"><i class="fas fa-edit"></i> Gérer les recettes</a>

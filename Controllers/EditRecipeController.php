@@ -8,8 +8,8 @@ if (!isset($_SESSION["member"])) {
     header("Location: logout");
 }
 
-if (isset($_GET["edit-id"])) {
-    $recipe = RecipeManager::findOneByID($_GET["edit-id"]);
+if (isset($_GET["edit"])) {
+    $recipe = RecipeManager::findOneByID($_GET["edit"]);
 }
 
 if (isset($_POST["validate"])) {
@@ -21,12 +21,12 @@ if (isset($_POST["validate"])) {
         } else {
             RecipeManager::updateRecipe($_POST["validate"], $_POST["name"], $_POST["description"], "TODO", $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $_POST["advice"], $_POST["type"]);
         }
-        header("Location: recipe-editor?edit-id=" . $_POST["validate"]);
+        header("Location: recipe?edit=" . $_POST["validate"]);
     }
 }
 
 if (isset($_POST["return"])) {
-    header("Location: recipes-editor");
+    header("Location: recipes");
 }
 
 require __DIR__ . "/../Views/edit_recipe.php";

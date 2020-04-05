@@ -23,13 +23,13 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/logout":
             require __DIR__ . "/Controllers/LogoutController.php";
             break;
-        case "/members-editor":
+        case "/members":
             require __DIR__ . "/Controllers/AdminShowMembersController.php";
             break;
-        case "/member-editor":
+        case "/member":
             require __DIR__ . "/Controllers/AdminEditMembersController.php";
             break;
-        case "/recipe-editor":
+        case "/recipe":
             require __DIR__ . "/Controllers/EditRecipeController.php";
             break;
         case "/profile":

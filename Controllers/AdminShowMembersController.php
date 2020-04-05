@@ -12,7 +12,7 @@ if (!isset($_SESSION["member"])) {
 
 $members = MemberManager::findAllByDateCreation();
 if (isset($_GET["deleteLogin"])) {
-    MemberManager::deleteOneById($_GET["deleteLogin"]);
+    MemberManager::changeDeletionOneById($_GET["deleteLogin"]);
     header("Location: members-editor");
 }
 if (isset($_GET["editId"])) {

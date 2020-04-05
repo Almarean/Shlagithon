@@ -54,7 +54,7 @@
 
     <?php include __DIR__ . "/templates/footer.php"; ?>
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/registration.js"></script>
+    <script src="/Shlagithon/assets/js/check_password.js"></script>
 </body>
 
 </html>

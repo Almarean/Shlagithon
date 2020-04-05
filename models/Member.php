@@ -60,6 +60,13 @@ class Member
     private $isConfirmed;
 
     /**
+     * State of deletion of the member.
+     *
+     * @var bool
+     */
+    private $isDeleted;
+
+    /**
      * Creation date of the member.
      *
      * @var string
@@ -98,7 +105,7 @@ class Member
      * @param bool $isConfirmed
      * @param string $type
      */
-    public function __construct(int $id, string $name, string $firstname, string $email, string $password, bool $isConfirmed = false, string $type = "MEMBER")
+    public function __construct(int $id, string $name, string $firstname, string $email, string $password, string $type, bool $isConfirmed = false, bool $isDeleted = false)
     {
         $this->id = $id;
         $this->name = ucwords($name);
@@ -109,6 +116,7 @@ class Member
         $this->lastConnectionDate = null;
         $this->type = $type;
         $this->isConfirmed = $isConfirmed;
+        $this->isDeleted = $isDeleted;
         $this->writtenRecipes = [];
         $this->favoriteRecipes = [];
     }
@@ -258,6 +266,29 @@ class Member
     public function setIsConfirmed(bool $isConfirmed): self
     {
         $this->isConfirmed = $isConfirmed;
+        return $this;
+    }
+
+    /**
+     * Getter of the state of deletion of the member.
+     *
+     * @return boolean
+     */
+    public function getIsDeleted(): bool
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Setter of the state of deletion of the member
+     *
+     * @param boolean $isDeleted
+     *
+     * @return self
+     */
+    public function setIsDeleted(bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
         return $this;
     }
 

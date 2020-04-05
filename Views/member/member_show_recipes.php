@@ -33,7 +33,11 @@
                                 <td><?php echo $recipe->getTime(); ?></td>
                                 <td><?php echo $recipe->getNbPersons(); ?></td>
                                 <td><?php echo $recipe->getType(); ?></td>
-                                <td><a href="?id=<?php echo $recipe->getId(); ?>" class="table-link"><i class="fas fa-eye"></i></a></td>
+                                <td style="display: inline-block; width: 100px; border-top: hidden;">
+                                    <div class="mx-2 d-inline"><a href="?editId=<?php echo $recipe->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
+                                    <div class="mx-2 d-inline"><a href="?deleteId=<?php echo $recipe->getId(); ?>" class="table-link text-danger"><i class="fas fa-trash"></i></a></div>
+                                    <div class="mx-2 d-inline"><a href="?id=<?php echo $recipe->getId(); ?>" class="table-link"><i class="fas fa-eye"></i></a></div>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>

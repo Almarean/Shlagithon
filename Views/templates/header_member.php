@@ -17,10 +17,10 @@
             </li>
             <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="members-editor"><i class="fas fa-users-cog"></i> Page d'administration des membres</a>
+                    <a class="nav-link" href="members-editor"><i class="fas fa-users-cog"></i> Gérer les membres</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="recipes-editor"><i class="fas fa-edit"></i> Page d'administration des recettes</a>
+                    <a class="nav-link" href="recipes-editor"><i class="fas fa-edit"></i> Gérer les recettes</a>
                 </li>
             <?php } ?>
         </ul>

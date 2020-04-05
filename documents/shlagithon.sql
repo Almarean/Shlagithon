@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `member` (
     `m_password` varchar(255) NOT NULL,
     `m_type` ENUM('MEMBER', 'ADMIN') NOT NULL DEFAULT 'MEMBER',
     `m_is_confirmed` boolean NOT NULL DEFAULT 0,
+    `m_is_deleted` boolean NOT NULL DEFAULT 0,
     `m_creation_date` datetime NOT NULL,
     `m_last_connection_date` datetime NULL,
     PRIMARY KEY (`m_id`)

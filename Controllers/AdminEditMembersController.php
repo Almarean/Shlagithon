@@ -9,6 +9,7 @@ if (!isset($_SESSION["member"])) {
 } else if (isset($_SESSION["member"]) && unserialize($_SESSION["member"])->getType() !== "ADMIN") {
     header("Location: logout");
 }
+$memberConnected = unserialize($_SESSION["member"]);
 
 if (isset($_GET["editId"])) {
     $member = MemberManager::findOneByID($_GET["editId"]);

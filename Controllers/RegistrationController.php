@@ -23,10 +23,10 @@ if (count($_POST) > 0) {
         $errors[] = "Le format de l'e-mail n'est pas valide.";
     }
     if (count($errors) === 0) {
-        $member = new Member(0, $_POST["name"], $_POST["firstname"], $email, $password);
+        $member = new Member(0, $_POST["name"], $_POST["firstname"], $email, $password, "MEMBER");
         MemberManager::insert($member);
         $verifyLink = "http://localhost/Shlagithon/index.php/verify?email=";
-        // $verifyLink = "https://thomaslaure.alwaysdata.net/shlagithon/index.php/verify?email=";
+        // $verifyLink = "https://thomaslaure.alwaysdata.net/Shlagithon/index.php/verify?email=";
         $mail = new PHPMailer();
         $mail->IsHTML(true);
         $mail->IsSMTP();

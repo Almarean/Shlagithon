@@ -32,21 +32,11 @@
                                             <img class="img-recipe" src="/Shlagithon/assets/images/<?php echo $recipe->getImage();?>" alt="image">
                                             <span class="user-subhead"><?php echo $recipe->getName(); ?></span>
                                         </td>
-                                        <td>
-                                            <?php echo strtoupper($recipe->getAuthor()->getName() . " " . $recipe->getAuthor()->getFirstname()); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $recipe->getDifficulty(); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $recipe->getNbPersons(); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $recipe->getTime(); ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $recipe->getType(); ?>
-                                        </td>
+                                        <td><?php echo strtoupper($recipe->getAuthor()->getName() . " " . $recipe->getAuthor()->getFirstname()); ?></td>
+                                        <td><?php echo $recipe->getDifficulty(); ?></td>
+                                        <td><?php echo $recipe->getNbPersons(); ?></td>
+                                        <td><?php echo $recipe->getTime(); ?></td>
+                                        <td><?php echo $recipe->getType(); ?></td>
                                         <td style="display: inline-block; width: 100px; border-top: hidden;">
                                             <div class="mx-2 d-inline"><a href="?editId=<?php echo $recipe->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
                                             <div class="mx-2 d-inline"><a href="?deleteId=<?php echo $recipe->getId(); ?>" class="table-link text-danger"><i class="fas fa-trash"></i></a></div>

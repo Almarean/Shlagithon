@@ -10,7 +10,7 @@ if (count($_POST) > 0) {
     $password = htmlspecialchars($_POST["password"]);
     $result = MemberManager::findOneBy($email, false);
     $errors = [];
-    if (!$result) {
+    if (!$result || $result["m_is_deleted"] === true) {
         $errors[] = "Aucun compte n'existe avec cet e-mail.";
     } else if (!$result["m_is_confirmed"]) {
         $errors[] = "Veuillez confirmer votre e-mail avant de vous connecter.";

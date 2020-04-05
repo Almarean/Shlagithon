@@ -20,7 +20,7 @@ if (isset($_POST["name"]) && isset($_POST["firstname"]) && isset($_POST["email"]
     $email = $_POST["email"];
     $password = trim($_POST["password"]);
 
-    if (MemberManager::exists($email)) {
+    if (MemberManager::exists($email) && $email !== $member->getEmail()) {
         $errors[] = "Cet e-mail est déjà utilisé.";
     }
 

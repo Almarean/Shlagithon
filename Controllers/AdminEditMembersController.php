@@ -9,10 +9,10 @@ if (!isset($_SESSION["member"])) {
 } else if (isset($_SESSION["member"]) && unserialize($_SESSION["member"])->getType() !== "ADMIN") {
     header("Location: logout");
 }
-$memberConnected = unserialize($_SESSION["member"]);
+$member = unserialize($_SESSION["member"]);
 
-if (isset($_GET["editId"])) {
-    $member = MemberManager::findOneByID($_GET["editId"]);
+if (isset($_GET["edit-id"])) {
+    $memberToModify = MemberManager::findOneByID($_GET["edit-id"]);
 }
 
 if (isset($_POST["validate"])) {
@@ -26,4 +26,4 @@ if (isset($_POST["return"])) {
     header("Location: members-editor");
 }
 
-require __DIR__ . "/../Views/admin/admin_edit_member.php";
+require __DIR__ . "/../Views/edit_member.php";

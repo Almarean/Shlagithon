@@ -29,20 +29,20 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/member-editor":
             require __DIR__ . "/Controllers/AdminEditMembersController.php";
             break;
-        case "/recipes-editor":
-            require __DIR__ . "/Controllers/AdminShowRecipesControllers.php";
-            break;
         case "/recipe-editor":
-            require __DIR__ . "/Controllers/AdminEditRecipeController.php";
+            require __DIR__ . "/Controllers/EditRecipeController.php";
             break;
         case "/profile":
             require __DIR__ . "/Controllers/MemberEditProfileController.php";
             break;
         case "/recipes":
-            require __DIR__ . "/Controllers/MemberShowRecipesController.php";
+            require __DIR__ . "/Controllers/ShowRecipesController.php";
             break;
         case "/recipe-details":
-            require __DIR__ . "/Controllers/MemberRecipeDetailsController.php";
+            require __DIR__ . "/Controllers/RecipeDetailsController.php";
+            break;
+        case "/publication":
+            require __DIR__ . "/Controllers/RecipePublicationController.php";
             break;
         // Verify the email address.
         case "/verify":

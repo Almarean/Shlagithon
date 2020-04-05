@@ -11,12 +11,12 @@ if (!isset($_SESSION["member"])) {
 }
 
 $members = MemberManager::findAllByDateCreation();
-if (isset($_GET["deleteLogin"])) {
-    MemberManager::changeDeletionOneById($_GET["deleteLogin"]);
+if (isset($_GET["delete-login"])) {
+    MemberManager::changeDeletionOneById($_GET["delete-login"]);
     header("Location: members-editor");
 }
-if (isset($_GET["editId"])) {
-    header("Location: member-editor?editId=" . $_GET["editId"]);
+if (isset($_GET["edit-id"])) {
+    header("Location: member-editor?edit-id=" . $_GET["edit-id"]);
 }
 
 require __DIR__ . "/../Views/admin/admin_show_members.php";

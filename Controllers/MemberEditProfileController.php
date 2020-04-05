@@ -7,13 +7,13 @@ use App\Services\MemberManager;
 if (!isset($_SESSION["member"])) {
     header("Location: logout");
 }
-$memberConnected = unserialize($_SESSION["member"]);
-$member = $memberConnected;
-if (!$memberConnected->getIsConfirmed()) {
+$member = unserialize($_SESSION["member"]);
+$memberToModify = $member;
+if (!$memberToModify->getIsConfirmed()) {
     header("Location: logout");
 }
 
-$memberId = MemberManager::findIdBy($memberConnected->getEmail());
+$memberId = MemberManager::findIdBy($memberToModify->getEmail());
 
 if (isset($_POST["name"]) && isset($_POST["firstname"]) && isset($_POST["email"])) {
     $errors = [];
@@ -38,19 +38,19 @@ if (isset($_POST["name"]) && isset($_POST["firstname"]) && isset($_POST["email"]
     }
 
     if (!count($errors) > 0) {
-        $memberConnected->setName($_POST["name"]);
-        $memberConnected->setFirstname($_POST["firstname"]);
-        $memberConnected->setEmail($email);
-        $memberConnected->setPassword($password);
+        $memberToModify->setName($_POST["name"]);
+        $memberToModify->setFirstname($_POST["firstname"]);
+        $memberToModify->setEmail($email);
+        $memberToModify->setPassword($password);
         if (strlen($password) > 0) {
-            $memberConnected->setPassword($password);
-            MemberManager::updateMember($memberId, $memberConnected->getName(), $memberConnected->getFirstname(), $memberConnected->getEmail(), "MEMBER", $memberConnected->getPassword());
+            $memberToModify->setPassword($password);
+            MemberManager::updateMember($memberId, $memberToModify->getName(), $memberToModify->getFirstname(), $memberToModify->getEmail(), "MEMBER", $memberToModify->getPassword());
         } else {
-            MemberManager::updateMember($memberId, $memberConnected->getName(), $memberConnected->getFirstname(), $memberConnected->getEmail(), "MEMBER");
+            MemberManager::updateMember($memberId, $memberToModify->getName(), $memberToModify->getFirstname(), $memberToModify->getEmail(), "MEMBER");
         }
-        $_SESSION["member"] = serialize($memberConnected);
+        $_SESSION["member"] = serialize($memberToModify);
         header("Location: profile?success=1");
     }
 }
 
-require __DIR__ . "/../Views/admin/admin_edit_member.php";
+require __DIR__ . "/../Views/edit_member.php";

@@ -9,7 +9,10 @@
     <?php include __DIR__ . "/templates/header_member.php"; ?>
 
     <div class="container mt-5">
+        <section>
+            <h1>Publier une recette</h1>
 
+        </section>
     </div>
 
     <?php include __DIR__ . "/templates/footer.php"; ?>

@@ -2,14 +2,14 @@
 <html lang="fr-FR">
 
 <head>
-    <?php include __DIR__ . "/../templates/head.php"; ?>
+    <?php include __DIR__ . "/templates/head.php"; ?>
 </head>
 
 <body class="position-relative">
     <?php if (isset($_SESSION["member"])) {
-        include __DIR__ . "/../templates/header_member.php";
+        include __DIR__ . "/templates/header_member.php";
     } else {
-        include __DIR__ . "/../templates/header_client.php";
+        include __DIR__ . "/templates/header_client.php";
     } ?>
 
     <div class="container">
@@ -87,8 +87,8 @@
         </section>
     </div>
 
-    <?php include __DIR__ . "/../templates/footer.php"; ?>
-    <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
+    <?php include __DIR__ . "/templates/footer.php"; ?>
+    <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
 </body>
 
 </html>

@@ -13,14 +13,14 @@
                 <a class="nav-link" href="recipes"><i class="fas fa-book"></i> Recettes publiées</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-edit"></i> Publier une recette</a>
+                <a class="nav-link" href="publication"><i class="fas fa-edit"></i> Publier une recette</a>
             </li>
             <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="members-editor"><i class="fas fa-users-cog"></i> Gérer les membres</a>
+                    <a class="nav-link" href="members"><i class="fas fa-users-cog"></i> Gérer les membres</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="recipes-editor"><i class="fas fa-edit"></i> Gérer les recettes</a>
+                    <a class="nav-link" href="recipes?admin"><i class="fas fa-edit"></i> Gérer les recettes</a>
                 </li>
             <?php } ?>
         </ul>

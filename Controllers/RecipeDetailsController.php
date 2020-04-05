@@ -31,4 +31,4 @@ if (isset($_GET["id"])) {
     $recipe->setRequirements($requirements);
 }
 
-require __DIR__ . "/../Views/member/member_recipes_details.php";
+require __DIR__ . "/../Views/recipes_details.php";

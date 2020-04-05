@@ -6,10 +6,6 @@ footer div>div {
   font-size: 2rem;
 }
 
-#member-tab {
-  margin: 20px;
-}
-
 .logo {
   font-size: 4rem;
 }
@@ -29,7 +25,8 @@ footer {
   bottom: 0;
 }
 
-body > .container {
+body > .container,
+body > .container-fluid {
   padding-bottom: 12rem;
 }
 

@@ -2,11 +2,11 @@
 <html lang="fr-FR">
 
 <head>
-    <?php include __DIR__ . "/../templates/head.php"; ?>
+    <?php include __DIR__ . "/templates/head.php"; ?>
 </head>
 
 <body class="position-relative">
-    <?php include __DIR__ . "/../templates/header_member.php"; ?>
+    <?php include __DIR__ . "/templates/header_member.php"; ?>
 
     <div class="container">
         <section class="mt-5">
@@ -81,14 +81,14 @@
                     <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
                         Appliquer les modifications
                     </button>
-                    <a href="recipes-editor" name="return" class="btn btn-warning">Retour</a>
+                    <a href="recipes" name="return" class="btn btn-warning">Retour</a>
                 </div>
             </form>
         </section>
     </div>
 
-    <?php include __DIR__ . "/../templates/footer.php"; ?>
-    <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
+    <?php include __DIR__ . "/templates/footer.php"; ?>
+    <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
 </body>
 
 </html>

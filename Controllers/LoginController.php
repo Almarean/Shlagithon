@@ -20,7 +20,7 @@ if (count($_POST) > 0) {
         MemberManager::updateLastConnectionDate($member->getId());
         $_SESSION["member"] = serialize($member);
         if ($member->getType() === "ADMIN") {
-            header("Location: /Shlagithon/index.php/members-editor");
+            header("Location: /Shlagithon/index.php/members");
         } else {
             header("Location: /Shlagithon/index.php/profile");
         }

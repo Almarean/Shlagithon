@@ -11,12 +11,27 @@
     <div class="container">
         <section class="mt-5">
             <h1 class="text-center">Édition d'une recette</h1>
+            <?php if (isset($_GET["success"])) { ?>
+                <p class="text-success text-center"><i class="fas fa-check"></i> Modification réussie.</<p>
+            <?php } ?>
             <form action="?" method="POST" enctype="multipart/form-data">
                 <div class="form-group col-md-6 mt-3 mx-auto">
+                    <?php
+                    if (isset($_GET["errors"])) {
+                        $errors = unserialize(urldecode($_GET["errors"]));
+                        if (isset($errors) && count($errors) > 0) {
+                            echo "<div class='m-auto'>";
+                            foreach ($errors as $error) {
+                                echo "<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> " . $error . "</p>";
+                            }
+                            echo "</div>";
+                        }
+                    }
+                    ?>
                     <label for="image">Image de la recette</label>
                     <div class="mt-2">
                         <img src="<?php echo "/Shlagithon/assets/images/" . $recipe->getImage(); ?>" alt="image" class="mx-auto img-thumbnail">
-                        <input type="file" name="image" id="image" required>
+                        <input type="file" name="image" id="image">
                     </div>
                 </div>
                 <div class="form-group col-md-6 mt-3 mx-auto">
@@ -28,7 +43,7 @@
                 </div>
                 <div class="form-group col-md-6 m-auto">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" rows="5"><?php echo $recipe->getDescription(); ?></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="5" required><?php echo $recipe->getDescription(); ?></textarea>
                 </div>
                 <div class="form-row col-md-6 mx-auto mt-3">
                     <div class="col">
@@ -79,7 +94,7 @@
                 </div>
                 <div class="text-center mt-3">
                     <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
-                        Appliquer les modifications
+                        Appliquer
                     </button>
                     <a href="recipes" name="return" class="btn btn-warning">Retour</a>
                 </div>

@@ -22,7 +22,7 @@ if (count($_POST) > 0) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Le format de l'e-mail n'est pas valide.";
     }
-    if (count($errors) === 0) {
+    if (!count($errors) > 0) {
         $member = new Member(0, $_POST["name"], $_POST["firstname"], $email, $password, "MEMBER");
         MemberManager::insert($member);
         $verifyLink = "http://localhost/Shlagithon/index.php/verify?email=";

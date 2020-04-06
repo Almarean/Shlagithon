@@ -13,13 +13,13 @@
             <h1 class="text-center">Inscription</h1>
             <article>
                 <?php
-                    if (isset($errors) && count($errors) > 0) {
-                        echo "<div class='col-md-6 m-auto'>";
-                        foreach ($errors as $error) {
-                            echo "<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> " . $error . "</p>";
-                        }
-                        echo "</div>";
+                if (isset($errors) && count($errors) > 0) {
+                    echo "<div class='col-md-6 m-auto'>";
+                    foreach ($errors as $error) {
+                        echo "<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> " . $error . "</p>";
                     }
+                    echo "</div>";
+                }
                 ?>
                 <form action="?" method="POST">
                     <div class="form-group col-md-6 m-auto">

@@ -98,6 +98,16 @@ CREATE TABLE IF NOT EXISTS `requirement_allergen` (
     PRIMARY KEY(`ra_fk_requirement_id`, `ra_fk_allergen_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+    `c_id` int(11) NOT NULL AUTO_INCREMENT,
+    `c_text` text NOT NULL,
+    `c_writing_date` datetime NOT NULL,
+    `c_fk_member_id` int(11) NOT NULL,
+    `c_fk_recipe_id` int(11) NOT NULL,
+    PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_allergen` FOREIGN KEY (`ra_fk_allergen_id`) REFERENCES `allergen`(`a_id`);
 ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_requirement` FOREIGN KEY (`ra_fk_requirement_id`) REFERENCES `requirement`(`req_id`);
 ALTER TABLE `recipe_requirement` ADD CONSTRAINT `fk_recipe_requirement_requirement` FOREIGN KEY (`rr_fk_requirement_id`) REFERENCES `requirement`(`req_id`);
@@ -108,3 +118,5 @@ ALTER TABLE `recipe_tag` ADD CONSTRAINT `fk_recipe_tag_recipe` FOREIGN KEY (`rt_
 ALTER TABLE `recipe` ADD CONSTRAINT `fk_recipe` FOREIGN KEY (`rec_fk_member_id`) REFERENCES `member`(`m_id`);
 ALTER TABLE `recipe_member` ADD CONSTRAINT `fk_recipe_member_recipe` FOREIGN KEY (`rm_fk_recipe_id`) REFERENCES `recipe`(`rec_id`);
 ALTER TABLE `recipe_member` ADD CONSTRAINT `fk_recipe_member_member` FOREIGN KEY (`rm_fk_member_id`) REFERENCES `member`(`m_id`);
+ALTER TABLE `comment` ADD CONSTRAINT `fk_comment_member` FOREIGN KEY (`c_fk_member_id`) REFERENCES `member`(`m_id`);
+ALTER TABLE `comment` ADD CONSTRAINT `fk_comment_recipe` FOREIGN KEY (`c_fk_recipe_id`) REFERENCES `recipe`(`rec_id`);

@@ -103,6 +103,13 @@ class Recipe
     private $steps;
 
     /**
+     * Comments of the recipe.
+     *
+     * @var array
+     */
+    private $comments;
+
+    /**
      * Constructor of the Recipe class.
      *
      * @param string $name
@@ -130,6 +137,7 @@ class Recipe
         $this->requirements = [];
         $this->author = $author;
         $this->steps = [];
+        $this->comments = [];
     }
 
     /**
@@ -506,5 +514,41 @@ class Recipe
         } else {
             return $this->steps;
         }
+    }
+
+    /**
+     * Getter of the comments of the recipe.
+     *
+     * @return array
+     */
+    public function getComments(): array
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Setter of the comments of the recipe.
+     *
+     * @param array $comments
+     *
+     * @return self
+     */
+    public function setComments(array $comments): self
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
+    /**
+     * Add a comment to the recipe.
+     *
+     * @param Comment $comment
+     *
+     * @return array
+     */
+    public function addComment(Comment $comment): array
+    {
+        array_push($this->comments, $comment);
+        return $this->comments;
     }
 }

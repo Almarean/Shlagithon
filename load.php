@@ -11,6 +11,7 @@ require_once __DIR__ . "/Models/Ustencil.php";
 require_once __DIR__ . "/Models/Member.php";
 require_once __DIR__ . "/Models/Recipe.php";
 require_once __DIR__ . "/Models/Step.php";
+require_once __DIR__ . "/Models/Comment.php";
 
 require_once __DIR__ . "/Interfaces/IManager.php";
 
@@ -23,3 +24,4 @@ require_once __DIR__ . "/Services/RecipeManager.php";
 require_once __DIR__ . "/Services/IngredientManager.php";
 require_once __DIR__ . "/Services/StepManager.php";
 require_once __DIR__ . "/Services/MemberManager.php";
+require_once __DIR__ . "/Services/CommentManager.php";

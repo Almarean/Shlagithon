@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 05 avr. 2020 à 23:09
+-- Généré le :  lun. 06 avr. 2020 à 10:01
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.4.0
 
@@ -38,6 +38,24 @@ CREATE TABLE IF NOT EXISTS `allergen` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+  `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `c_text` text COLLATE utf8_unicode_ci NOT NULL,
+  `c_writing_date` datetime NOT NULL,
+  `c_fk_member_id` int(11) NOT NULL,
+  `c_fk_recipe_id` int(11) NOT NULL,
+  PRIMARY KEY (`c_id`),
+  KEY `fk_comment_member` (`c_fk_member_id`),
+  KEY `fk_comment_recipe` (`c_fk_recipe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `member`
 --
 
@@ -61,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 --
 
 INSERT INTO `member` (`m_id`, `m_name`, `m_firstname`, `m_email`, `m_password`, `m_type`, `m_is_confirmed`, `m_creation_date`, `m_last_connection_date`, `m_is_deleted`) VALUES
-(1, 'Laure', 'Thomas', 'thomaslaure3@gmail.com', '$2y$10$LgtVhnUhSI4L4iROd3WB8Ob4sTpVgGACDGcmeMBPXf2ZBU1VMfTAy', 'MEMBER', 1, '2020-04-01 00:00:00', '2020-04-05 10:20:35', 0),
+(1, 'Laure', 'Thomas', 'thomaslaure3@gmail.com', '$2y$10$LgtVhnUhSI4L4iROd3WB8Ob4sTpVgGACDGcmeMBPXf2ZBU1VMfTAy', 'MEMBER', 1, '2020-04-01 00:00:00', '2020-04-06 07:42:46', 0),
 (2, 'Laure', 'Didier', 'ilwynme@gmail.com', '$2y$10$YDY4q6VPcUZHPIyRIHhV/.NtgSJ7ARwe6CFaIzkF4wN2UsiNt.BS.', 'MEMBER', 1, '2020-04-04 08:49:17', '2020-04-04 08:49:34', 1),
 (3, 'Laure', 'Mael', 'ilwynme@gmail.com', '$2y$10$mqH5OCCJf6A5ZxFC.wpyE.VvPeh/WK.rSUJ.CpkaqTJ2ICu5PeMdW', 'MEMBER', 1, '2020-04-04 09:15:09', '2020-04-05 08:58:24', 1);
 
@@ -92,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
 --
 
 INSERT INTO `recipe` (`rec_id`, `rec_name`, `rec_description`, `rec_image`, `rec_difficulty`, `rec_time`, `rec_nb_persons`, `rec_advice`, `rec_type`, `rec_fk_member_id`) VALUES
-(9, 'Gateau au chocolat', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', 'cyberpunk_trailer-logotype-en', '2', 15, 6, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'DESSERT', 1),
+(9, 'Gateau au chocolat', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', 'bbc45ba16e0e9487ebea4612594d50c11586161476.jpg', '2', 15, 6, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'DESSERT', 1),
 (10, 'Gateau au chocolat', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', '93106_w350h250c1cx3744cy2104.jpg', '2', 15, 6, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'DESSERT', 1),
 (11, 'Gateau au chocolat', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', 'Nourriture-discount-comment-eviter-la-malbouffe-790x427.jpg', '2', 15, 6, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'AUTRE', 1),
 (12, 'Gateau au chocolat', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', 'Nourriture-discount-comment-eviter-la-malbouffe-790x427.jpg', '2', 15, 6, '\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'PLAT', 1),
@@ -211,6 +229,13 @@ CREATE TABLE IF NOT EXISTS `tag` (
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `fk_comment_member` FOREIGN KEY (`c_fk_member_id`) REFERENCES `member` (`m_id`),
+  ADD CONSTRAINT `fk_comment_recipe` FOREIGN KEY (`c_fk_recipe_id`) REFERENCES `recipe` (`rec_id`);
 
 --
 -- Contraintes pour la table `recipe`

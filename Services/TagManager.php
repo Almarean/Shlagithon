@@ -10,16 +10,17 @@ use App\Interfaces\IManager;
 /**
  * Class TagManager implements IManager.
  */
-class TagManager implements IManager
+class TagManager //implements IManager
 {
     /**
      * Insert a tag in database.
      *
      * @param Tag $object
+     * @param Recipe $recipe
      *
      * @return boolean
      */
-    public static function insert($object): bool
+    public static function insert($object, Recipe $recipe): bool
     {
         if (get_class($object) === "App\\Models\\Tag") {
             if (self::exists($object->getLabel())) {
@@ -27,7 +28,12 @@ class TagManager implements IManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO tag(t_label) VALUES (:label);");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            return $stmt->execute();
+            $stmtT = $stmt->execute();
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO recipe_tag(rt_fk_recipe_id, rt_fk_tag_id) VALUES (:recipeId, :tagId);");
+            $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_INT);
+            $stmt->bindValue(":tagId", self::findIdBy($object->getLabel()), PDO::PARAM_INT);
+            $stmtRt = $stmt->execute();
+            return $stmtT && $stmtRt;
         } else {
             return false;
         }
@@ -44,7 +50,7 @@ class TagManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Tag($result["t_label"]));
+            array_push($objects, new Tag($result["t_id"], $result["t_label"]));
         }
         return $objects;
     }
@@ -64,7 +70,7 @@ class TagManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Tag($result["t_label"]));
+            array_push($objects, new Tag($result["t_id"], $result["t_label"]));
         }
         return $objects;
     }
@@ -86,7 +92,7 @@ class TagManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Tag($result["t_label"]) : null;
+        return $result ? new Tag($result["t_id"], $result["t_label"]) : null;
     }
 
     /**

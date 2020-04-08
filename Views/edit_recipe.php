@@ -96,7 +96,7 @@
                     <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
                         Appliquer
                     </button>
-                    <a href="recipes" name="return" class="btn btn-warning">Retour</a>
+                    <a href="recipes" name="return" class="btn btn-light">Retour</a>
                 </div>
             </form>
         </section>

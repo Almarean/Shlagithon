@@ -26,7 +26,7 @@ class RecipeManager implements IManager
                 return false;
             }
             if (!$object->getAdvice()) {
-                $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_type rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :type, :memberId);";
+                $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_type, rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :type, :memberId);";
             } else {
                 $query = "INSERT INTO recipe(rec_name, rec_description, rec_image, rec_difficulty, rec_time, rec_nb_persons, rec_advice, rec_type, rec_fk_member_id) VALUES (:name, :description, :image, :difficulty, :time, :nbPersons, :advice, :type, :memberId);";
             }

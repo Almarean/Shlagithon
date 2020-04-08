@@ -19,7 +19,7 @@
                             <th>Identité</th>
                             <th>Date de création</th>
                             <th>Dernière connexion</th>
-                            <th>Email</th>
+                            <th>E-mail</th>
                             <th>Supprimé</th>
                             <th>Actions</th>
                         </tr>

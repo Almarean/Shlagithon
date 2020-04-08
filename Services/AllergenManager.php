@@ -6,6 +6,7 @@ use PDO;
 use App\Interfaces\IManager;
 use App\Models\Allergen;
 use App\Models\Ingredient;
+use App\Models\Requirement;
 use App\Services\PDOManager;
 
 /**
@@ -17,6 +18,7 @@ class AllergenManager implements IManager
      * Insert an allergen in database.
      *
      * @param Allergen $object
+     * @param Requirement $requirement
      *
      * @return boolean
      */
@@ -28,7 +30,9 @@ class AllergenManager implements IManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO allergen(a_label) VALUES (:label);");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            return $stmt->execute();
+            $stmtA = $stmt->execute();
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement_allergen(ra_fk_requirement_id, ra_fk_allergen_id) VALUES (:requirementId, :allergenId);");
+            return $stmtA;
         } else {
             return false;
         }

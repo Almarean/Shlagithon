@@ -10,16 +10,17 @@ use App\Models\Recipe;
 /**
  * Class IngredientManager implements IManager.
  */
-class IngredientManager implements IManager
+class IngredientManager //implements IManager
 {
     /**
      * Insert a ingredient in database.
      *
      * @param Ingredient $object
+     * @param Recipe $recipe
      *
      * @return boolean
      */
-    public static function insert($object): bool
+    public static function insert($object, Recipe $recipe): bool
     {
         if (get_class($object) === "App\\Models\\Ingredient") {
             if (self::exists($object->getLabel())) {
@@ -27,10 +28,33 @@ class IngredientManager implements IManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement(req_label, req_type) VALUES (:label, 'INGREDIENT');");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            return $stmt->execute();
+            $stmtReq = $stmt->execute();
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO recipe_requirement(rr_fk_recipe_id, rr_fk_requirement_id, rr_quantity) VALUES (:recipeId, :requirementId, :quantity);");
+            $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_INT);
+            $stmt->bindValue(":requirementId", self::findIdBy($object->getLabel()), PDO::PARAM_INT);
+            $stmt->bindValue(":quantity", $object->getQuantity(), PDO::PARAM_STR);
+            $stmtRR = $stmt->execute();
+            return $stmtReq && $stmtRR;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Find the quantity of an ingredient in a recipe.
+     *
+     * @param Recipe $recipe
+     * @param Ingredient $ingredient
+     *
+     * @return string
+     */
+    public static function findQuantityByRecipeAndRequirement(Recipe $recipe, Ingredient $ingredient): string
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe_requirement WHERE rr_fk_recipe_id = :recipeId AND rr_fk_requirement_id = :requirementId;");
+        $stmt->bindValue(":recipeId", $recipe->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":requirementId", $ingredient->getId(), PDO::PARAM_INT);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["rr_quantity"] : "0";
     }
 
     /**
@@ -40,11 +64,12 @@ class IngredientManager implements IManager
      */
     public static function findAll(): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'INGREDIENT';");
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE req_type = 'INGREDIENT';");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ingredient($result["req_id"], $result["req_label"]));
+            array_push($objects, new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity
+            "]));
         }
         return $objects;
     }
@@ -59,14 +84,14 @@ class IngredientManager implements IManager
      */
     public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement WHERE req_label = :label AND req_type = 'INGREDIENT';");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE req_label = :label AND req_type = 'INGREDIENT';");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Ingredient($result["req_id"], $result["req_label"]) : null;
+        return $result ? new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity"]) : null;
     }
 
     /**
@@ -112,7 +137,7 @@ class IngredientManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ingredient($result["req_id"], $result["req_label"]));
+            array_push($objects, new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity"]));
         }
         return $objects;
     }

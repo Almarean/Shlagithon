@@ -19,7 +19,7 @@
                 <?php
                 echo ucwords(strtolower($recipe->getType()));
                 foreach ($recipe->getTags() as $tag) {
-                    echo "<span class='badge badge-pill badge-dark mx-1'>" . utf8_encode($tag->getLabel()) . "</span>";
+                    echo "<span class='badge badge-pill badge-dark mx-1'>" . $tag->getLabel() . "</span>";
                 }
                 ?>
             </h4>
@@ -50,7 +50,7 @@
                     <h5>Ustensiles</h5>
                     <ul>
                         <?php foreach ($ustencils as $ustencil) {
-                            echo "<li>" . $ustencil->getQuantity() . " " . utf8_encode(strtolower($ustencil->getLabel())) . "</li>";
+                            echo "<li>" . $ustencil->getQuantity() . " " . strtolower($ustencil->getLabel()) . "</li>";
                         } ?>
                     </ul>
                 </article>
@@ -58,7 +58,7 @@
                     <h5>Ingrédients</h5>
                     <ul>
                         <?php foreach ($ingredients as $ingredient) {
-                            echo "<li>" . $ingredient->getQuantity() . " " . utf8_encode(strtolower($ingredient->getLabel())) . "</li>";
+                            echo "<li>" . $ingredient->getQuantity() . " " . strtolower($ingredient->getLabel()) . "</li>";
                         } ?>
                     </ul>
                 </article>
@@ -66,7 +66,7 @@
                     <h5>Etapes</h5>
                     <ol>
                         <?php foreach ($recipe->getSteps() as $step) {
-                            echo "<li>" . utf8_encode($step->getDescription()) . "</li>";
+                            echo "<li>" . $step->getDescription() . "</li>";
                         } ?>
                     </ol>
                 </article>

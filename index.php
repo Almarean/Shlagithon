@@ -54,7 +54,10 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
             break;
         // AJAX
         case "/filter-recipes":
-            require __DIR__ . "/Tools/ajax_recipes.php";
+            require __DIR__ . "/Tools/ajax_filter_recipes.php";
+            break;
+        case "/publication-recipe":
+            require __DIR__ . "/Tools/ajax_publication_recipe.php";
             break;
         default:
             http_response_code(404);

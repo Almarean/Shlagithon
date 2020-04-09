@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
   `c_text` text COLLATE utf8_unicode_ci NOT NULL,
-  `c_writing_date` datetime NOT NULL,
+  `c_writing_date` datetime NOT NULL DEFAULT current_timestamp(),
   `c_fk_member_id` int(11) NOT NULL,
   `c_fk_recipe_id` int(11) NOT NULL,
   PRIMARY KEY (`c_id`),

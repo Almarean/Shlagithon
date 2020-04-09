@@ -39,13 +39,13 @@ class CommentManager
      */
     public static function findByRecipe(Recipe $recipe): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM comment WHERE c_recipe = :recipe;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM comment WHERE c_fk_recipe_id = :recipe;");
         $stmt->bindValue(":recipe", $recipe->getId(), PDO::PARAM_INT);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Comment($result["c_id"], $result["c_text"], MemberManager::findOneByID($result["rec_fk_member_id"]), RecipeManager::findOneById($result["c_fk_recipe_id"])));
+            array_push($objects, new Comment($result["c_id"], $result["c_text"], MemberManager::findOneByID($result["c_fk_member_id"]), RecipeManager::findOneById($result["c_fk_recipe_id"])));
         }
         return $objects;
     }

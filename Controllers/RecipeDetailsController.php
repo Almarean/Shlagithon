@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\Comment;
 use App\Services\AllergenManager;
 use App\Services\CommentManager;
-use App\Services\MemberManager;
 use App\Services\RecipeManager;
 use App\Services\RequirementManager;
 use App\Services\StepManager;
@@ -14,12 +13,12 @@ use App\Services\TagManager;
 if (isset($_GET["id"])) {
     $recipe = RecipeManager::findOneById($_GET["id"]);
     if (count($_POST) > 0 && isset($_SESSION["member"])) {
-        if(isset($_POST["comment"])){
-            $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe);
+        if (isset($_POST["comment"]) && strlen($_POST["comment"] > 0)) {
+            $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe, date("Y-m-d H:i:s"));
             CommentManager::insert($newComment);
         }
-        if(isset($_POST["favorite"])){
-            if($_POST["favorite"]){
+        if (isset($_POST["favorite"])) {
+            if ($_POST["favorite"]) {
                 RecipeManager::setFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
             } else {
                 RecipeManager::removeFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);

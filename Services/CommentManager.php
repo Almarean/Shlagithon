@@ -45,7 +45,7 @@ class CommentManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Comment($result["c_id"], $result["c_text"], MemberManager::findOneByID($result["c_fk_member_id"]), RecipeManager::findOneById($result["c_fk_recipe_id"])));
+            array_push($objects, new Comment($result["c_id"], $result["c_text"], MemberManager::findOneByID($result["c_fk_member_id"]), RecipeManager::findOneById($result["c_fk_recipe_id"]), $result["c_writing_date"]));
         }
         return $objects;
     }

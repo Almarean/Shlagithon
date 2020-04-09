@@ -178,7 +178,7 @@ class RecipeManager implements IManager
     }
 
     /**
-     * fetch favorite recipes by member.
+     * Fetch favorite recipes by member.
      *
      * @param Member $member
      *

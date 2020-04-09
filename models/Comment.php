@@ -50,11 +50,11 @@ class Comment
      * @param Member $author
      * @param Recipe $recipe
      */
-    public function __construct(int $id, string $text, Member $author, Recipe $recipe)
+    public function __construct(int $id, string $text, Member $author, Recipe $recipe, string $writingDate)
     {
         $this->id = $id;
         $this->text = $text;
-        $this->writingDate = date("Y-m-d h:i:s");
+        $this->writingDate = $writingDate;
         $this->author = $author;
         $this->recipe = $recipe;
     }
@@ -100,6 +100,17 @@ class Comment
     public function getWritingDate(): string
     {
         return $this->writingDate;
+    }
+
+    /**
+     * Setter of the writing date of the comment.
+     *
+     * @return self
+     */
+    public function setWritingDate(): self
+    {
+        $this->writingDate = date("Y-m-d H:i:s");
+        return $this;
     }
 
     /**

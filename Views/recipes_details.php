@@ -93,33 +93,33 @@
                 <div class="col-md-12">
                     <h4 class="text-center">Commentaires</h4>
                     <div class="container">
-                        <?php if(!empty($commentaries)){ ?>
-                            <?php foreach($commentaries as $commentary){?>
-                                <div class="row" style="margin-top: 20px">
+                        <?php if (!empty($commentaries)) { ?>
+                            <?php foreach ($commentaries as $commentary) {?>
+                                <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " .$commentary->getAuthor()->getName() ?></strong> <span class="text-muted"><?php echo $commentary->getWritingDate() ?></span>
+                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " .$commentary->getAuthor()->getName(); ?></strong>, <span class="text-muted">le <?php echo date_format(date_create($commentary->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($commentary->getWritingDate()), "H\hm"); ?></span>
                                             </div>
                                             <div class="panel-body">
-                                                <?php echo $commentary->getText()  ?>
+                                                <?php echo $commentary->getText(); ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             <?php }?>
-                        <?php }?>
-                        <?php if(isset($_SESSION["member"])){ ?>
-                            <div class="row" style="margin-top: 20px">
-                                <div class="col-sm-12">
+                        <?php } ?>
+                        <?php if (isset($_SESSION["member"])) { ?>
+                            <div class="row mt-2">
+                                <div class="col-md-8">
                                     <div class="panel panel-default">
                                         <div class="panel-body">
-                                            <form action="" method="POST" enctype="multipart/form-data">
+                                            <form action="" method="POST">
                                                 <div class="form-group">
-                                                    <label for="comment">Ajouter un commentaire</label>
+                                                    <label for="comment">Laisser un commentaire</label>
                                                     <textarea name="comment" class="form-control" rows="3"></textarea>
                                                 </div>
-                                                <button type="submit" name="validate" id="validate" class="btn btn-lg btn-dark btn-block mt-5">Poster</button>
+                                                <button type="submit" name="validate" id="validate" class="btn btn-dark mt-2 float-right">Poster</button>
                                             </form>
                                         </div>
                                     </div>

@@ -17,7 +17,7 @@ $member = unserialize($_SESSION["member"]);
 if (count($_POST) > 0) {
     $errors = [];
     if (!isset($_SESSION["ingredients"]) && !isset($_SESSION["ustencils"])) {
-        $errors[] = "Veuillez renseigner des ingérdients et des ustencils.";
+        $errors[] = "Veuillez renseigner des ingrédients et des ustensiles.";
     }
     if (strlen($_POST["name"]) < 5) {
         $errors[] = "Le nom est trop court.";

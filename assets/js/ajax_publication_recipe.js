@@ -22,11 +22,11 @@ $(document).ready(function () {
 
         let allergens = $.map($("#allergens > li"), element => {
             return {name: $.trim($(element).text().toLowerCase())};
-        })
+        });
 
         if (ustencils.length > 0 && ingredients.length > 0) {
-            if ($("#errors").length > 0) {
-                $("#error").html("");
+            if ($("#comments").length > 0) {
+                $("#comments").html("");
             }
             $("#apply").attr("disabled", false);
             $.ajax({
@@ -34,11 +34,11 @@ $(document).ready(function () {
                 type: "POST",
                 data: "ustencils=" + JSON.stringify(ustencils) + "&ingredients=" + JSON.stringify(ingredients) + "&tags=" + JSON.stringify(tags) + "&allergens=" + JSON.stringify(allergens),
                 success: function () {
-                    $("#errors").append("<p class='text-success'><i class='fas fa-check'></i> Ajouts réussis.</p>");
+                    $("#comments").append("<p class='text-success'><i class='fas fa-check'></i> Ajouts réussis.</p>");
                 }
             });
         } else {
-            $("#errors").append("<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> Veuillez renseigner des ustensiles et des ingrédients.</p>");
+            $("#comments").append("<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> Veuillez renseigner des ustensiles et des ingrédients.</p>");
         }
     });
 });

@@ -18,7 +18,6 @@ if (isset($_GET["id"])) {
             $requirement->setAllergens(AllergenManager::findAllByIngredient($requirement));
             $allergens = array_merge($allergens, $requirement->getAllergens());
         }
-        $requirement->setQuantity(RequirementManager::findRequirementQuantity($requirement, $recipe));
     }
     $allergens = array_unique($allergens);
     $ustencils = array_filter($requirements, function ($requirement) {

@@ -27,23 +27,6 @@ class RequirementManager
     }
 
     /**
-     * Find the quantity of the requirement.
-     *
-     * @param Requirement $requirement
-     * @param Recipe $recipe
-     *
-     * @return string
-     */
-    public static function findRequirementQuantity(Requirement $requirement, Recipe $recipe): string
-    {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT rr_quantity FROM recipe_requirement WHERE rr_fk_recipe_id = :recipeId AND rr_fk_requirement_id = :requirementId;");
-        $stmt->bindValue(":recipeId", $recipe->getId(), PDO::PARAM_INT);
-        $stmt->bindValue(":requirementId", $requirement->getId(), PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch()[0];
-    }
-
-    /**
      * Find the allergens of the requirement.
      *
      * @param Requirement $requirement

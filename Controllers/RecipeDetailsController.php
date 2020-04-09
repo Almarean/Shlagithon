@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\Comment;
 use App\Services\AllergenManager;
+use App\Services\CommentManager;
+use App\Services\MemberManager;
 use App\Services\RecipeManager;
 use App\Services\RequirementManager;
 use App\Services\StepManager;
@@ -10,6 +13,19 @@ use App\Services\TagManager;
 
 if (isset($_GET["id"])) {
     $recipe = RecipeManager::findOneById($_GET["id"]);
+    if (count($_POST) > 0 && isset($_SESSION["member"])) {
+        if(isset($_POST["comment"])){
+            $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe);
+            CommentManager::insert($newComment);
+        }
+        if(isset($_POST["favorite"])){
+            if($_POST["favorite"]){
+                RecipeManager::setFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
+            } else {
+                RecipeManager::removeFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
+            }
+        }
+    }
     $recipe->setSteps(StepManager::findAllByRecipe($recipe));
     $requirements = RequirementManager::findAllByRecipe($recipe);
     $allergens = [];
@@ -28,6 +44,8 @@ if (isset($_GET["id"])) {
     });
     $recipe->setTags(TagManager::findAllByRecipe($recipe));
     $recipe->setRequirements($requirements);
+    $commentaries = CommentManager::findByRecipe($recipe);
+    $listFavorite = RecipeManager::findFavoriteRecipes(unserialize($_SESSION["member"]));
 }
 
 require __DIR__ . "/../Views/recipes_details.php";

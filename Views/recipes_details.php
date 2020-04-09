@@ -39,6 +39,11 @@
                     ?>
                 </p>
             </div>
+            <div class="lead text-center mt-5">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <button type="submit"><p class="d-inline mx-5"><i class="fas fa-star"></i> Ajouter aux favoris</p></button>
+                </form>
+            </div>
             <div class="col mx-auto mt-5">
                 <p class="lead text-justify"><?php echo $recipe->getDescription(); ?></p>
             </div>
@@ -84,6 +89,46 @@
                     <p class="text-justify"><i class="far fa-lightbulb"></i> <?php echo $recipe->getAdvice(); ?></p>
                 </div>
             <?php } ?>
+            <div class="row mx-auto mt-5">
+                <div class="col-md-12">
+                    <h4 class="text-center">Commentaires</h4>
+                    <div class="container">
+                        <?php if(!empty($commentaries)){ ?>
+                            <?php foreach($commentaries as $commentary){?>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " .$commentary->getAuthor()->getName() ?></strong> <span class="text-muted"><?php echo $commentary->getWritingDate() ?></span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <?php echo $commentary->getText()  ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }?>
+                        <?php }?>
+                        <?php if(isset($_SESSION["member"])){ ?>
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <form action="" method="POST" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="comment">Ajouter un commentaire</label>
+                                                    <textarea name="comment" class="form-control" rows="3"></textarea>
+                                                </div>
+                                                <button type="submit" name="validate" id="validate" class="btn btn-lg btn-dark btn-block mt-5">Poster</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 

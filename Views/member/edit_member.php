@@ -2,11 +2,11 @@
 <html lang="fr-FR">
 
 <head>
-    <?php include __DIR__ . "/templates/head.php"; ?>
+    <?php include __DIR__ . "/../templates/head.php"; ?>
 </head>
 
 <body class="position-relative">
-    <?php include __DIR__ . "/templates/header_member.php"; ?>
+    <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
     <div class="container">
         <section class="mt-5">
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" name="typeRadio" id="radio-member" value="MEMBER" <?php if ($memberToModify->getType() === "MEMBER") { echo "checked"; } ?>>
-                                    <label for="radio-member">Member</label>
+                                    <label for="radio-member">Membre</label>
                                 </div>
                             </div>
                         <?php } ?>
@@ -90,8 +90,8 @@
         </section>
     </div>
 
-    <?php include __DIR__ . "/templates/footer.php"; ?>
-    <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
+    <?php include __DIR__ . "/../templates/footer.php"; ?>
+    <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
     <script src="/Shlagithon/assets/js/check_password.js"></script>
 </body>
 

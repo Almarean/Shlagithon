@@ -247,29 +247,29 @@ ALTER TABLE `recipe`
 -- Contraintes pour la table `recipe_member`
 --
 ALTER TABLE `recipe_member`
-  ADD CONSTRAINT `fk_recipe_member_member` FOREIGN KEY (`rm_fk_member_id`) REFERENCES `member` (`m_id`),
-  ADD CONSTRAINT `fk_recipe_member_recipe` FOREIGN KEY (`rm_fk_recipe_id`) REFERENCES `recipe` (`rec_id`);
+  ADD CONSTRAINT `fk_recipe_member_member` FOREIGN KEY (`rm_fk_member_id`) REFERENCES `member` (`m_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_recipe_member_recipe` FOREIGN KEY (`rm_fk_recipe_id`) REFERENCES `recipe` (`rec_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `recipe_requirement`
 --
 ALTER TABLE `recipe_requirement`
-  ADD CONSTRAINT `fk_recipe_requirement_recipe` FOREIGN KEY (`rr_fk_recipe_id`) REFERENCES `recipe` (`rec_id`),
-  ADD CONSTRAINT `fk_recipe_requirement_requirement` FOREIGN KEY (`rr_fk_requirement_id`) REFERENCES `requirement` (`req_id`);
+  ADD CONSTRAINT `fk_recipe_requirement_recipe` FOREIGN KEY (`rr_fk_recipe_id`) REFERENCES `recipe` (`rec_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_recipe_requirement_requirement` FOREIGN KEY (`rr_fk_requirement_id`) REFERENCES `requirement` (`req_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `recipe_tag`
 --
 ALTER TABLE `recipe_tag`
-  ADD CONSTRAINT `fk_recipe_tag_recipe` FOREIGN KEY (`rt_fk_recipe_id`) REFERENCES `recipe` (`rec_id`),
-  ADD CONSTRAINT `fk_recipe_tag_tag` FOREIGN KEY (`rt_fk_tag_id`) REFERENCES `tag` (`t_id`);
+  ADD CONSTRAINT `fk_recipe_tag_recipe` FOREIGN KEY (`rt_fk_recipe_id`) REFERENCES `recipe` (`rec_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_recipe_tag_tag` FOREIGN KEY (`rt_fk_tag_id`) REFERENCES `tag` (`t_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `requirement_allergen`
 --
 ALTER TABLE `requirement_allergen`
-  ADD CONSTRAINT `fk_requirement_allergen_allergen` FOREIGN KEY (`ra_fk_allergen_id`) REFERENCES `allergen` (`a_id`),
-  ADD CONSTRAINT `fk_requirement_allergen_requirement` FOREIGN KEY (`ra_fk_requirement_id`) REFERENCES `requirement` (`req_id`);
+  ADD CONSTRAINT `fk_requirement_allergen_allergen` FOREIGN KEY (`ra_fk_allergen_id`) REFERENCES `allergen` (`a_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_requirement_allergen_requirement` FOREIGN KEY (`ra_fk_requirement_id`) REFERENCES `requirement` (`req_id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `step`

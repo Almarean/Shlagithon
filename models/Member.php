@@ -112,7 +112,7 @@ class Member
         $this->firstname = ucwords($firstname);
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_DEFAULT);
-        $this->creationDate = date("Y-m-d h:i:s");
+        $this->creationDate = date("Y-m-d H:i:s");
         $this->lastConnectionDate = null;
         $this->type = $type;
         $this->isConfirmed = $isConfirmed;

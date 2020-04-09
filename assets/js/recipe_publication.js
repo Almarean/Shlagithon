@@ -3,7 +3,7 @@ $("#button-add-ustencil").on("click", function () {
     if (!ustencilQuantity > 0) {
         ustencilQuantity = 1;
     }
-    $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + $.trim($("#input-ustencil").val()) + " <i class='fas fa-minus text-danger pointer'></li>");
+    $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + $.trim($("#input-ustencil").val()) + "</span> <i class='fas fa-minus text-danger pointer'></li>");
     $("#input-ustencil").val("");
 });
 

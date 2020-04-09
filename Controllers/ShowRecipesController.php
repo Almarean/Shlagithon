@@ -29,4 +29,4 @@ if (isset($_GET["id"])) {
     header("Location: recipe-details?id=" . $_GET["id"]);
 }
 
-require __DIR__ . "/../Views/show_recipes.php";
+require __DIR__ . "/../Views/member/show_recipes.php";

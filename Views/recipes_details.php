@@ -40,9 +40,7 @@
                 </p>
             </div>
             <div class="lead text-center mt-5">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <button type="submit"><p class="d-inline mx-5"><i class="fas fa-star"></i> Ajouter aux favoris</p></button>
-                </form>
+                <button class="btn btn-dark"><i class="far fa-star"></i> Ajouter aux favoris</button>
             </div>
             <div class="col mx-auto mt-5">
                 <p class="lead text-justify"><?php echo $recipe->getDescription(); ?></p>
@@ -94,12 +92,12 @@
                     <h4 class="text-center">Commentaires</h4>
                     <div class="container">
                         <?php if (!empty($commentaries)) { ?>
-                            <?php foreach ($commentaries as $commentary) {?>
+                            <?php foreach ($commentaries as $commentary) { ?>
                                 <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " .$commentary->getAuthor()->getName(); ?></strong>, <span class="text-muted">le <?php echo date_format(date_create($commentary->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($commentary->getWritingDate()), "H\hm"); ?></span>
+                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " . $commentary->getAuthor()->getName(); ?></strong>, <span class="text-muted">le <?php echo date_format(date_create($commentary->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($commentary->getWritingDate()), "H\hm"); ?></span>
                                             </div>
                                             <div class="panel-body">
                                                 <?php echo $commentary->getText(); ?>
@@ -107,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php }?>
+                            <?php } ?>
                         <?php } ?>
                         <?php if (isset($_SESSION["member"])) { ?>
                             <div class="row mt-2">

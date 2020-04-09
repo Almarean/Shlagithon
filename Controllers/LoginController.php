@@ -16,7 +16,7 @@ if (count($_POST) > 0) {
         $errors[] = "Veuillez confirmer votre e-mail avant de vous connecter.";
     } else if (password_verify($password, $result["m_password"])) {
         $member = new Member($result["m_id"], $result["m_name"], $result["m_firstname"], $result["m_email"], $result["m_password"], $result["m_type"], $result["m_is_confirmed"]);
-        $member->setLastConnectionDate(date("Y-m-d h:i:s"));
+        $member->setLastConnectionDate(date("Y-m-d H:i:s"));
         MemberManager::updateLastConnectionDate($member->getId());
         $_SESSION["member"] = serialize($member);
         if ($member->getType() === "ADMIN") {

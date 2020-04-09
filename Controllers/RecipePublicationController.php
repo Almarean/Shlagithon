@@ -67,4 +67,4 @@ if (isset($_POST["return"])) {
     header("Location: recipes");
 }
 
-require __DIR__ . "/../Views/member/member_publication_recipe.php";
+require __DIR__ . "/../Views/member/publication_recipe.php";

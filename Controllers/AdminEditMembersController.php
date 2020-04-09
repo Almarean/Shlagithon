@@ -26,4 +26,4 @@ if (isset($_POST["return"])) {
     header("Location: members");
 }
 
-require __DIR__ . "/../Views/edit_member.php";
+require __DIR__ . "/../Views/member/edit_member.php";

@@ -50,4 +50,4 @@ if (isset($_POST["name"]) && isset($_POST["firstname"]) && isset($_POST["email"]
     }
 }
 
-require __DIR__ . "/../Views/edit_member.php";
+require __DIR__ . "/../Views/member/edit_member.php";

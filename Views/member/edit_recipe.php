@@ -93,10 +93,10 @@
                     <textarea class="form-control" name="advice" id="advice" rows="5"><?php echo $recipe->getAdvice(); ?></textarea>
                 </div>
                 <div class="text-center mt-3">
-                    <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark">
+                    <button type="submit" name="validate" id="validate" value="<?php echo $recipe->getId(); ?>" class="btn btn-dark" title="ApplyModification">
                         Appliquer
                     </button>
-                    <a href="recipes" name="return" class="btn btn-light">Retour</a>
+                    <a href="recipes" class="btn btn-light" title="Return">Retour</a>
                 </div>
             </form>
         </section>

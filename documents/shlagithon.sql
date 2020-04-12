@@ -84,18 +84,18 @@ CREATE TABLE IF NOT EXISTS `recipe_tag` (
     PRIMARY KEY(`rt_fk_recipe_id`, `rt_fk_tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `allergen`;
-CREATE TABLE IF NOT EXISTS `allergen` (
-    `a_id` int(11) NOT NULL AUTO_INCREMENT,
-    `a_label` varchar(255) NOT NULL,
-    PRIMARY KEY(`a_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 DROP TABLE IF EXISTS `requirement_allergen`;
 CREATE TABLE IF NOT EXISTS `requirement_allergen` (
     `ra_fk_requirement_id` int(11) NOT NULL,
     `ra_fk_allergen_id` int(11) NOT NULL,
     PRIMARY KEY(`ra_fk_requirement_id`, `ra_fk_allergen_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `allergen`;
+CREATE TABLE IF NOT EXISTS `allergen` (
+    `a_id` int(11) NOT NULL AUTO_INCREMENT,
+    `a_label` varchar(255) NOT NULL,
+    PRIMARY KEY(`a_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `comment`;

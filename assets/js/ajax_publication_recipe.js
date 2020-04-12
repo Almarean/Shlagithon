@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#add").on("click", function () {
+    $("#apply").on("click", function () {
         event.preventDefault();
 
         let ustencils = $.map($("#ustencils > li"), element => {
@@ -17,12 +17,23 @@ $(document).ready(function () {
         });
 
         let tags = $.map($("#tags > span"), element => {
-            return {name: $.trim($(element).text().toLowerCase())};
+            return { name: $.trim($(element).text().toLowerCase()) };
         });
 
-        let allergens = $.map($("#allergens > li"), element => {
-            return {name: $.trim($(element).text().toLowerCase())};
-        });
+        let formData = new FormData($("#form-recipe").get[0]);
+        console.log(formData);
+        let data = {
+            "name": $.trim($("#name").text()),
+            "description": $.trim($("#description").text()),
+            "time": $.trim($("#time").text()),
+            "type": $.trim($("#type").val()),
+            "difficulty": $.trim($("#difficulty").text()),
+            "nbPersons": $.trim($("#nb-persons").text()),
+            "advice": $.trim($("#advice").text()),
+            "ustencils": ustencils,
+            "ingredients": ingredients,
+            "tags": tags
+        };
 
         if (ustencils.length > 0 && ingredients.length > 0) {
             if ($("#comments").length > 0) {
@@ -30,15 +41,13 @@ $(document).ready(function () {
             }
             $("#apply").attr("disabled", false);
             $.ajax({
-                url: "publication-recipe",
+                url: "publication",
                 type: "POST",
-                data: "ustencils=" + JSON.stringify(ustencils) + "&ingredients=" + JSON.stringify(ingredients) + "&tags=" + JSON.stringify(tags) + "&allergens=" + JSON.stringify(allergens),
-                success: function () {
-                    $("#comments").append("<p class='text-success'><i class='fas fa-check'></i> Ajouts réussis.</p>");
-                }
+                data: "data=" + JSON.stringify(data) + "&formData=" + JSON.stringify(formData),
+                success: function () {}
             });
         } else {
-            $("#comments").append("<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> Veuillez renseigner des ustensiles et des ingrédients.</p>");
+            $("#comments").append("<p class='text-danger'><i class='fas fa-exclamation-triangle'></i> Veuillez compléter l'intégralité du formulaire.</p>");
         }
     });
 });

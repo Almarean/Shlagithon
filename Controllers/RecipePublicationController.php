@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Recipe;
-use App\Services\AllergenManager;
 use App\Services\IngredientManager;
 use App\Services\RecipeManager;
 use App\Services\TagManager;
@@ -15,8 +14,11 @@ if (!isset($_SESSION["member"])) {
 $member = unserialize($_SESSION["member"]);
 
 if (count($_POST) > 0) {
+    echo "aze";
+    var_dump($_POST);
+    exit();
     $errors = [];
-    if (!isset($_SESSION["ingredients"]) && !isset($_SESSION["ustencils"])) {
+    if (!isset($_POST["ingredients"]) && !isset($_POST["ustencils"])) {
         $errors[] = "Veuillez renseigner des ingrédients et des ustensiles.";
     }
     if (strlen($_POST["name"]) < 5) {
@@ -35,10 +37,6 @@ if (count($_POST) > 0) {
         $md5Image = md5($imageName) . time() . "." . $imageExtension;
         $targetFolder = __DIR__ . "/../assets/images/" . $md5Image;
         move_uploaded_file($_FILES["image"]["tmp_name"], $targetFolder);
-        $ingredients = unserialize($_SESSION["ingredients"]);
-        $ustencils = unserialize($_SESSION["ustencils"]);
-        $tags = isset($_SESSION["tags"]) ? unserialize($_SESSION["tags"]) : [];
-        $allergens = isset($_SESSION["allergens"]) ? unserialize($_SESSION["allergens"]) : [];
         $recipe = null;
         if (!strlen(trim($_POST["advice"])) > 0) {
             $recipe = new Recipe(0, $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"]);
@@ -47,17 +45,14 @@ if (count($_POST) > 0) {
             $recipe = new Recipe(0, $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"], $_POST["advice"]);
             RecipeManager::insert($recipe);
         }
-        foreach ($ustencils as $ustencil) {
+        foreach ($_POST["ustencils"] as $ustencil) {
             UstencilManager::insert($ustencil, $recipe);
         }
-        foreach ($ingredients as $ingredient) {
+        foreach ($_POST["ingredients"] as $ingredient) {
             IngredientManager::insert($ingredient, $recipe);
         }
-        foreach ($tags as $tag) {
+        foreach ($_POST["tags"] as $tag) {
             TagManager::insert($tag, $recipe);
-        }
-        foreach ($allergens as $allergen) {
-            AllergenManager::insert($allergen);
         }
         header("Location: publication?success");
     }

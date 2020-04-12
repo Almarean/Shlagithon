@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" class="form-control" name="email" id="email" autocomplete="username" value="<?php echo $memberToModify->getEmail(); ?>" required>
+                            <input type="email" class="form-control" name="email" id="email" value="<?php echo $memberToModify->getEmail(); ?>" required>
                         </div>
                         <?php if ($member->getType() === "ADMIN") { ?>
                             <div class="form-group">

@@ -41,12 +41,12 @@ if (count($_POST) > 0) {
         $mail->SetFrom('mdesligues@gmail.com');
         $mail->Subject = 'Vérification de compte';
         $mail->Body = "<p>Bonjour,</p>
-            <p>Merci de vous être enregistré sur Shlagithon.</p>
+            <p>Merci de vous être enregistré sur Patoketchup.</p>
             <p>Votre compte vient d'être créé, vous pourrez vous connecter après avoir confirmé votre e-mail.</p>
             <p>Pour ce faire, veuillez cliquer sur le lien suivant :</p>
             <p>" . $verifyLink . $email . "&hash=" . password_hash($password, PASSWORD_DEFAULT) . "</p>
             <p>À bientôt !</p>
-            <p>L'équipe de Shlagithon</p>";
+            <p>L'équipe de Patoketchup</p>";
         $mail->AddAddress($email);
         if ($mail->send()) {
             header("Location: login?success=1&email=" . $email);

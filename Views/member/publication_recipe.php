@@ -30,12 +30,14 @@
                         <h5>Ajouter des ustensiles</h5>
                         <div class="row">
                             <div class="form-group col-md-4">
+                                <label for="ustencil-quantity" hidden>Quantité de l'ustensile</label>
                                 <input type="number" class="form-control" id="ustencil-quantity" value="1" min="1" max="2000">
                             </div>
                             <div class="input-group mb-5 col-md-8">
+                                <label for="input-ustencil" hidden>Ajouter un ustensile</label>
                                 <input type="text" id="input-ustencil" class="form-control" placeholder="Ajouter un ustensile" aria-label="ustencil" aria-describedby="button-add-ustencil">
                                 <div class="input-group-append">
-                                    <button class="btn btn-dark" type="button" id="button-add-ustencil"><i class="fas fa-plus"></i></button>
+                                    <button class="btn btn-dark" type="button" id="button-add-ustencil" title="AddUstencil"><i class="fas fa-plus"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -45,9 +47,11 @@
                         <h5>Ajouter des ingrédients</h5>
                         <div class="row">
                             <div class="form-group col-md-2">
+                                <label for="ingredient-quantity" hidden>Quantité de l'ingrédient</label>
                                 <input type="number" class="form-control" id="ingredient-quantity" value="1" min="1" max="2000">
                             </div>
                             <div class="form-group col-md-3">
+                                <label for="select-unit" hidden>Unité</label>
                                 <select class="form-control" id="select-unit">
                                     <option value="Gramme.s">Grammes</option>
                                     <option value="Kilogramme.s">Kilogrammes</option>
@@ -55,9 +59,10 @@
                                 </select>
                             </div>
                             <div class="input-group mb-5 col-md-7">
+                                <label for="input-ingredient" hidden>Ajouter un ingrédient</label>
                                 <input type="text" id="input-ingredient" class="form-control" placeholder="Ajouter un ingrédient" aria-label="ingredient" aria-describedby="button-add-ingredient">
                                 <div class="input-group-append">
-                                    <button class="btn btn-dark" type="button" id="button-add-ingredient"><i class="fas fa-plus"></i></button>
+                                    <button class="btn btn-dark" type="button" id="button-add-ingredient" title="AddIngredient"><i class="fas fa-plus"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -66,29 +71,28 @@
                     <div class="my-3">
                         <h5>Ajouter des tags</h5>
                         <div class="input-group mb-3">
+                            <label for="input-tag" hidden>Ajouter un tag</label>
                             <input type="text" id="input-tag" class="form-control" placeholder="Ajouter un tag" aria-label="tag" aria-describedby="button-add-tag">
                             <div class="input-group-append">
-                                <button class="btn btn-dark" type="button" id="button-add-tag"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-dark" type="button" id="button-add-tag" title="AddTag"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                         <div id="tags"></div>
                     </div>
                     <div class="my-3">
-                        <h5>Ajouter des allergènes</h5>
+                        <h5>Ajouter des étapes</h5>
                         <div class="input-group mb-3">
-                            <input type="text" id="input-allergen" class="form-control" placeholder="Ajouter un allergène" aria-label="allergen" aria-describedby="button-add-allergen">
+                            <label for="input-step" hidden>Ajouter une étape</label>
+                            <input type="text" id="input-step" class="form-control" placeholder="Ajouter une étape" aria-label="step" aria-describedby="button-add-step">
                             <div class="input-group-append">
-                                <button class="btn btn-dark" type="button" id="button-add-allergen"><i class="fas fa-plus"></i></button>
+                                <button class="btn btn-dark" type="button" id="button-add-step" title="AddStep"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
-                        <ul id="allergens"></ul>
-                    </div>
-                    <div class="text-center">
-                        <button id="add" class="btn btn-dark">Ajouter</button>
+                        <ol id="steps"></ol>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <form action="?" method="POST" enctype="multipart/form-data">
+                    <form id="form-recipe" action="?" method="POST" enctype="multipart/form-data">
                         <div class="form-group mt-3 mx-auto">
                             <label for="image">Image de la recette</label>
                             <div class="mt-2">
@@ -110,11 +114,11 @@
                             </div>
                             <div class="col">
                                 <label for="type">Type</label>
-                                <select name="type" class="form-control" id="type" required>
+                                <select name="type" class="form-control" id="type">
+                                    <option value="AUTRE" selected="selected">Autre</option>
                                     <option value="ENTREE">Entrée</option>
                                     <option value="PLAT">Plat</option>
                                     <option value="DESSERT">Dessert</option>
-                                    <option value="AUTRE" selected="selected">Autre</option>
                                 </select>
                             </div>
                         </div>
@@ -133,8 +137,7 @@
                             <textarea class="form-control" name="advice" id="advice" rows="5"></textarea>
                         </div>
                         <div class="text-center mt-3">
-                            <button type="submit" class="btn btn-dark" id="apply" disabled>Appliquer</button>
-                            <a href="recipes" name="return" class="btn btn-light">Retour</a>
+                            <button type="submit" class="btn btn-dark" id="apply" title="ApplyPublication" disabled>Appliquer</button>
                         </div>
                     </form>
                 </div>

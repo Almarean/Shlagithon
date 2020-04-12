@@ -31,11 +31,11 @@
                                 <td><?php echo strtoupper($member->getName()) . " " . $member->getFirstname(); ?></td>
                                 <td><?php echo $member->getCreationDate(); ?></td>
                                 <td><?php echo $member->getLastConnectionDate(); ?></td>
-                                <td><a href="mailto:<?php echo $member->getEmail(); ?>"><?php echo $member->getEmail(); ?></a></td>
+                                <td><a href="mailto:<?php echo $member->getEmail(); ?>" class="text-dark"><?php echo $member->getEmail(); ?></a></td>
                                 <td><?php if ($member->getIsDeleted()) { echo "Oui"; } ?></td>
                                 <td>
-                                    <div class="ml-1 d-inline"><a href="?edit=<?php echo $member->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $member->getId(); ?>" class="table-link text-danger"><i class="fas fa-trash"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?edit=<?php echo $member->getId(); ?>" class="table-link" title="EditMember"><i class="fas fa-pencil-alt"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $member->getId(); ?>" class="table-link text-danger" title="DeleteMember"><i class="fas fa-trash"></i></a></div>
                                 </td>
                             </tr>
                         <?php } ?>

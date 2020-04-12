@@ -25,19 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `allergen`
---
-
-DROP TABLE IF EXISTS `allergen`;
-CREATE TABLE IF NOT EXISTS `allergen` (
-  `a_id` int(11) NOT NULL AUTO_INCREMENT,
-  `a_label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `comment`
 --
 
@@ -195,6 +182,19 @@ CREATE TABLE IF NOT EXISTS `requirement_allergen` (
   `ra_fk_allergen_id` int(11) NOT NULL,
   PRIMARY KEY (`ra_fk_requirement_id`,`ra_fk_allergen_id`),
   KEY `fk_requirement_allergen_allergen` (`ra_fk_allergen_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `allergen`
+--
+
+DROP TABLE IF EXISTS `allergen`;
+CREATE TABLE IF NOT EXISTS `allergen` (
+  `a_id` int(11) NOT NULL AUTO_INCREMENT,
+  `a_label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`a_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

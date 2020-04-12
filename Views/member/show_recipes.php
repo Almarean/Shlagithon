@@ -36,9 +36,9 @@
                                 <td><?php echo $recipe->getType(); ?></td>
                                 <td><?php echo strtoupper($recipe->getAuthor()->getName()) . " " . $recipe->getAuthor()->getFirstname(); ?></td>
                                 <td style="display: inline-block; width: 100px; border-top: hidden;">
-                                    <div class="ml-1 d-inline"><a href="?edit=<?php echo $recipe->getId(); ?>" class="table-link"><i class="fas fa-pencil-alt"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $recipe->getId(); ?>" class="table-link text-danger"><i class="fas fa-trash"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?id=<?php echo $recipe->getId(); ?>" class="table-link"><i class="fas fa-eye"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?edit=<?php echo $recipe->getId(); ?>" class="table-link" title="EditRecipe"><i class="fas fa-pencil-alt"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $recipe->getId(); ?>" class="table-link text-danger" title="DeleteRecipe"><i class="fas fa-trash"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?id=<?php echo $recipe->getId(); ?>" class="table-link" title="DetailsRecipe"><i class="fas fa-eye"></i></a></div>
                                 </td>
                             </tr>
                         <?php } ?>

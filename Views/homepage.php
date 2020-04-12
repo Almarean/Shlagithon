@@ -8,10 +8,10 @@
 <body class="position-relative">
     <?php include __DIR__ . "/templates/header_client.php"; ?>
     <div class="container mt-5">
-        <div class="text-center logo"><i class="fas fa-cookie-bite"></i> Shlagithon</div>
+        <div class="text-center logo"><i class="fas fa-cookie-bite"></i> Patoketchup</div>
         <form class="input-group input-group-lg w-75 mx-auto mt-4">
             <input class="form-control mr-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
-            <button class="btn btn-outline-dark my-2 my-sm-0" id="search-button"><i class="fas fa-search"></i></button>
+            <button class="btn btn-outline-dark my-2 my-sm-0" id="search-button" title="SearchButton"><i class="fas fa-search"></i></button>
         </form>
         <div class="mt-5">
             <div id="homeCarousel" class="carousel slide bg-secondary rounded" data-ride="carousel">
@@ -48,18 +48,18 @@
         </div>
 
         <div class="mt-5">
-            <ul class="nav nav-tabs nav-fill mb-4">
+            <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark active" id="nav-entrees-tab" data-toggle="tab" href="#nav-entrees" role="tab" aria-controls="nav-entrees" aria-selected="true">Entrées</a>
+                    <a href="#nav-entrees" class="nav-item nav-link text-dark active" id="nav-entrees-tab" data-toggle="tab" role="tab" aria-controls="nav-entrees" aria-selected="true" title="Entrees">Entrées</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark" id="nav-dishes-tab" data-toggle="tab" href="#nav-dishes" role="tab" aria-controls="nav-dishes" aria-selected="false">Plats</a>
+                    <a href="#nav-dishes" class="nav-item nav-link text-dark" id="nav-dishes-tab" data-toggle="tab" role="tab" aria-controls="nav-dishes" aria-selected="false" title="Dishes">Plats</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark" id="nav-desserts-tab" data-toggle="tab" href="#nav-desserts" role="tab" aria-controls="nav-desserts" aria-selected="false">Desserts</a>
+                    <a href="#nav-desserts" class="nav-item nav-link text-dark" id="nav-desserts-tab" data-toggle="tab" role="tab" aria-controls="nav-desserts" aria-selected="false" title="Desserts">Desserts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link text-dark" id="nav-others-tab" data-toggle="tab" href="#nav-others" role="tab" aria-controls="nav-others" aria-selected="false">Autres</a>
+                    <a href="#nav-others" class="nav-item nav-link text-dark" id="nav-others-tab" data-toggle="tab" role="tab" aria-controls="nav-others" aria-selected="false" title="Others">Autres</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">

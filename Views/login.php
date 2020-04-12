@@ -38,7 +38,7 @@
                 ?>
                 <form class="form-signin" action="?" method="POST">
                     <label for="input-email" class="sr-only">E-mail</label>
-                    <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" autocomplete="username" value="<?php if (isset($_GET["email"])) { echo $_GET["email"]; } ?>" required autofocus>
+                    <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" value="<?php if (isset($_GET["email"])) { echo $_GET["email"]; } ?>" required autofocus>
                     <label for="input-password" class="sr-only">Mot de passe</label>
                     <input type="password" id="input-password" class="form-control" placeholder="Mot de passe" name="password" autocomplete="current-password" required>
                     <button class="btn btn-lg btn-dark btn-block mt-5" type="submit">Se connecter</button>

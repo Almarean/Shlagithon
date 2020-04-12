@@ -11,7 +11,7 @@
     <div class="container">
         <section class="mt-5">
             <h1 class="text-center">Inscription</h1>
-            <article>
+            <div>
                 <?php
                 if (isset($errors) && count($errors) > 0) {
                     echo "<div class='col-md-6 m-auto'>";
@@ -23,7 +23,7 @@
                 ?>
                 <form action="?" method="POST">
                     <div class="form-group col-md-6 m-auto">
-                        <label for="inputName">Nom</label>
+                        <label for="input-name">Nom</label>
                         <input type="text" class="form-control" id="input-name" name="name" value="<?php if (isset($_POST["name"])) { echo $_POST["name"]; } ?>" required>
                     </div>
                     <div class="form-group col-md-6 m-auto">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group col-md-6 m-auto">
                         <label for="input-email">Email</label>
-                        <input type="email" class="form-control" id="input-email" name="email" value="<?php if (isset($_POST["email"])) { echo $_POST["email"]; } ?>" autocomplete="username" required>
+                        <input type="email" class="form-control" id="input-email" name="email" value="<?php if (isset($_POST["email"])) { echo $_POST["email"]; } ?>" required>
                     </div>
                     <div class="form-group col-md-6 m-auto">
                         <label for="input-password">Mot de passe</label>
@@ -45,10 +45,10 @@
                         <p id="confirm-password-comment" class="font-weight-light"></p>
                     </div>
                     <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-dark">S'inscrire</button>
+                        <button type="submit" class="btn btn-dark" title="Registration">S'inscrire</button>
                     </div>
                 </form>
-            </article>
+            </div>
         </section>
     </div>
 

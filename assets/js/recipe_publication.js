@@ -5,6 +5,7 @@ $("#button-add-ustencil").on("click", function () {
     }
     $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + $.trim($("#input-ustencil").val()) + "</span> <i class='fas fa-minus text-danger pointer'></li>");
     $("#input-ustencil").val("");
+    enableApplyButton();
 });
 
 $("#button-add-ingredient").on("click", function () {
@@ -15,6 +16,7 @@ $("#button-add-ingredient").on("click", function () {
     let unit = $("#select-unit").val();
     $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + $.trim($("#input-ingredient").val()) + "</span> <i class='fas fa-minus text-danger pointer'></li>");
     $("#input-ingredient").val("");
+    enableApplyButton();
 });
 
 $("#button-add-tag").on("click", function () {
@@ -25,29 +27,17 @@ $("#button-add-tag").on("click", function () {
     }
 });
 
-$("#button-add-allergen").on("click", function () {
-    let allergenValue = $.trim($("#input-allergen").val());
-    if (allergenValue.length > 0) {
-        $("#allergens").append("<li class='allergen'>" + allergenValue + " <i class='fas fa-minus text-danger pointer'></li>");
-        $("#input-allergen").val("");
+$("#button-add-step").on("click", function () {
+    let stepValue = $.trim($("#input-step").val());
+    if (stepValue.length > 0) {
+        $("#steps").append("<li class='step'>" + stepValue + " <i class='fas fa-minus text-danger pointer'></li>");
+        $("#input-step").val("");
     }
 });
 
-$("#ustencils").click(function (event) {
-    if (event.target.nodeName === "svg") {
-        $(event.target).parent().remove();
-    } else if (event.target.nodeName === "path") {
-        $(event.target).parent().parent().remove();
-    }
-});
-
-$("#ingredients").click(function (event) {
-    if (event.target.nodeName === "svg") {
-        $(event.target).parent().remove();
-    } else if (event.target.nodeName === "path") {
-        $(event.target).parent().parent().remove();
-    }
-});
+$("#ustencils").click(event => removeElement(event));
+$("#ingredients").click(event => removeElement(event));
+$("#steps").click(event => removeElement(event));
 
 $("#tags").click(function (event) {
     if (event.target.nodeName === "SPAN") {
@@ -55,10 +45,27 @@ $("#tags").click(function (event) {
     }
 });
 
-$("#allergens").click(function (event) {
+/**
+ * Enable the apply button if we can find ustencils and ingredients.
+ */
+function enableApplyButton() {
+    if ($("#ustencils > li").length > 0 && $("#ingredients > li").length > 0) {
+        $("#apply").prop("disabled", false);
+    } else {
+        $("#apply").prop("disabled", true);
+    }
+}
+
+/**
+ * Remove an element from a list.
+ *
+ * @param {*} event
+ */
+function removeElement(event) {
     if (event.target.nodeName === "svg") {
         $(event.target).parent().remove();
     } else if (event.target.nodeName === "path") {
         $(event.target).parent().parent().remove();
     }
-});
+    enableApplyButton();
+}

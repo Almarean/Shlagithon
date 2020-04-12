@@ -14,9 +14,6 @@ if (!isset($_SESSION["member"])) {
 $member = unserialize($_SESSION["member"]);
 
 if (count($_POST) > 0) {
-    echo "aze";
-    var_dump($_POST);
-    exit();
     $errors = [];
     if (!isset($_POST["ingredients"]) && !isset($_POST["ustencils"])) {
         $errors[] = "Veuillez renseigner des ingrédients et des ustensiles.";
@@ -56,10 +53,6 @@ if (count($_POST) > 0) {
         }
         header("Location: publication?success");
     }
-}
-
-if (isset($_POST["return"])) {
-    header("Location: recipes");
 }
 
 require __DIR__ . "/../Views/member/publication_recipe.php";

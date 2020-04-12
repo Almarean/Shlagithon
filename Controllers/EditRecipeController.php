@@ -36,8 +36,4 @@ if (isset($_POST["validate"])) {
     }
 }
 
-if (isset($_POST["return"])) {
-    header("Location: recipes");
-}
-
 require __DIR__ . "/../Views/member/edit_recipe.php";

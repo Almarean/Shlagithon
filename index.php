@@ -13,6 +13,9 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
                 require __DIR__ . "/Controllers/RegistrationController.php";
             }
             break;
+        case "/home":
+            require __DIR__ . "/Controllers/HomepageController.php";
+            break;
         case "/login":
             if (isset($_SESSION["member"])) {
                 header("Location: home");

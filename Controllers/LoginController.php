@@ -27,6 +27,10 @@ if (count($_POST) > 0) {
     } else {
         $errors[] = "Les mots de passe ne correspondent pas.";
     }
+    echo $twig->render("login.html.twig", [
+        "errors" => $errors
+    ]);
 }
 
-require __DIR__ . "/../Views/login.php";
+echo $twig->render("login.twig");
+// require __DIR__ . "/../Views/login.php";

@@ -1,0 +1,249 @@
+{% extends "base.twig" %}
+
+{% block title %}Patoketchup | Home{% endblock %}
+
+{% block body %}
+{% include("templates/header_client.twig") %}
+
+<section class="container-fluid title shadow-card hover-zoom">
+    <div class="row">
+        <div class="col-md-4 bg-light rounded-right title-search mt-5 shadow-card">
+            <h1 class="text-center text-dark display-4"><i class="fas fa-cookie-bite"></i> Patoketchup</h1>
+            <h2 class="font-weight-light text-center">Pizza masters</h2>
+            <h4 class="font-weight-lighter text-center">Since always</h4>
+        </div>
+        <div class="col-md-8">
+            <div class="col-md-4 float-right">
+                <form class="input-group input-group-lg w-auto mx-auto mt-5 shadow-card above">
+                    <input class="form-control mr-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
+                    <button class="btn btn-outline-light my-2 my-sm-0" id="search-button" title="SearchButton"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <div class="row mt-5" id="filtered-recipes">
+                    {% if filtered_recipes %}
+                        {% for recipe in filtered_recipes %}
+                            {% set description = recipe.description %}
+                            {% if description|length > 255 %}
+                                {% set description = description|slice(0, 255)|raw %}
+                            {% endif %}
+                            {% set difficulty_to_display = "" %}
+                            {% for i in range(0, recipe.difficulty - 1) %}
+                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="fas fa-circle"></i></span>' %}
+                            {% endfor %}
+                            {% for i in range(0, 4 - recipe.difficulty) %}
+                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="far fa-circle"></i></span>' %}
+                            {% endfor %}
+                            <a href="recipe-details?id={{ recipe.id }}" class="card text-dark mb-4 w-100">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <img src="/Shlagithon/assets/images/{{ recipe.image }}" class="card-img w-100" alt="image">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ recipe.name }}</h5>
+                                            <p class="card-text">{{ recipe.description }}</p>
+                                            <div class="row">
+                                                <div class="col-md-4 text-center">
+                                                    <p class="card-text">{{ difficulty_to_display|raw }}</p>
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <p class="card-text"><i class="fas fa-stopwatch"></i> {{ recipe.time }} min</p>
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <p class="card-text"><i class="fas fa-users"></i> {{ recipe.nbPersons }} personne.s</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-light rounded-circle p-3 shadow-card" id="scroll-down-button" title="Down"><i class="fas fa-arrow-down"></i></button>
+    </div>
+</section>
+<div class="container mt-5">
+    <div id="homeCarousel" class="carousel slide bg-secondary border rounded shadow" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#homeCarousel" data-slide-to="1"></li>
+            <li data-target="#homeCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner m-auto">
+            {% for recipe in carousel_recipes %}
+                {% if loop.first %}
+                    <div class="carousel-item active">
+                {% else %}
+                    <div class="carousel-item">
+                {% endif %}
+                    <a href="recipe-details?id={{ recipe.id }}">
+                        <img src="/Shlagithon/assets/images/{{ recipe.image }}" class="d-block w-50 m-auto" alt="image">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ recipe.name }}</h5>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Recette précédente</span>
+        </a>
+        <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Recette suivante</span>
+        </a>
+    </div>
+    <div class="mt-5">
+        <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
+            <li class="nav-item">
+                <a href="#nav-entrees" class="nav-item nav-link text-dark active" id="nav-entrees-tab" data-toggle="tab" role="tab" aria-controls="nav-entrees" aria-selected="true" title="Entrees">Entrées</a>
+            </li>
+            <li class="nav-item">
+                <a href="#nav-dishes" class="nav-item nav-link text-dark" id="nav-dishes-tab" data-toggle="tab" role="tab" aria-controls="nav-dishes" aria-selected="false" title="Dishes">Plats</a>
+            </li>
+            <li class="nav-item">
+                <a href="#nav-desserts" class="nav-item nav-link text-dark" id="nav-desserts-tab" data-toggle="tab" role="tab" aria-controls="nav-desserts" aria-selected="false" title="Desserts">Desserts</a>
+            </li>
+            <li class="nav-item">
+                <a href="#nav-others" class="nav-item nav-link text-dark" id="nav-others-tab" data-toggle="tab" role="tab" aria-controls="nav-others" aria-selected="false" title="Others">Autres</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="nav-entrees" role="tabpanel" aria-labelledby="nav-entrees-tab">
+                <div class="row">
+                    {% for entree in entrees %}
+                        <div class="col-md-4">
+                            <a href="recipe-details?id={{ entree.id }}" class="card mb-5 mx-auto text-dark shadow" style="width: 18rem; height: 20rem;">
+                                <img class="card-img-top mx-auto" src="/Shlagithon/assets/images/{{ entree.image }}" alt="image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mt-auto">{{ entree.name }}</h5>
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            {% set difficulty_to_display = "" %}
+                                            {% for i in range(0, entree.difficulty - 1) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="fas fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {% for i in range(0, 4 - entree.difficulty) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="far fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {{ difficulty_to_display|raw }}
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <p><i class="fas fa-stopwatch"></i> {{ entree.time }} min</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-dishes" role="tabpanel" aria-labelledby="nav-dishes-tab">
+                <div class="row">
+                    {% for dish in dishes %}
+                        <div class="col-md-4">
+                            <a href="recipe-details?id={{ dish.id }}" class="card mb-5 mx-auto text-dark shadow" style="width: 18rem; height: 20rem;">
+                                <img class="card-img-top mx-auto" src="/Shlagithon/assets/images/{{ dish.image }}" alt="image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mt-auto">{{ dish.name }}</h5>
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            {% set difficulty_to_display = "" %}
+                                            {% for i in range(0, dish.difficulty - 1) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="fas fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {% for i in range(0, 4 - dish.difficulty) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="far fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {{ difficulty_to_display|raw }}
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <p><i class="fas fa-stopwatch"></i> {{ dish.time }} min</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-desserts" role="tabpanel" aria-labelledby="nav-desserts-tab">
+                <div class="row">
+                    {% for dessert in desserts %}
+                        <div class="col-md-4">
+                            <a href="recipe-details?id={{ dessert.id }}" class="card mb-5 mx-auto text-dark shadow" style="width: 18rem; height: 20rem;">
+                                <img class="card-img-top mx-auto" src="/Shlagithon/assets/images/{{ dessert.image }}" alt="image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mt-auto">{{ dessert.name }}</h5>
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            {% set difficulty_to_display = "" %}
+                                            {% for i in range(0, dessert.difficulty - 1) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="fas fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {% for i in range(0, 4 - dessert.difficulty) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="far fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {{ difficulty_to_display|raw }}
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <p><i class="fas fa-stopwatch"></i> {{ dessert.time }} min</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-others" role="tabpanel" aria-labelledby="nav-others-tab">
+                <div class="row">
+                    {% for other in others %}
+                        <div class="col-md-4">
+                            <a href="recipe-details?id={{ other.id }}" class="card mb-5 mx-auto text-dark shadow" style="width: 18rem; height: 20rem;">
+                                <img class="card-img-top mx-auto" src="/Shlagithon/assets/images/{{ other.image }}" alt="image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mt-auto">{{ other.name }}</h5>
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            {% set difficulty_to_display = "" %}
+                                            {% for i in range(0, other.difficulty - 1) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="fas fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {% for i in range(0, 4 - other.difficulty) %}
+                                                {% set difficulty_to_display = difficulty_to_display ~ '<span><i class="far fa-circle"></i></span>' %}
+                                            {% endfor %}
+                                            {{ difficulty_to_display|raw }}
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <p><i class="fas fa-stopwatch"></i> {{ other.time }} min</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-light rounded-circle p-3 shadow-card" id="scroll-top-button" title="Up"><i class="fas fa-arrow-up"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include("templates/footer.php") %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="/Shlagithon/assets/js/ajax_filter_recipes.js"></script>
+<script src="/Shlagithon/assets/js/ihm.js"></script>
+{% endblock %}

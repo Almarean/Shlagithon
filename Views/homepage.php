@@ -27,16 +27,14 @@
                         if (isset($filteredRecipes)) {
                             foreach ($filteredRecipes as $recipe) {
                                 $description = $recipe->getDescription();
-                                if (strlen($description)) {
+                                if (strlen($description) > 255) {
                                     $description = substr($description, 0, 255) . "...";
                                 }
-                                $difficulty = $recipe->getDifficulty();
-                                $difference = 5 - $difficulty;
                                 $difficultyToDisplay = "";
-                                for ($i = 0; $i < $difficulty; $i++) {
+                                for ($i = 0; $i < $recipe->getDifficulty(); $i++) {
                                     $difficultyToDisplay .= "<span><i class='fas fa-circle'></i></span>";
                                 }
-                                for ($i = 0; $i < $difference; $i++) {
+                                for ($i = 0; $i < 5 - $recipe->getDifficulty(); $i++) {
                                     $difficultyToDisplay .= "<span><i class='far fa-circle'></i></span>";
                                 }
                         ?>
@@ -75,34 +73,32 @@
         </div>
     </section>
     <div class="container mt-5">
-        <div class="container mt-5">
-            <div id="homeCarousel" class="carousel slide bg-secondary border rounded shadow" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#homeCarousel" data-slide-to="1"></li>
-                    <li data-target="#homeCarousel" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner m-auto">
-                    <?php foreach ($carouselRecipes as $key => $carouselRecipe) { ?>
-                        <div class="carousel-item <?php if ($key === 0) { echo "active"; } ?>">
-                            <a href="recipe-details?id=<?php echo $carouselRecipe->getId(); ?>">
-                                <img src="/Shlagithon/assets/images/<?php echo $carouselRecipe->getImage(); ?>" class="d-block w-50 m-auto" alt="image">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5><?php echo $carouselRecipe->getName(); ?></h5>
-                                </div>
-                            </a>
-                        </div>
-                    <?php } ?>
-                </div>
-                <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Recette précédente</span>
-                </a>
-                <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Recette suivante</span>
-                </a>
+        <div id="homeCarousel" class="carousel slide bg-secondary border rounded shadow" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#homeCarousel" data-slide-to="1"></li>
+                <li data-target="#homeCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner m-auto">
+                <?php foreach ($carouselRecipes as $key => $carouselRecipe) { ?>
+                    <div class="carousel-item <?php if ($key === 0) { echo "active"; } ?>">
+                        <a href="recipe-details?id=<?php echo $carouselRecipe->getId(); ?>">
+                            <img src="/Shlagithon/assets/images/<?php echo $carouselRecipe->getImage(); ?>" class="d-block w-50 m-auto" alt="image">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><?php echo $carouselRecipe->getName(); ?></h5>
+                            </div>
+                        </a>
+                    </div>
+                <?php } ?>
             </div>
+            <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Recette précédente</span>
+            </a>
+            <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Recette suivante</span>
+            </a>
         </div>
         <div class="mt-5">
             <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
@@ -131,12 +127,10 @@
                                         <div class="row">
                                             <div class="col-6 text-center">
                                                 <?php
-                                                $difficulty = $entree->getDifficulty();
-                                                $difference = 5 - $difficulty;
-                                                for ($i = 0; $i < $difficulty; $i++) {
+                                                for ($i = 0; $i < $entree->getDifficulty(); $i++) {
                                                     echo "<span><i class='fas fa-circle'></i></span>";
                                                 }
-                                                for ($i = 0; $i < $difference; $i++) {
+                                                for ($i = 0; $i < 5 - $entree->getDifficulty(); $i++) {
                                                     echo "<span><i class='far fa-circle'></i></span>";
                                                 }
                                                 ?>
@@ -162,12 +156,10 @@
                                         <div class="row">
                                             <div class="col-6 text-center">
                                                 <?php
-                                                $difficulty = $dish->getDifficulty();
-                                                $difference = 5 - $difficulty;
-                                                for ($i = 0; $i < $difficulty; $i++) {
+                                                for ($i = 0; $i < $dish->getDifficulty(); $i++) {
                                                     echo "<span><i class='fas fa-circle'></i></span>";
                                                 }
-                                                for ($i = 0; $i < $difference; $i++) {
+                                                for ($i = 0; $i < 5 - $dish->getDifficulty(); $i++) {
                                                     echo "<span><i class='far fa-circle'></i></span>";
                                                 }
                                                 ?>
@@ -193,12 +185,10 @@
                                         <div class="row">
                                             <div class="col-6 text-center">
                                                 <?php
-                                                $difficulty = $dessert->getDifficulty();
-                                                $difference = 5 - $difficulty;
-                                                for ($i = 0; $i < $difficulty; $i++) {
+                                                for ($i = 0; $i < $dessert->getDifficulty(); $i++) {
                                                     echo "<span><i class='fas fa-circle'></i></span>";
                                                 }
-                                                for ($i = 0; $i < $difference; $i++) {
+                                                for ($i = 0; $i < 5 - $dessert->getDifficulty(); $i++) {
                                                     echo "<span><i class='far fa-circle'></i></span>";
                                                 }
                                                 ?>
@@ -224,12 +214,10 @@
                                         <div class="row">
                                             <div class="col-6 text-center">
                                                 <?php
-                                                $difficulty = $other->getDifficulty();
-                                                $difference = 5 - $difficulty;
-                                                for ($i = 0; $i < $difficulty; $i++) {
+                                                for ($i = 0; $i < $other->getDifficulty(); $i++) {
                                                     echo "<span><i class='fas fa-circle'></i></span>";
                                                 }
-                                                for ($i = 0; $i < $difference; $i++) {
+                                                for ($i = 0; $i < 5 - $other->getDifficulty(); $i++) {
                                                     echo "<span><i class='far fa-circle'></i></span>";
                                                 }
                                                 ?>

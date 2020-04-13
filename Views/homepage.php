@@ -7,14 +7,76 @@
 
 <body class="position-relative">
     <?php include __DIR__ . "/templates/header_client.php"; ?>
+    <section class="container-fluid title shadow-card hover-zoom">
+        <div class="row">
+            <div class="col-md-4 bg-light rounded-right title-search mt-5 shadow-card">
+                <h1 class="text-center text-dark display-4"><i class="fas fa-cookie-bite"></i> Patoketchup</h1>
+                <h2 class="font-weight-light text-center">Pizza masters</h2>
+                <h4 class="font-weight-lighter text-center">Since always</h4>
+            </div>
+            <div class="col-md-8">
+                <div class="col-md-4 float-right">
+                    <form class="input-group input-group-lg w-auto mx-auto mt-5 shadow-card above">
+                        <input class="form-control mr-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
+                        <button class="btn btn-outline-light my-2 my-sm-0" id="search-button" title="SearchButton"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <div class="row mt-5" id="filtered-recipes">
+                        <?php
+                        if (isset($filteredRecipes)) {
+                            foreach ($filteredRecipes as $recipe) {
+                                $description = $recipe->getDescription();
+                                if (strlen($description)) {
+                                    $description = substr($description, 0, 255) . "...";
+                                }
+                                $difficulty = $recipe->getDifficulty();
+                                $difference = 5 - $difficulty;
+                                $difficultyToDisplay = "";
+                                for ($i = 0; $i < $difficulty; $i++) {
+                                    $difficultyToDisplay .= "<span><i class='fas fa-circle'></i></span>";
+                                }
+                                for ($i = 0; $i < $difference; $i++) {
+                                    $difficultyToDisplay .= "<span><i class='far fa-circle'></i></span>";
+                                }
+                        ?>
+                                <a href="recipe-details?id=<?php echo $recipe->getId(); ?>" class="card text-dark mb-4 w-100">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="card-img w-100" alt="image">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo $recipe->getName(); ?></h5>
+                                                <p class="card-text"><?php echo $description; ?></p>
+                                                <div class="row">
+                                                    <div class="col-md-4 text-center">
+                                                        <p class="card-text"><?php echo $difficultyToDisplay; ?></p>
+                                                    </div>
+                                                    <div class="col-md-4 text-center">
+                                                        <p class="card-text"><i class="fas fa-stopwatch"></i> <?php echo $recipe->getTime(); ?> min</p>
+                                                    </div>
+                                                    <div class="col-md-4 text-center">
+                                                        <p class="card-text"><i class="fas fa-users"></i> <?php echo $recipe->getNbPersons(); ?> personne.s</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                        <?php }
+                        } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-light rounded-circle p-3 shadow-card" id="scroll-down-button" title="Down"><i class="fas fa-arrow-down"></i></button>
+        </div>
+    </section>
     <div class="container mt-5">
-        <div class="text-center logo"><i class="fas fa-cookie-bite"></i> Patoketchup</div>
-        <form class="input-group input-group-lg w-75 mx-auto mt-4">
-            <input class="form-control mr-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
-            <button class="btn btn-outline-dark my-2 my-sm-0" id="search-button" title="SearchButton"><i class="fas fa-search"></i></button>
-        </form>
-        <div class="mt-5">
-            <div id="homeCarousel" class="carousel slide bg-secondary rounded" data-ride="carousel">
+        <div class="container mt-5">
+            <div id="homeCarousel" class="carousel slide bg-secondary border rounded shadow" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
                     <li data-target="#homeCarousel" data-slide-to="1"></li>
@@ -42,11 +104,6 @@
                 </a>
             </div>
         </div>
-
-        <div class="mt-5">
-            <div class="row" id="filtered-recipes"></div>
-        </div>
-
         <div class="mt-5">
             <ul class="nav nav-tabs nav-fill mb-4" role="tablist">
                 <li class="nav-item">
@@ -67,7 +124,7 @@
                     <div class="row">
                         <?php foreach ($entrees as $entree) { ?>
                             <div class="col-md-4">
-                                <a href="recipe-details?id=<?php echo $entree->getId(); ?>" class="card mb-5 mx-auto text-dark" style="width: 18rem; height: 20rem;">
+                                <a href="recipe-details?id=<?php echo $entree->getId(); ?>" class="card mb-5 mx-auto text-dark shadow" style="width: 18rem; height: 20rem;">
                                     <img class="card-img-top mx-auto" src="/Shlagithon/assets/images/<?php echo $entree->getImage(); ?>" alt="image">
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title mt-auto"><?php echo $entree->getName(); ?></h5>
@@ -187,6 +244,9 @@
                         <?php } ?>
                     </div>
                 </div>
+                <div class="text-center">
+                    <button class="btn btn-light rounded-circle p-3 shadow-card" id="scroll-top-button" title="Up"><i class="fas fa-arrow-up"></i></button>
+                </div>
             </div>
         </div>
     </div>
@@ -194,6 +254,7 @@
     <?php include __DIR__ . "/templates/footer.php"; ?>
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
     <script src="/Shlagithon/assets/js/ajax_filter_recipes.js"></script>
+    <script src="/Shlagithon/assets/js/ihm.js"></script>
 </body>
 
 </html>

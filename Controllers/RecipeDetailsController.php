@@ -44,7 +44,6 @@ if (isset($_GET["id"])) {
     $recipe->setTags(TagManager::findAllByRecipe($recipe));
     $recipe->setRequirements($requirements);
     $commentaries = CommentManager::findByRecipe($recipe);
-    $listFavorite = RecipeManager::findFavoriteRecipes(unserialize($_SESSION["member"]));
 }
 
 require __DIR__ . "/../Views/recipes_details.php";

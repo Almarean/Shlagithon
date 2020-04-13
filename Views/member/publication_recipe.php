@@ -35,7 +35,11 @@
                             </div>
                             <div class="input-group mb-5 col-md-8">
                                 <label for="input-ustencil" hidden>Ajouter un ustensile</label>
-                                <input type="text" id="input-ustencil" class="form-control" placeholder="Ajouter un ustensile" aria-label="ustencil" aria-describedby="button-add-ustencil">
+                                <select name="input-ustencil" aria-label="ustencil" aria-describedby="button-add-ustencil" class="form-control rounded-left" id="input-ustencil">
+                                    <?php foreach ($ustencils as $ustencil) { ?>
+                                        <option value="<?php echo $ustencil->getLabel(); ?>"><?php echo $ustencil->getLabel(); ?></option>
+                                    <?php } ?>
+                                </select>
                                 <div class="input-group-append">
                                     <button class="btn btn-dark" type="button" id="button-add-ustencil" title="AddUstencil"><i class="fas fa-plus"></i></button>
                                 </div>
@@ -60,7 +64,11 @@
                             </div>
                             <div class="input-group mb-5 col-md-7">
                                 <label for="input-ingredient" hidden>Ajouter un ingrédient</label>
-                                <input type="text" id="input-ingredient" class="form-control" placeholder="Ajouter un ingrédient" aria-label="ingredient" aria-describedby="button-add-ingredient">
+                                <select name="input-ingredient" aria-label="ingredient" aria-describedby="button-add-ingredient" class="form-control rounded-left" id="input-ingredient">
+                                    <?php foreach ($ingredients as $ingredient) { ?>
+                                        <option value="<?php echo $ingredient->getLabel(); ?>"><?php echo $ingredient->getLabel(); ?></option>
+                                    <?php } ?>
+                                </select>
                                 <div class="input-group-append">
                                     <button class="btn btn-dark" type="button" id="button-add-ingredient" title="AddIngredient"><i class="fas fa-plus"></i></button>
                                 </div>
@@ -72,7 +80,11 @@
                         <h5>Ajouter des tags</h5>
                         <div class="input-group mb-3">
                             <label for="input-tag" hidden>Ajouter un tag</label>
-                            <input type="text" id="input-tag" class="form-control" placeholder="Ajouter un tag" aria-label="tag" aria-describedby="button-add-tag">
+                            <select name="input-tag" aria-label="tag" aria-describedby="button-add-tag" class="form-control rounded-left" id="input-tag">
+                                <?php foreach ($tags as $tag) { ?>
+                                    <option value="<?php echo $tag->getLabel(); ?>"><?php echo $tag->getLabel(); ?></option>
+                                <?php } ?>
+                            </select>
                             <div class="input-group-append">
                                 <button class="btn btn-dark" type="button" id="button-add-tag" title="AddTag"><i class="fas fa-plus"></i></button>
                             </div>
@@ -83,7 +95,7 @@
                         <h5>Ajouter des étapes</h5>
                         <div class="input-group mb-3">
                             <label for="input-step" hidden>Ajouter une étape</label>
-                            <input type="text" id="input-step" class="form-control" placeholder="Ajouter une étape" aria-label="step" aria-describedby="button-add-step">
+                            <input type="text" id="input-step" class="form-control rounded-left" placeholder="Ajouter une étape" aria-label="step" aria-describedby="button-add-step">
                             <div class="input-group-append">
                                 <button class="btn btn-dark" type="button" id="button-add-step" title="AddStep"><i class="fas fa-plus"></i></button>
                             </div>

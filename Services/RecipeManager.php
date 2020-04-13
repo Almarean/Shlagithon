@@ -70,13 +70,13 @@ class RecipeManager implements IManager
     /**
      * Fetch all recipes in database by given type.
      *
-     * @param $type string Enum ('ENTREE','PLAT','DESSERT','AUTRE')
+     * @param string $type Enum ('ENTREE','PLAT','DESSERT','AUTRE')
      * @return array
      */
-    public static function findAllByType($type): array
+    public static function findAllByType(string $type): array
     {
         if ($type === "ENTREE" || $type === "PLAT" || $type === "DESSERT" || $type === "AUTRE") {
-            $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type = :type LIMIT 20;");
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type = :type LIMIT 100;");
             $stmt->bindValue(":type", $type, PDO::PARAM_STR);
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -197,7 +197,6 @@ class RecipeManager implements IManager
         return $objects;
     }
 
-
     /**
      * Insert recipe as favorite for the member
      *
@@ -281,13 +280,21 @@ class RecipeManager implements IManager
      *
      * @return array
      */
-    public static function findRecipesByText(string $text): array
+    public static function findRecipesByText(string $text, bool $convertIntoObject = false): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE LOWER(rec_name) LIKE :text;");
         $filter = "%{$text}%";
         $stmt->bindValue(":text", $filter, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($convertIntoObject) {
+            $objects = [];
+            foreach ($results as $result) {
+                array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
+            }
+            $results = $objects;
+        }
+        return $results;
     }
 
     /**

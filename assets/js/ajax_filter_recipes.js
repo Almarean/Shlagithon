@@ -4,7 +4,7 @@ $(document).ready(function () {
     let filter = $("#search-input").val();
     $.ajax({
       url: "filter-recipes",
-      type: "POST",
+      type: "GET",
       data: "filter=" + filter,
       success: function (response) {
         let div = $("#filtered-recipes");
@@ -27,7 +27,7 @@ $(document).ready(function () {
             "<a href='recipe-details?id=" + value["rec_id"] + "' class='card text-dark mb-4 w-100'>" +
               "<div class='row no-gutters'>" +
                 "<div class='col-md-4'>" +
-                  "<img src='/Shlagithon/assets/images/" + value["rec_image"] + "' class='card-img' alt='image'>" +
+                  "<img src='/Shlagithon/assets/images/" + value["rec_image"] + "' class='card-img w-100' alt='image'>" +
                 "</div>" +
                 "<div class='col-md-8'>" +
                   "<div class='card-body'>" +

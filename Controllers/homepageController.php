@@ -20,4 +20,8 @@ if (count($desserts) > 0) {
     array_push($carouselRecipes, $desserts[rand(0, count($desserts) - 1)]);
 }
 
+if (isset($_GET["filter"])) {
+    $filteredRecipes = RecipeManager::findRecipesByText(strtolower($_GET["filter"]), true);
+}
+
 require __DIR__ . "/../Views/homepage.php";

@@ -68,8 +68,7 @@ class IngredientManager //implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity
-            "]));
+            array_push($objects, new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity"]));
         }
         return $objects;
     }

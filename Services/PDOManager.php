@@ -70,8 +70,8 @@ class PDOManager
                 $username = "root";
                 $password = "";
             } else {
-                $host = "localhost";
-                $username = "root";
+                $host = "localhost"; // mysql-thomaslaure.alwaysdata.net
+                $username = "root"; // 136984
                 $password = "";
             }
             self::$_instance = new PDOManager($host, $username, $password);

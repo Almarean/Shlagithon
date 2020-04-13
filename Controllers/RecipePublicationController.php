@@ -12,6 +12,9 @@ if (!isset($_SESSION["member"])) {
     header("Location: logout");
 }
 $member = unserialize($_SESSION["member"]);
+$ingredients = IngredientManager::findAll();
+$ustencils = UstencilManager::findAll();
+$tags = TagManager::findAll();
 
 if (count($_POST) > 0) {
     $errors = [];

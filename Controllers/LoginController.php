@@ -32,5 +32,31 @@ if (count($_POST) > 0) {
     ]);
 }
 
-echo $twig->render("login.twig");
+if (count($_GET) > 0) {
+    if (isset($_GET["success"]) && $_GET["success"] === "1") {
+        echo $twig->render("login.twig", [
+            "email" => $_GET["email"],
+            "success" => 1
+        ]);
+    }
+    if (isset($_GET["success"]) && $_GET["success"] === "0") {
+        echo $twig->render("login.twig", [
+            "success" => 0
+        ]);
+    }
+    if (isset($_GET["confirmed"]) && $_GET["confirmed"] === "1") {
+        echo $twig->render("login.twig", [
+            "email" => $_GET["email"],
+            "confirmed" => 1
+        ]);
+    }
+    if (isset($_GET["confirmed"]) && $_GET["confirmed"] === "0") {
+        echo $twig->render("login.twig", [
+            "confirmed" => 0
+        ]);
+    }
+} else {
+    echo $twig->render("login.twig");
+}
+
 // require __DIR__ . "/../Views/login.php";

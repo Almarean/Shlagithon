@@ -49,16 +49,9 @@ if (count($_POST) > 0) {
             <p>L'équipe de Patoketchup</p>";
         $mail->AddAddress($email);
         if ($mail->send()) {
-            echo $twig->render("login.twig", [
-                "email" => $email,
-                "success" => 1
-            ]);
-            // header("Location: login?success=1&email=" . $email);
+            header("Location: login?success=1&email=" . $email);
         } else {
-            echo $twig->render("login.twig", [
-                "success" => 0
-            ]);
-            // header("Location: login?success=0");
+            header("Location: login?success=0");
         }
     }
 }

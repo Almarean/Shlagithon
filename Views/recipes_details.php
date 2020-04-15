@@ -39,8 +39,15 @@
                     ?>
                 </p>
             </div>
-            <div class="lead text-center mt-5">
-                <button class="btn btn-dark" id="button-add-favorite" title="AddFavorite" value="<?php echo $recipe->getId(); ?>"><i class="far fa-star"></i> Ajouter aux favoris</button>
+            <div class="lead text-center mt-5" id="button-action">
+                <?php
+                if (isset($inArray) && $inArray === true) { ?>
+                    <button class="btn btn-dark" id="button-delete-favorite" title="DeleteFavorite" value="<?php echo $recipe->getId(); ?>"><i class="fas fa-star"></i> Supprimer des favoris</button>
+                    <button class="btn btn-dark" id="button-add-favorite" title="AddFavorite" value="<?php echo $recipe->getId(); ?>" hidden><i class="far fa-star"></i> Ajouter aux favoris</button>
+                <?php } else { ?>
+                    <button class="btn btn-dark" id="button-delete-favorite" title="DeleteFavorite" value="<?php echo $recipe->getId(); ?>" hidden><i class="fas fa-star"></i> Supprimer des favoris</button>
+                    <button class="btn btn-dark" id="button-add-favorite" title="AddFavorite" value="<?php echo $recipe->getId(); ?>"><i class="far fa-star"></i> Ajouter aux favoris</button>
+                <?php } ?>
             </div>
             <div class="col mx-auto mt-5">
                 <p class="lead text-justify"><?php echo $recipe->getDescription(); ?></p>
@@ -132,7 +139,7 @@
 
     <?php include __DIR__ . "/templates/footer.php"; ?>
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/ajax_add_favorite_recipe.js"></script>
+    <script src="/Shlagithon/assets/js/ajax_favorite_recipe.js"></script>
 </body>
 
 </html>

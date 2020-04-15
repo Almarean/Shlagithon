@@ -12,18 +12,19 @@ use App\Services\TagManager;
 
 if (isset($_GET["id"])) {
     $recipe = RecipeManager::findOneById($_GET["id"]);
-    if (count($_POST) > 0 && isset($_SESSION["member"])) {
-        if (isset($_POST["comment"]) && strlen($_POST["comment"] > 0)) {
+    if (isset($_SESSION["member"])) {
+        $member = unserialize($_SESSION["member"]);
+        $member->setFavoriteRecipes(RecipeManager::findFavoriteRecipes($member));
+        $inArray = false;
+        foreach ($member->getFavoriteRecipes() as $favoriteRecipe) {
+            if ($favoriteRecipe->getId() === $recipe->getId()) {
+                $inArray = true;
+            }
+        }
+        if (isset($_POST["comment"]) && strlen(trim($_POST["comment"])) > 0) {
             $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe, date("Y-m-d H:i:s"));
             CommentManager::insert($newComment);
         }
-        // if (isset($_POST["favorite"])) {
-        //     if ($_POST["favorite"]) {
-        //         RecipeManager::setFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
-        //     } else {
-        //         RecipeManager::removeFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
-        //     }
-        // }
     }
     $recipe->setSteps(StepManager::findAllByRecipe($recipe));
     $requirements = RequirementManager::findAllByRecipe($recipe);

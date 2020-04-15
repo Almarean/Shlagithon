@@ -109,8 +109,6 @@ class MemberManager implements IManager
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
             }
             $member->setIsConfirmed($result["m_is_confirmed"]);
-            $member->setFavoriteRecipes(RecipeManager::findFavoriteRecipes($member));
-            //$member->setWrittenRecipes(RecipeManager::findWrittenRecipes($member));
             return $member;
         } else {
             return null;
@@ -141,8 +139,6 @@ class MemberManager implements IManager
                 $member->setLastConnectionDate($result["m_last_connection_date"]);
             }
             $member->setIsConfirmed($result["m_is_confirmed"]);
-            $member->setFavoriteRecipes(RecipeManager::findFavoriteRecipes($member));
-            //$member->setWrittenRecipes(RecipeManager::findWrittenRecipes($member));
             return $member;
         } else {
             return null;

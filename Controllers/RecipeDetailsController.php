@@ -17,13 +17,13 @@ if (isset($_GET["id"])) {
             $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe, date("Y-m-d H:i:s"));
             CommentManager::insert($newComment);
         }
-        if (isset($_POST["favorite"])) {
-            if ($_POST["favorite"]) {
-                RecipeManager::setFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
-            } else {
-                RecipeManager::removeFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
-            }
-        }
+        // if (isset($_POST["favorite"])) {
+        //     if ($_POST["favorite"]) {
+        //         RecipeManager::setFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
+        //     } else {
+        //         RecipeManager::removeFavoriteRecipe(unserialize($_SESSION["member"]), $recipe);
+        //     }
+        // }
     }
     $recipe->setSteps(StepManager::findAllByRecipe($recipe));
     $requirements = RequirementManager::findAllByRecipe($recipe);

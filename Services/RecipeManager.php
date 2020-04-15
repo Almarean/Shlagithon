@@ -205,7 +205,7 @@ class RecipeManager implements IManager
      *
      * @return array
      */
-    public static function setFavoriteRecipe(Member $member, Recipe $recipe): bool
+    public static function insertFavoriteRecipe(Member $member, Recipe $recipe): bool
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO `recipe_member`(`rm_fk_recipe_id`, `rm_fk_member_id`) VALUES (:recipeId, :memberId)");
         $stmt->bindValue(":recipeId", $recipe->getId(), PDO::PARAM_INT);

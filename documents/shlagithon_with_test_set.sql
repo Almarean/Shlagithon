@@ -11,6 +11,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
+DROP SCHEMA IF EXISTS `shlagithon`;
+CREATE SCHEMA IF NOT EXISTS `shlagithon`;
+
+USE `shlagithon`;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -39,6 +43,52 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `fk_comment_member` (`c_fk_member_id`),
   KEY `fk_comment_recipe` (`c_fk_recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ticket_answer`
+--
+
+DROP TABLE IF EXISTS `ticket_answer`;
+CREATE TABLE IF NOT EXISTS `ticket_answer` (
+  `ti_a_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ti_a_text` text COLLATE utf8_unicode_ci NOT NULL,
+  `ti_a_writing_date` datetime NOT NULL,
+  `ti_a_fk_ticket_id` int(11) NOT NULL,
+  `ti_a_fk_member_id`int(11) NOT NULL,
+  PRIMARY KEY (`ti_a_id`),
+  KEY `fk_ticket_answer_ticket` (`ti_a_fk_ticket_id`),
+  KEY `fk_ticket_answer_member` (`ti_a_fk_member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ticket`
+--
+
+DROP TABLE IF EXISTS `ticket`;
+CREATE TABLE IF NOT EXISTS `ticket` (
+  `ti_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ti_subject` text COLLATE utf8_unicode_ci NOT NULL,
+  `ti_text` text COLLATE utf8_unicode_ci NOT NULL,
+  `ti_writing_date` datetime NOT NULL,
+  `ti_last_update` datetime NOT NULL,
+  `ti_is_resolved` tinyint(4) NOT NULL DEFAULT 0,
+  `ti_fk_member_id` int(11) NOT NULL,
+  PRIMARY KEY (`ti_id`),
+  KEY `fk_ticket_member` (`ti_fk_member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
 
 -- --------------------------------------------------------
 
@@ -236,6 +286,19 @@ CREATE TABLE IF NOT EXISTS `tag` (
 ALTER TABLE `comment`
   ADD CONSTRAINT `fk_comment_member` FOREIGN KEY (`c_fk_member_id`) REFERENCES `member` (`m_id`),
   ADD CONSTRAINT `fk_comment_recipe` FOREIGN KEY (`c_fk_recipe_id`) REFERENCES `recipe` (`rec_id`);
+
+--
+-- Contraintes pour la table `ticket`
+--
+ALTER TABLE `ticket`
+  ADD CONSTRAINT `fk_ticket_member_id` FOREIGN KEY (`ti_fk_member_id`) REFERENCES `member` (`m_id`);
+
+--
+-- Contraintes pour la table `ticket_anwser`
+--
+ALTER TABLE `ticket_answer`
+  ADD CONSTRAINT `fk_ticket_anwser_ticket` FOREIGN KEY (`ti_a_fk_ticket_id`) REFERENCES `ticket` (`ti_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_ticket_answer_member` FOREIGN KEY (`ti_a_fk_member_id`) REFERENCES `member` (`m_id`);
 
 --
 -- Contraintes pour la table `recipe`

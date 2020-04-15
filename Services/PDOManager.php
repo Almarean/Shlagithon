@@ -31,11 +31,17 @@ class PDOManager
      * @param string $host
      * @param string $username
      * @param string $password
+     * @param string $env
      */
-    private function __construct(string $host, string $username, string $password)
+    private function __construct(string $host, string $username, string $password, string $env = "prod")
     {
         try {
-            $this->pdo = new PDO("mysql:host=$host;dbname=shlagithon", $username, $password);
+            if ($env === "prod") {
+                $dbname = "shlagithon";
+            } else {
+                $dbname = "shlagithon";
+            }
+            $this->pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo "Connection failed : " . $e->getMessage();
@@ -74,7 +80,7 @@ class PDOManager
                 $username = "root"; // 136984
                 $password = "";
             }
-            self::$_instance = new PDOManager($host, $username, $password);
+            self::$_instance = new PDOManager($host, $username, $password, $env);
         }
         return self::$_instance;
     }

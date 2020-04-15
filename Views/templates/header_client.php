@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-card">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
     <a class="navbar-brand" href="/Shlagithon/index.php/"><i class="fas fa-cookie-bite text-dark"></i> Patoketchup</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

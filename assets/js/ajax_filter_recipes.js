@@ -24,7 +24,7 @@ $(document).ready(function () {
             difficultyToDisplay += "<span><i class='far fa-circle'></i></span>";
           }
           div.append(
-            "<a href='recipe-details?id=" + value["rec_id"] + "' class='card text-dark mb-4 w-100'>" +
+            "<a href='recipe-details?filter=" + filter + "&id=" + value["rec_id"] + "' class='card text-dark mb-4 w-100'>" +
               "<div class='row no-gutters'>" +
                 "<div class='col-md-4'>" +
                   "<img src='/Shlagithon/assets/images/" + value["rec_image"] + "' class='card-img w-100' alt='image'>" +

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#apply").on("click", function () {
+    $("#apply").on("click", function (event) {
         event.preventDefault();
 
         let ustencils = $.map($("#ustencils > li"), element => {
@@ -24,16 +24,20 @@ $(document).ready(function () {
             return { name: $.trim($(element).text()) };
         });
 
-        let formData = new FormData($("#form-recipe").get[0]);
-        console.log(formData);
+        let formData = new FormData($("#form-recipe")[0]);
+        formData.append("image", $("#image")[0].files);
+        formData.append("ustencils", JSON.stringify(ustencils));
+        formData.append("ingredients", JSON.stringify(ingredients));
+        formData.append("tags", JSON.stringify(tags));
+
         let data = {
-            name: $.trim($("#name").text()),
-            description: $.trim($("#description").text()),
-            time: $.trim($("#time").text()),
+            name: $.trim($("#name").val()),
+            description: $.trim($("#description").val()),
+            time: $.trim($("#time").val()),
             type: $.trim($("#type").val()),
-            difficulty: $.trim($("#difficulty").text()),
-            nbPersons: $.trim($("#nb-persons").text()),
-            advice: $.trim($("#advice").text()),
+            difficulty: $.trim($("#difficulty").val()),
+            nbPersons: $.trim($("#nb-persons").val()),
+            advice: $.trim($("#advice").val()),
             ustencils: ustencils,
             ingredients: ingredients,
             tags: tags,
@@ -48,7 +52,10 @@ $(document).ready(function () {
             $.ajax({
                 url: "publication",
                 type: "POST",
-                data: "data=" + JSON.stringify(data) + "&formData=" + JSON.stringify(formData),
+                processData: false,
+                contentType: false,
+                //data: "data=" + JSON.stringify(data), //+ "&form=" + JSON.stringify(formData),
+                data: formData,
                 success: function () {}
             });
         } else {

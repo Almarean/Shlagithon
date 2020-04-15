@@ -5,14 +5,13 @@
     <?php include __DIR__ . "/templates/head.php"; ?>
 </head>
 
-<body class="position-relative">
+<body class="position-relative min-vh-100 bg-light">
     <?php include __DIR__ . "/templates/header_client.php"; ?>
     <section class="container-fluid title shadow-card hover-zoom">
         <div class="row">
             <div class="col-md-4 bg-light rounded-right title-search mt-5 shadow-card">
                 <h1 class="text-center text-dark display-4"><i class="fas fa-cookie-bite"></i> Patoketchup</h1>
-                <h2 class="font-weight-light text-center">Pizza masters</h2>
-                <h4 class="font-weight-lighter text-center">Since always</h4>
+                <h2 class="font-weight-light text-center">Une communauté qui vous régale</h2>
             </div>
             <div class="col-md-8">
                 <div class="col-md-4 float-right">

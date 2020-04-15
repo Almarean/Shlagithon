@@ -27,12 +27,10 @@ if (count($_POST) > 0) {
     } else {
         $errors[] = "Les mots de passe ne correspondent pas.";
     }
-    echo $twig->render("login.html.twig", [
+    echo $twig->render("login.twig", [
         "errors" => $errors
     ]);
-}
-
-if (count($_GET) > 0) {
+} elseif (count($_GET) > 0) {
     if (isset($_GET["success"]) && $_GET["success"] === "1") {
         echo $twig->render("login.twig", [
             "email" => $_GET["email"],

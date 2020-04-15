@@ -5,7 +5,7 @@
     <?php include __DIR__ . "/../templates/head.php"; ?>
 </head>
 
-<body class="position-relative">
+<body class="position-relative min-vh-100 bg-light">
     <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
     <div class="container">

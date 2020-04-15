@@ -13,13 +13,13 @@
                 <a class="nav-link text-dark" href="recipes"><i class="fas fa-book"></i> Recettes publiées</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" href="publication"><i class="fas fa-edit"></i> Publier une recette</a>
+                <a class="nav-link text-dark" href="publication"><i class="far fa-paper-plane"></i> Publier une recette</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" href="publication_ticket"><i class="fas fa-edit"></i> Faire une requête</a>
+                <a class="nav-link text-dark" href="publication-ticket"><i class="fas fa-edit"></i> Faire une demande</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" href="show_ticket"><i class="fas fa-edit"></i>Mes requêtes</a>
+                <a class="nav-link text-dark" href="show-tickets"><i class="fas fa-user-tag"></i> Mes demandes</a>
             </li>
             <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <li class="nav-item">

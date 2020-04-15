@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Recipe;
 use PDO;
 use App\Models\Ticket;
 
@@ -70,7 +69,6 @@ class TicketManager
         return $objects;
     }
 
-
     /**
      * Fetch a ticket by an ID.
      *
@@ -97,10 +95,9 @@ class TicketManager
      */
     public static function updateIsResolved(int $identifier, bool $isResolved): bool
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE ticket SET ti_is_resolved = :isResolved WHERE ti_fk_member_id = :id;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE ticket SET ti_is_resolved = :isResolved WHERE ti_id = :id;");
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
-        $stmt->bindValue(":isResolved", $isResolved, PDO::PARAM_STR);
+        $stmt->bindValue(":isResolved", $isResolved, PDO::PARAM_BOOL);
         return $stmt->execute();
     }
-
 }

@@ -13,7 +13,6 @@ require_once __DIR__ . "/Models/Requirement.php";
 require_once __DIR__ . "/Models/Ingredient.php";
 require_once __DIR__ . "/Models/Ustencil.php";
 require_once __DIR__ . "/Models/Member.php";
-
 require_once __DIR__ . "/Models/Ticket.php";
 require_once __DIR__ . "/Models/TicketAnswer.php";
 require_once __DIR__ . "/Models/Recipe.php";

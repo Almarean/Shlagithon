@@ -47,13 +47,13 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/publication":
             require __DIR__ . "/Controllers/RecipePublicationController.php";
             break;
-        case "/publication_ticket":
+        case "/publication-ticket":
             require __DIR__ . "/Controllers/PublicationTicketController.php";
             break;
-        case "/show_ticket":
-            require __DIR__ . "/Controllers/ShowTicketController.php";
+        case "/show-tickets":
+            require __DIR__ . "/Controllers/ShowTicketsController.php";
             break;
-        case "/consult_ticket":
+        case "/consult-ticket":
             require __DIR__ . "/Controllers/ConsultTicketController.php";
             break;
         // Verify the email address.

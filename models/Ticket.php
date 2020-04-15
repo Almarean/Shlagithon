@@ -62,6 +62,7 @@ class Ticket
      * @param Member $author
      * @param string $writingDate
      * @param string $lastUpdateDate
+     * @param bool $isResolved
      */
     public function __construct(int $id, string $subject, string $text, Member $author, string $writingDate, string $lastUpdateDate, bool $isResolved)
     {
@@ -95,7 +96,7 @@ class Ticket
     }
 
     /**
-     * Getter of isResolved
+     * Getter of isResolved.
      *
      * @return bool
      */
@@ -105,11 +106,12 @@ class Ticket
     }
 
     /**
-     * Setter of isResolved
+     * Setter of isResolved.
      */
-    public function setIsResolved(): bool
+    public function setIsResolved(): self
     {
         $this->isResolved = true;
+        return $this;
     }
 
     /**

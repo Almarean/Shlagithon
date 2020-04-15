@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Recipe;
-use App\Models\TicketAnswer;
 use PDO;
 use App\Models\Ticket;
+use App\Models\TicketAnswer;
 
 /**
  * Class TicketManager.
@@ -50,7 +49,6 @@ class TicketAnswerManager
         }
         return $objects;
     }
-
 
     /**
      * Fetch a ticketAnswer by an ID.

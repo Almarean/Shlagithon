@@ -14,6 +14,7 @@ class TicketManager
      * Insert a Ticket in database.
      *
      * @param Ticket $object
+     *
      * @return boolean
      */
     public static function insert($object): bool

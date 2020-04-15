@@ -9,8 +9,8 @@ if (!isset($_SESSION["member"])) {
 }
 
 $member = unserialize($_SESSION["member"]);
-if (isset($_GET["trigger-resolved"])) {
-    TicketManager::updateIsResolved($member->getId(), $_GET["trigger-resolved"]);
+if (isset($_GET["trigger-resolved"]) && isset($_GET["ticket-id"])) {
+    TicketManager::updateIsResolved($_GET["ticket-id"], $_GET["trigger-resolved"]);
     header("Location: show-tickets");
 }
 $tickets = TicketManager::findAllByMemberId($member->getId());

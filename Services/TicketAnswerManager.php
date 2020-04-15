@@ -5,6 +5,7 @@ namespace App\Services;
 use PDO;
 use App\Models\Ticket;
 use App\Models\TicketAnswer;
+use App\Services\TicketManager;
 
 /**
  * Class TicketManager.
@@ -15,6 +16,7 @@ class TicketAnswerManager
      * Insert a TicketAnswer in database.
      *
      * @param TicketAnswer $object
+     *
      * @return boolean
      */
     public static function insert($object): bool
@@ -24,7 +26,7 @@ class TicketAnswerManager
             $stmt->bindValue(":text", $object->getText(), PDO::PARAM_STR);
             $stmt->bindValue(":writing_date", $object->getWritingDate(), PDO::PARAM_STR);
             $stmt->bindValue(":ticketId", $object->getTicket()->getId(), PDO::PARAM_INT);
-            $stmt->bindValue(":memberId",$object->getAuthor()->getId(),PDO::PARAM_INT);
+            $stmt->bindValue(":memberId", $object->getAuthor()->getId(), PDO::PARAM_INT);
             return $stmt->execute();
         } else {
             return false;
@@ -44,7 +46,7 @@ class TicketAnswerManager
         foreach ($results as $result) {
             $ticket = TicketManager::findOneByID($result["ti_a_fk_ticket_id"]);
             $author = MemberManager::findOneByID($result["ti_a_fk_member_id"]);
-            $ticket = new TicketAnswer($result["ti_a_id"], $result["ti_a_text"], $ticket, $result["ti_a_writing_date"],$author);
+            $ticket = new TicketAnswer($result["ti_a_id"], $result["ti_a_text"], $ticket, $result["ti_a_writing_date"], $author);
             array_push($objects, $ticket);
         }
         return $objects;
@@ -63,6 +65,6 @@ class TicketAnswerManager
         $stmt->bindValue(":ticketId", $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? new TicketAnswer($result["ti_a_id"], $result["ti_a_text"], TicketManager::findOneByID($result["ti_a_fk_member_id"]), $result["ti_a_writing_date"],MemberManager::findOneByID($result["ti_a_fk_member_id"])) : null;
+        return $result ? new TicketAnswer($result["ti_a_id"], $result["ti_a_text"], TicketManager::findOneByID($result["ti_a_fk_member_id"]), $result["ti_a_writing_date"], MemberManager::findOneByID($result["ti_a_fk_member_id"])) : null;
     }
 }

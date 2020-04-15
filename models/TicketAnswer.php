@@ -45,6 +45,7 @@ class TicketAnswer
 
     /**
      * TicketAnswer constructor.
+     *
      * @param int $id
      * @param string $text
      * @param Ticket $ticket
@@ -80,7 +81,6 @@ class TicketAnswer
         return $this->text;
     }
 
-
     /**
      * Setter of the text of the ticket.
      *
@@ -95,10 +95,10 @@ class TicketAnswer
     }
 
     /**
- * Getter of the writing date of the ticket.
- *
- * @return string
- */
+     * Getter of the writing date of the ticket.
+     *
+     * @return string
+     */
     public function getWritingDate(): string
     {
         return $this->writingDate;
@@ -114,8 +114,6 @@ class TicketAnswer
         $this->writingDate = date("Y-m-d H:i:s");
         return $this;
     }
-
-
 
     /**
      * getter of the author of the ticket.

@@ -56,6 +56,7 @@ class Ticket
 
     /**
      * Ticket constructor.
+     *
      * @param int $id
      * @param string $subject
      * @param string $text

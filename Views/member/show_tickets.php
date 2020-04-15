@@ -32,7 +32,7 @@
                                 </div>
                                 <?php if (!$ticket->getIsResolved()) { ?>
                                     <div class="ml-1 d-inline">
-                                        <a href="?trigger-resolved=<?php echo $ticket->getId(); ?>" class="table-link text-success" title="Resolved"><i class="fas fa-check"></i></a>
+                                        <a href="?ticket-id=<?php echo $ticket->getId(); ?>&trigger-resolved=<?php echo $ticket->getId(); ?>" class="table-link text-success" title="Resolved"><i class="fas fa-check"></i></a>
                                     </div>
                                 <?php } ?>
                             </td>

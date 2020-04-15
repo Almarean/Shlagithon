@@ -15,6 +15,12 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="publication"><i class="fas fa-edit"></i> Publier une recette</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="publication_ticket"><i class="fas fa-edit"></i> Faire une requête</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="show_ticket"><i class="fas fa-edit"></i>Mes requêtes</a>
+            </li>
             <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="members"><i class="fas fa-users-cog"></i> Gérer les membres</a>

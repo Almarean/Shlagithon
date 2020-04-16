@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use PDO;
+use App\Interfaces\IRequirementManager;
 use App\Models\Recipe;
 use App\Models\Tag;
-use App\Interfaces\IManager;
 
 /**
- * Class TagManager implements IManager.
+ * Class TagManager implements IRequirementManager.
  */
-class TagManager //implements IManager
+class TagManager implements IRequirementManager
 {
     /**
      * Insert a tag in database.

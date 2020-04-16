@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use PDO;
-use App\Interfaces\IManager;
+use App\Interfaces\IRequirementManager;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 
 /**
- * Class IngredientManager implements IManager.
+ * Class IngredientManager implements IRequirementManager.
  */
-class IngredientManager //implements IManager
+class IngredientManager implements IRequirementManager
 {
     /**
      * Insert a ingredient in database.
@@ -64,11 +64,11 @@ class IngredientManager //implements IManager
      */
     public static function findAll(): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE req_type = 'INGREDIENT';");
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'INGREDIENT';");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity"]));
+            array_push($objects, new Ingredient($result["req_id"], $result["req_label"], 0));
         }
         return $objects;
     }

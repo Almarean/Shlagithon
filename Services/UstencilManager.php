@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use PDO;
-use App\Interfaces\IManager;
+use App\Interfaces\IRequirementManager;
 use App\Models\Recipe;
 use App\Models\Ustencil;
 
 /**
- * Class UstencilManager implements IManager.
+ * Class UstencilManager implements IRequirementManager.
  */
-class UstencilManager //implements IManager
+class UstencilManager implements IRequirementManager
 {
     /**
      * Insert a ustencil in database.
@@ -64,11 +64,11 @@ class UstencilManager //implements IManager
      */
     public static function findAll(): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE req_type = 'USTENCIL';");
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'USTENCIL';");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
-            array_push($objects, new Ustencil($result["req_id"], $result["req_label"], $result["rr_quantity"]));
+            array_push($objects, new Ustencil($result["req_id"], $result["req_label"], 0));
         }
         return $objects;
     }

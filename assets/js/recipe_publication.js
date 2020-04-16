@@ -3,25 +3,40 @@ $("#button-add-ustencil").on("click", function () {
     if (!ustencilQuantity > 0) {
         ustencilQuantity = 1;
     }
-    $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + $.trim($("#input-ustencil").val()) + "</span> <i class='fas fa-minus text-danger pointer'></li>");
-    $("#input-ustencil").val("");
-    enableApplyButton();
+    let ustencilValue = $.trim($("#input-ustencil").val());
+    let ustencils = $.map($(".ustencil"), function (ustencil) {
+        return $.trim($(ustencil).text());
+    });
+    if (ustencilValue.length > 0 && $.inArray(ustencilValue, ustencils)) {
+        $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + ustencilValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+        $("#input-ustencil").val("");
+        enableApplyButton();
+    }
 });
 
 $("#button-add-ingredient").on("click", function () {
     let ingredientQuantity = parseInt($("#ingredient-quantity").val());
-    if (!ingredientQuantity.length > 0) {
+    if (!ingredientQuantity > 0) {
         ingredientQuantity = 1;
     }
-    let unit = $("#select-unit").val();
-    $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + $.trim($("#input-ingredient").val()) + "</span> <i class='fas fa-minus text-danger pointer'></li>");
-    $("#input-ingredient").val("");
-    enableApplyButton();
+    let ingredientValue = $.trim($("#input-ingredient").val());
+    let ingredients = $.map($(".ingredient"), function (ingredient) {
+        return $.trim($(ingredient).text());
+    });
+    if (ingredientValue.length > 0 && $.inArray(ingredientValue, ingredients)) {
+        let unit = $("#select-unit").val();
+        $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+        $("#input-ingredient").val("");
+        enableApplyButton();
+    }
 });
 
 $("#button-add-tag").on("click", function () {
     let tagValue = $.trim($("#input-tag").val());
-    if (tagValue.length > 0) {
+    let tags = $.map($("#tags .badge"), function (tag) {
+        return $.trim($(tag).text());
+    });
+    if (tagValue.length > 0 && $.inArray(tagValue, tags)) {
         $("#tags").append("<span class='badge badge-pill badge-dark ml-2 pointer'>" + tagValue + "</span>");
         $("#input-tag").val("");
     }

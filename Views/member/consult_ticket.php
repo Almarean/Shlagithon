@@ -13,28 +13,27 @@
         <div class="col">
             <div class="row">
                 <div class="col-md-3">
-                    <h4><?php echo $member->getFirstname() . " " . $member->getName(); ?></h4>
-                    <p>Créée le <?php echo date_format(date_create($ticket->getWritingDate()), "d/m/Y"); ?>
-                        à <?php echo date_format(date_create($ticket->getWritingDate()), "H\hm"); ?></p>
+                    <h4><?php echo $member->getFirstname() . " " . strtoupper($member->getName()); ?></h4>
+                    <p>Créée le <?php echo date_format(date_create($ticket->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($ticket->getWritingDate()), "H\hm"); ?></p>
                 </div>
                 <div class="col-md-9">
                     <h3><?php echo $ticket->getSubject(); ?></h3>
-                    <p><?php echo $ticket->getText(); ?></p>
+                    <p class="border p-3 rounded bg-white"><?php echo $ticket->getText(); ?></p>
                 </div>
             </div>
             <?php if ($ticketAnswers) {
-                foreach ($ticketAnswers as $ticketAnwser) { ?>
+                foreach ($ticketAnswers as $ticketAnswer) { ?>
                     <div class="row">
                         <div class="col-md-3">
-                            <h4 class="text-center"><?php echo $ticketAnwser->getAuthor()->getName(); ?></h4>
-                            <?php if ($ticketAnwser->getAuthor()->getType() === "ADMIN") { ?>
-                                <h5 class="text-center text-success"><span>Administrateur</span></h5>
+                            <?php if ($ticketAnswer->getAuthor()->getType() === "ADMIN") { ?>
+                                <h4 class="text-success"><span>Administrateur</span></h4>
                             <?php } else { ?>
+                                <h4><?php echo $ticketAnswer->getAuthor()->getName() . " " . strtoupper($ticketAnswer->getAuthor()->getName()); ?></h4>
                             <?php } ?>
-                            <p><?php echo $ticket->getWritingDate(); ?></p>
+                            <p>À répondu le <?php echo date_format(date_create($ticketAnswer->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($ticketAnswer->getWritingDate()), "H\hm"); ?></p>
                         </div>
                         <div class="col-md-9">
-                            <p><?php echo $ticketAnwser->getText(); ?></p>
+                            <p class="border p-3 rounded bg-dark text-white"><?php echo $ticketAnswer->getText(); ?></p>
                         </div>
                     </div>
                 <?php } ?>
@@ -44,13 +43,11 @@
         <?php if (!$ticket->getIsResolved()) { ?>
             <form id="form-ticket" action="?" method="POST">
                 <div class="form-group m-auto">
-                    <label for="text" class="text-center">Ajouter un commentaire</label>
+                    <label for="text">Ajouter un commentaire</label>
                     <textarea class="form-control" name="text" id="text" rows="5" required></textarea>
                 </div>
                 <div class="text-center mt-3">
-                    <button type="submit" class="btn btn-dark" id="apply" name="apply"
-                            value="<?php echo $ticket->getId(); ?>" title="SendTicket">Envoyer
-                    </button>
+                    <button type="submit" class="btn btn-dark" id="apply" name="apply" value="<?php echo $ticket->getId(); ?>" title="SendTicket">Envoyer</button>
                 </div>
             </form>
         <?php } else { ?>

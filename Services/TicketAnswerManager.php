@@ -22,7 +22,7 @@ class TicketAnswerManager
     public static function insert($object): bool
     {
         if (get_class($object) == "App\\Models\\TicketAnswer") {
-            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO ticket_answer(ti_a_text, ti_a_writing_date, ti_a_fk_ticket_id,ti_a_fk_member_id) VALUES (:text, :writing_date, :ticketId,:memberId);");
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO ticket_answer(ti_a_text, ti_a_writing_date, ti_a_fk_ticket_id, ti_a_fk_member_id) VALUES (:text, :writing_date, :ticketId, :memberId);");
             $stmt->bindValue(":text", $object->getText(), PDO::PARAM_STR);
             $stmt->bindValue(":writing_date", $object->getWritingDate(), PDO::PARAM_STR);
             $stmt->bindValue(":ticketId", $object->getTicket()->getId(), PDO::PARAM_INT);

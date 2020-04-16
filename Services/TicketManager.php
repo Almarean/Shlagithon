@@ -111,7 +111,7 @@ class TicketManager
      */
     public static function findAllWithFilter(bool $isResolved = false): ?array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM ticket where ti_is_resolved=:isResolved ORDER BY ti_writing_date asc;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM ticket where ti_is_resolved = :isResolved ORDER BY ti_writing_date ASC;");
         $stmt->bindValue(":isResolved", $isResolved, PDO::PARAM_BOOL);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -12,18 +12,17 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="recipes"><i class="fas fa-book"></i> Recettes publiées</a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link text-dark" href="publication"><i class="far fa-paper-plane"></i> Publier une recette</a>
             </li>
-            <?php if (unserialize($_SESSION["member"])->getType() === "MEMBER"){ ?>
+            <?php if (unserialize($_SESSION["member"])->getType() === "MEMBER") { ?>
             <li class="nav-item">
                 <a class="nav-link text-dark" href="publication-ticket"><i class="fas fa-question-circle"></i> Faire une demande</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" href="show-tickets"><i class="fas fa-user-tag"></i> Mes demandes</a>
             </li>
-            <?php } elseif (unserialize($_SESSION["member"])->getType() === "ADMIN") {?>
+            <?php } elseif (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="manage-tickets"><i class="fas fa-question-circle"></i> Gérer les demandes</a>
                 </li>

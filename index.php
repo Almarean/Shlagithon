@@ -32,6 +32,9 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/member":
             require __DIR__ . "/Controllers/AdminEditMembersController.php";
             break;
+        case "/manage-tickets":
+            require __DIR__ . "/Controllers/AdminManageTicketsController.php";
+            break;
         case "/recipe":
             require __DIR__ . "/Controllers/EditRecipeController.php";
             break;

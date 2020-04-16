@@ -44,7 +44,7 @@ class TicketManager
         $objects = [];
         foreach ($results as $result) {
             $author = MemberManager::findOneByID($result["ti_fk_member_id"]);
-            $ticket = new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], $author, $result["ti_writing_date"], $result["ti_last_update"],$result["ti_is_resolved"]);
+            $ticket = new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], $author, $result["ti_writing_date"], $result["ti_last_update"], $result["ti_is_resolved"]);
             array_push($objects, $ticket);
         }
         return $objects;
@@ -64,7 +64,7 @@ class TicketManager
         $objects = [];
         foreach ($results as $result) {
             $author = MemberManager::findOneByID($memberId);
-            $ticket = new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], $author, $result["ti_writing_date"], $result["ti_last_update"],$result["ti_is_resolved"]);
+            $ticket = new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], $author, $result["ti_writing_date"], $result["ti_last_update"], $result["ti_is_resolved"]);
             array_push($objects, $ticket);
         }
         return $objects;
@@ -83,7 +83,7 @@ class TicketManager
         $stmt->bindValue(":ticketId", $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], MemberManager::findOneByID($result["ti_fk_member_id"]), $result["ti_writing_date"], $result["ti_last_update"],$result["ti_is_resolved"]) : null;
+        return $result ? new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], MemberManager::findOneByID($result["ti_fk_member_id"]), $result["ti_writing_date"], $result["ti_last_update"], $result["ti_is_resolved"]) : null;
     }
 
     /**
@@ -100,5 +100,27 @@ class TicketManager
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->bindValue(":isResolved", $isResolved, PDO::PARAM_BOOL);
         return $stmt->execute();
+    }
+
+    /**
+     * Fetch all ticket with a filter
+     *
+     * @param bool $isResolved
+     *
+     * @return array
+     */
+    public static function findAllWithFilter(bool $isResolved = false): ?array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM ticket where ti_is_resolved=:isResolved ORDER BY ti_writing_date asc;");
+        $stmt->bindValue(":isResolved", $isResolved, PDO::PARAM_BOOL);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objects = [];
+        foreach ($results as $result) {
+            $author = MemberManager::findOneByID($result["ti_fk_member_id"]);
+            $ticket = new Ticket($result["ti_id"], $result["ti_subject"], $result["ti_text"], $author, $result["ti_writing_date"], $result["ti_last_update"], $result["ti_is_resolved"]);
+            array_push($objects, $ticket);
+        }
+        return $objects;
     }
 }

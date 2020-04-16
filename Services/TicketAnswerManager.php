@@ -53,6 +53,27 @@ class TicketAnswerManager
     }
 
     /**
+     * Fetch all ticketAnswers in database by ticket id.
+     *
+     * @return array
+     */
+    public static function findAllByOneTicketId(int $id): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM ticket_answer WHERE ti_a_fk_ticket_id = :ticketId;");
+        $stmt->bindValue(":ticketId", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objects = [];
+        foreach ($results as $result) {
+            $ticket = TicketManager::findOneByID($result["ti_a_fk_ticket_id"]);
+            $author = MemberManager::findOneByID($result["ti_a_fk_member_id"]);
+            $ticket = new TicketAnswer($result["ti_a_id"], $result["ti_a_text"], $ticket, $result["ti_a_writing_date"], $author);
+            array_push($objects, $ticket);
+        }
+        return $objects;
+    }
+
+    /**
      * Fetch a ticketAnswer by an ID.
      *
      * @param int $id
@@ -61,7 +82,7 @@ class TicketAnswerManager
      */
     public static function findOneById(int $id): ?TicketAnswer
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM ticketAnwser WHERE ti_a_id = :ticketId;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM ticket_answer WHERE ti_a_id = :ticketId;");
         $stmt->bindValue(":ticketId", $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

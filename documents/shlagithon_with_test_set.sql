@@ -297,7 +297,7 @@ ALTER TABLE `ticket`
 -- Contraintes pour la table `ticket_anwser`
 --
 ALTER TABLE `ticket_answer`
-  ADD CONSTRAINT `fk_ticket_anwser_ticket` FOREIGN KEY (`ti_a_fk_ticket_id`) REFERENCES `ticket` (`ti_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_ticket_answer_ticket` FOREIGN KEY (`ti_a_fk_ticket_id`) REFERENCES `ticket` (`ti_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_ticket_answer_member` FOREIGN KEY (`ti_a_fk_member_id`) REFERENCES `member` (`m_id`);
 
 --

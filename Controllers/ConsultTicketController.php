@@ -14,7 +14,7 @@ $member = unserialize($_SESSION["member"]);
 
 if (isset($_GET["ticket-id"])) {
     $ticket = TicketManager::findOneById($_GET["ticket-id"]);
-    $ticketAnswers = TicketAnswerManager::findAll();
+    $ticketAnswers = TicketAnswerManager::findAllByOneTicketId($_GET["ticket-id"]);
 }
 
 if (count($_POST) > 0) {

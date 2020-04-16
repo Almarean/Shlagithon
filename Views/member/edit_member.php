@@ -7,7 +7,6 @@
 
 <body class="position-relative min-vh-100 bg-light">
     <?php include __DIR__ . "/../templates/header_member.php"; ?>
-
     <div class="container">
         <section class="mt-5">
             <?php if ($member->getType() === "ADMIN") { ?>

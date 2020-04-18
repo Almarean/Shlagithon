@@ -4,10 +4,12 @@ namespace App\Controllers;
 
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\Step;
 use App\Models\Tag;
 use App\Models\Ustencil;
 use App\Services\IngredientManager;
 use App\Services\RecipeManager;
+use App\Services\StepManager;
 use App\Services\TagManager;
 use App\Services\UstencilManager;
 
@@ -57,8 +59,15 @@ if (count($_POST) > 0) {
         foreach (json_decode($_POST["tags"]) as $tag) {
             TagManager::insert(new Tag(0, $tag->name), $recipe);
         }
-        header("Location: publication?success");
+        $steps = json_decode($_POST["steps"]);
+        for ($i = 0; $i < count($steps); $i++) {
+            StepManager::insert(new Step($steps[$i]->description, $i + 1, RecipeManager::findOneBy($_POST["name"])));
+        }
+        // header("Location: publication?success");
+        echo json_encode("success");
+    } else {
+        echo json_encode($errors);
     }
+} else {
+    require __DIR__ . "/../Views/member/publication_recipe.php";
 }
-
-require __DIR__ . "/../Views/member/publication_recipe.php";

@@ -47,6 +47,7 @@ $("#button-add-step").on("click", function () {
     if (stepValue.length > 0) {
         $("#steps").append("<li class='step'>" + stepValue + " <i class='fas fa-minus text-danger pointer'></li>");
         $("#input-step").val("");
+        enableApplyButton();
     }
 });
 
@@ -64,7 +65,7 @@ $("#tags").click(function (event) {
  * Enable the apply button if we can find ustencils and ingredients.
  */
 function enableApplyButton() {
-    if ($("#ustencils > li").length > 0 && $("#ingredients > li").length > 0) {
+    if ($("#ustencils > li").length > 0 && $("#ingredients > li").length > 0 && $("#steps > li").length > 0) {
         $("#apply").prop("disabled", false);
     } else {
         $("#apply").prop("disabled", true);

@@ -11,18 +11,6 @@
     <div class="container mt-5">
         <section>
             <h1 class="text-center">Publier une recette</h1>
-            <?php
-            if (isset($errors) && count($errors) > 0) {
-                echo "<div class='m-auto'>";
-                foreach ($errors as $error) {
-                    echo "<div class='alert alert-danger text-center' role='alert'><i class='fas fa-exclamation-triangle'></i> " . $error . "</div>";
-                }
-                echo "</div>";
-            }
-            if (isset($_GET["success"])) {
-                echo "<div class='alert alert-success text-center' role='alert'><i class='fas fa-check'></i> Publication réussie !</div>";
-            }
-            ?>
             <div class="row">
                 <div class="col-md-6 mt-3">
                     <div id="comments"></div>

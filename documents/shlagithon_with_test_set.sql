@@ -11,10 +11,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-DROP SCHEMA IF EXISTS `shlagithon`;
-CREATE SCHEMA IF NOT EXISTS `shlagithon`;
+-- DROP SCHEMA IF EXISTS `shlagithon`;
+-- CREATE SCHEMA IF NOT EXISTS `shlagithon`;
 
-USE `shlagithon`;
+USE `thomaslaure_shlagithon`;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 --
 
 INSERT INTO `member` (`m_id`, `m_name`, `m_firstname`, `m_email`, `m_password`, `m_type`, `m_is_confirmed`, `m_creation_date`, `m_last_connection_date`, `m_is_deleted`) VALUES
-(1, 'Laure', 'Thomas', 'thomaslaure3@gmail.com', '$2y$10$LgtVhnUhSI4L4iROd3WB8Ob4sTpVgGACDGcmeMBPXf2ZBU1VMfTAy', 'MEMBER', 1, '2020-04-01 00:00:00', '2020-04-06 07:42:46', 0),
+(1, 'Laure', 'Thomas', 'thomaslaure3@gmail.com', '$2y$10$LgtVhnUhSI4L4iROd3WB8Ob4sTpVgGACDGcmeMBPXf2ZBU1VMfTAy', 'ADMIN', 1, '2020-04-01 00:00:00', '2020-04-06 07:42:46', 0),
 (2, 'Laure', 'Didier', 'ilwynme@gmail.com', '$2y$10$YDY4q6VPcUZHPIyRIHhV/.NtgSJ7ARwe6CFaIzkF4wN2UsiNt.BS.', 'MEMBER', 1, '2020-04-04 08:49:17', '2020-04-04 08:49:34', 1),
 (3, 'Laure', 'Mael', 'ilwynme@gmail.com', '$2y$10$mqH5OCCJf6A5ZxFC.wpyE.VvPeh/WK.rSUJ.CpkaqTJ2ICu5PeMdW', 'MEMBER', 1, '2020-04-04 09:15:09', '2020-04-05 08:58:24', 1);
 

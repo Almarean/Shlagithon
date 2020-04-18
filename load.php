@@ -20,6 +20,7 @@ require_once __DIR__ . "/Models/Step.php";
 require_once __DIR__ . "/Models/Comment.php";
 
 require_once __DIR__ . "/Interfaces/IManager.php";
+require_once __DIR__ . "/Interfaces/IRequirementManager.php";
 
 require_once __DIR__ . "/Services/PDOManager.php";
 require_once __DIR__ . "/Services/TagManager.php";

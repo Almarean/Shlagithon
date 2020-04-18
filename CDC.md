@@ -22,8 +22,9 @@ Les problématiques rencontrées sont :
 ## Besoins
 
 Les besoins qui en découlent sont les suivants :
-* Pour les administrateurs, contrôler les recettes publiées (les valider ou les refuser).
+* Pour les administrateurs, contrôler les recettes publiées.
 * Pour les administrateurs, gérer les comptes utilisateurs.
+* Pour les administrateurs, créer des ingrédients, ustensiles, allergènes et tags.
 * Pour les visiteurs, consulter les recettes.
 * Pour les membres, proposer des recettes.
 * Pour les membres, mettre des recettes en favoris.
@@ -32,6 +33,8 @@ Les besoins qui en découlent sont les suivants :
 * Pour les visiteurs, rechercher simplement des recettes.
 * Pour les membres, accéder aux coordonnées de contact des administrateurs du site.
 * Pour les membres, confirmer leur inscription depuis un lien envoyé par mail.
+* Pour les membres, faire de la remontée d'incident ou des demandes aux administateurs.
+* Pour les membres, laisser des commentaires sur les recettes.
 
 
 ## Solutions fonctionnelles
@@ -47,16 +50,19 @@ D'un point de vue fonctionnel, ces besoins sont traduits par :
 * Une interface visiteur qui renseigne les coordonnées des contacts de l'équipe qui gère le site de recette.
 * Une interface d'administration qui affiche l'ensemble des membres permettant de les modifier et de les supprimer.
 * Une interface d'administration qui affiche l'ensemble des recettes et permettant de les modifier et de les supprimer.
+* Une interface d'administration contenant des formulaires permettant de créer des ingrédients, ustencils, allergènes et tags.
+* Pour les membres, accéder à un formulaire de contact et à une page pour visualiser leurs demandes.
+* Pour les membres, accéder à un formulaire sur la page d'une recette pour pouvoir laisser un commentaire.
 
 
 ## Solutions techniques
 
 Les étudiants qui vont travailler sur cette solution vont utiliser l'environnement suivant :
 * HTML5 / CSS3 / JavaScript
-* [PHP](https://www.php.net/) : Langage de programmation coté serveur
+* [PHP](https://www.php.net/) : Langage de programmation coté serveur, version 7.4.0
 * [jQuery](https://jquery.com/) : Framework JavaScript simplifiant le parcours et l'exploitation du DOM.
 * [Twig](https://twig.symfony.com/doc/2.x/) : Moteur de template
-* [Bootstrap](https://getbootstrap.com/) : Framework CSS et JavaScript permettant de créer plus facilement des interfaces web responsives et mobile-first
+* [Bootstrap](https://getbootstrap.com/) : Framework CSS et JavaScript permettant de créer plus facilement des interfaces web responsives et mobile-first, version 4.4.1
 * [Composer](https://getcomposer.org/) : Gestionnaire de dépendances pour PHP
 * [MariaDB](https://mariadb.org/) : SGBD pour le stockage et la manipulation, solution gratuite et performante pour réaliser des opérations sur les données. Se déploie facilement.
 * [Git](https://git-scm.com/) : Gestionnaire de versions permettant d'entériner les modifications fonctionnelles apportées à la solution, et de revenir à des versions précédentes si besoin.

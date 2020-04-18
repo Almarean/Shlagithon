@@ -21,7 +21,7 @@
                                 <label for="ustencil-quantity" hidden>Quantité de l'ustensile</label>
                                 <input type="number" class="form-control" id="ustencil-quantity" value="1" min="1" max="2000">
                             </div>
-                            <div class="input-group mb-5 col-md-8">
+                            <div class="form-group input-group col-md-8">
                                 <label for="input-ustencil" hidden>Ajouter un ustensile</label>
                                 <select name="input-ustencil" aria-label="ustencil" aria-describedby="button-add-ustencil" class="form-control rounded-left" id="input-ustencil">
                                     <?php foreach ($ustencils as $ustencil) { ?>
@@ -50,7 +50,7 @@
                                     <option value="" selected="selected">Rien</option>
                                 </select>
                             </div>
-                            <div class="input-group mb-5 col-md-7">
+                            <div class="form-group input-group col-md-7">
                                 <label for="input-ingredient" hidden>Ajouter un ingrédient</label>
                                 <select name="input-ingredient" aria-label="ingredient" aria-describedby="button-add-ingredient" class="form-control rounded-left" id="input-ingredient">
                                     <?php foreach ($ingredients as $ingredient) { ?>

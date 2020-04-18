@@ -43,7 +43,7 @@ $(document).ready(function () {
                 success: function (response) {
                     let responseData = JSON.parse(response);
                     if (Array.isArray(responseData)) {
-                        $("#comments").append("<p class='m-auto'>");
+                        $("#comments").append("<div class='m-auto'>");
                         responseData.forEach(function (error) {
                             $("#comments").append("<p class='text-danger'><i class='fas fa-exclamation-triangle'></i>  " + error + "</p>");
                         });

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Services\RecipeManager;
+use App\Services\TagManager;
 
 $member = null;
 if (isset($_SESSION["member"])) {
@@ -13,6 +14,7 @@ $entrees = RecipeManager::findAllByType("ENTREE");
 $dishes = RecipeManager::findAllByType("PLAT");
 $desserts = RecipeManager::findAllByType("DESSERT");
 $others = RecipeManager::findAllByType("AUTRE");
+$tags = TagManager::findAll();
 
 $carouselRecipes = [];
 if (count($entrees) > 0) {

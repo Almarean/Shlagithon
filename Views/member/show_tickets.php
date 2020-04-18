@@ -8,7 +8,7 @@
 <body class="position-relative min-vh-100 bg-light">
     <?php include __DIR__ . "/../templates/header_member.php"; ?>
 
-    <div class="container mt-5">
+    <section class="container mt-5">
         <h1 class="text-center">Mes demandes</h1>
         <div class="mt-5 table-responsive">
             <table class="table">
@@ -41,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </sect>
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>

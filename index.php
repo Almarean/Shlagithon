@@ -74,6 +74,9 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/favorite-recipe":
             require __DIR__ . "/Tools/ajax_favorite_recipe.php";
             break;
+        case "/filter-recipes-by-tag":
+            require __DIR__ . "Tools/ajax_filter_by_tags.php";
+            break;
         default:
             http_response_code(404);
             break;

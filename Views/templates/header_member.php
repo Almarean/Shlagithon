@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="publication"><i class="far fa-paper-plane"></i> Publier une recette</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="recipes?favorite"><i class="fas fa-star"></i> Recettes favorites</a>
+            </li>
             <?php if (unserialize($_SESSION["member"])->getType() === "MEMBER") { ?>
             <li class="nav-item">
                 <a class="nav-link text-dark" href="publication-ticket"><i class="fas fa-question-circle"></i> Faire une demande</a>

@@ -14,6 +14,7 @@ $entrees = RecipeManager::findAllByType("ENTREE");
 $dishes = RecipeManager::findAllByType("PLAT");
 $desserts = RecipeManager::findAllByType("DESSERT");
 $others = RecipeManager::findAllByType("AUTRE");
+$tags = TagManager::findAll();
 
 $carouselRecipes = [];
 if (count($entrees) > 0) {
@@ -47,6 +48,6 @@ echo $twig->render("homepage.twig", [
     "others" => $others,
     "carousel_recipes" => $carouselRecipes,
     "member" => $member,
-    "tags" => TagManager::findAll()
+    "tags" => $tags
 ]);
 // require __DIR__ . "/../Views/homepage.php";

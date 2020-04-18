@@ -19,6 +19,15 @@
                         <input class="form-control mr-2" type="search" name="filter" id="search-input" placeholder="Chercher" aria-label="Chercher">
                         <button class="btn btn-outline-light my-2 my-sm-0" id="search-button" title="SearchButton"><i class="fas fa-search"></i></button>
                     </form>
+                    <div class="mt-3">
+                        <?php if (isset($tags)) {
+                            foreach ($tags as $tag) {
+                                ?>
+                                <span class="badge badge-pill badge-light pointer"><?php echo $tag->getLabel(); ?></span>
+                                <?php
+                            }
+                        } ?>
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="row mt-5" id="filtered-recipes">

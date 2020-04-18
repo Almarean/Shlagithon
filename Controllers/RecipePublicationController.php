@@ -32,22 +32,22 @@ if (count($_POST) > 0) {
     if (strlen($_POST["description"]) < 20) {
         $errors[] = "La description est trop courte.";
     }
-    // $file = pathinfo(strtolower($_FILES["image"]["name"]));
-    // $imageName = $file["filename"];
-    // $imageExtension = $file["extension"];
-    // if (!in_array($imageExtension, ["jpeg", "jpg", "png"])) {
-    //     $errors[] = "Le format de l'image doit être valide.";
-    // }
+    $file = pathinfo(strtolower($_FILES["image"]["name"]));
+    $imageName = $file["filename"];
+    $imageExtension = $file["extension"];
+    if (!in_array($imageExtension, ["jpeg", "jpg", "png"])) {
+        $errors[] = "Le format de l'image doit être valide.";
+    }
     if (!count($errors) > 0) {
-        // $md5Image = md5($imageName) . time() . "." . $imageExtension;
-        // $targetFolder = __DIR__ . "/../assets/images/" . $md5Image;
-        // move_uploaded_file($_FILES["image"]["tmp_name"], $targetFolder);
+        $md5Image = md5($imageName) . time() . "." . $imageExtension;
+        $targetFolder = __DIR__ . "/../assets/images/" . $md5Image;
+        move_uploaded_file($_FILES["image"]["tmp_name"], $targetFolder);
         $recipe = null;
         if (!strlen($_POST["advice"]) > 0) {
-            $recipe = new Recipe(0, $_POST["name"], $_POST["description"], "md5Image", $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"]);
+            $recipe = new Recipe(0, $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"]);
             RecipeManager::insert($recipe);
         } else {
-            $recipe = new Recipe(0, $_POST["name"], $_POST["description"], "md5Image", $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"], $_POST["advice"]);
+            $recipe = new Recipe(0, $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"], $_POST["advice"]);
             RecipeManager::insert($recipe);
         }
         foreach (json_decode($_POST["ustencils"]) as $ustencil) {

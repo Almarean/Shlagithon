@@ -9,7 +9,7 @@
             <?php if (unserialize($_SESSION["member"])->getType() === "ADMIN") { ?>
                 <span><a class="nav-link text-dark" href="members"><i class="fas fa-cogs"></i> Espace d'administration</a></span>
             <?php } ?>
-            <span><a class="nav-link text-dark" href="publication"><i class="fas fa-edit"></i> Publier une recette</a></span>
+            <span><a class="nav-link text-dark" href="publication"><i class="far fa-paper-plane"></i> Publier une recette</a></span>
             <span><a class="nav-link text-dark" href="profile"><i class="fas fa-user"></i> Compte</a></span>
             <span><a class="nav-link text-dark" href="logout"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></span>
         <?php } else { ?>

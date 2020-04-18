@@ -31,10 +31,8 @@ $(document).ready(function () {
         formData.append("tags", JSON.stringify(tags));
         formData.append("steps", JSON.stringify(steps));
 
+        $("#comments").html("");
         if (ustencils.length > 0 && ingredients.length > 0 && steps.length > 0) {
-            if ($("#comments").length > 0) {
-                $("#comments").html("");
-            }
             $("#apply").attr("disabled", false);
             $.ajax({
                 url: "publication",
@@ -44,11 +42,10 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     let responseData = JSON.parse(response);
-                    $("#comments").html("");
                     if (Array.isArray(responseData)) {
-                        $("#comments").append("<div class='m-auto'>");
+                        $("#comments").append("<p class='m-auto'>");
                         responseData.forEach(function (error) {
-                            $("#comments").append("<div class='alert alert-danger text-center' role='alert'><i class='fas fa-exclamation-triangle'></i> " + error + "</div>");
+                            $("#comments").append("<p class='text-danger'><i class='fas fa-exclamation-triangle'></i>  " + error + "</p>");
                         });
                         $("#comments").append("</div>");
                     } else {

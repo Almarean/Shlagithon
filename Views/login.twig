@@ -18,18 +18,18 @@
                     {% endfor %}
                 </div>
                 {% endif %}
-                {% if success %}
+                {% if email and success %}
                     {% if success == 1 %}
                         <p class="text-success text-center"><i class="far fa-envelope-open"></i> Un mail de confirmation vous a été envoyé.</p>
                     {% else %}
-                        <p class="text-warning text-center"><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue lors de l'envoi du mail de confirmation.</p>
+                        <p class="text-danger text-center"><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue lors de l'envoi du mail de confirmation.</p>
                     {% endif %}
                 {% endif %}
                 {% if confirmed %}
                     {% if confirmed == 1 %}
                         <p class="text-success text-center"><i class="fas fa-check"></i> Votre compte a été confirmé.</p>
                     {% else %}
-                        <p class="text-warning text-center"><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue lors de la confirmation de votre compte.</p>
+                        <p class="text-danger text-center"><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue lors de la confirmation de votre compte.</p>
                     {% endif %}
                 {% endif %}
                 <form class="form-signin" action="?" method="POST">

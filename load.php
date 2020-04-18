@@ -1,9 +1,11 @@
 <?php
 
+require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/SMTP.php";
 require_once __DIR__ . "/vendor/autoload.php";
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . "/Views/");
 $twig = new \Twig\Environment($loader, ["cache" => false]);
 
+require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/Exception.php";
 require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/PHPMailer.php";
 require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/SMTP.php";
 

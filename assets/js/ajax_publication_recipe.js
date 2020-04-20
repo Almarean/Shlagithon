@@ -50,6 +50,11 @@ $(document).ready(function () {
                         $("#comments").append("</div>");
                     } else {
                         if (responseData === "success") {
+                            $("#form-recipe").get(0).reset();
+                            $("#ustencils").html("");
+                            $("#ingredients").html("");
+                            $("#tags").html("");
+                            $("#steps").html("");
                             $("#comments").append("<div class='alert alert-success text-center' role='alert'><i class='fas fa-check'></i> Publication réussie !</div>");
                         }
                     }

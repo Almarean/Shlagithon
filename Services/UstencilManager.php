@@ -13,7 +13,7 @@ use App\Models\Ustencil;
 class UstencilManager implements IRequirementManager
 {
     /**
-     * Insert a ustencil in database.
+     * Insert a ustencil and a recipe in database.
      *
      * @param Ustencil $object
      * @param Recipe $recipe
@@ -35,6 +35,28 @@ class UstencilManager implements IRequirementManager
             $stmt->bindValue(":quantity", $object->getQuantity(), PDO::PARAM_STR);
             $stmtRR = $stmt->execute();
             return $stmtReq && $stmtRR;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Insert an ustencil in database.
+     *
+     * @param Ustencil $object
+     *
+     * @return boolean
+     */
+    public static function insertUstencil($object): bool
+    {
+        if (get_class($object) === "App\\Models\\Ustencil") {
+            if (self::exists($object->getLabel())) {
+                return false;
+            }
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement(req_label, req_type) VALUES (:label, 'USTENCIL');");
+            $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt;
         } else {
             return false;
         }
@@ -139,5 +161,18 @@ class UstencilManager implements IRequirementManager
             array_push($objects, new Ustencil($result["req_id"], $result["req_label"], $result["rr_quantity"]));
         }
         return $objects;
+    }
+
+    /**
+     * Remove an ustencil from database.
+     *
+     * @param int $identifier
+     * @return bool
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM requirement WHERE req_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

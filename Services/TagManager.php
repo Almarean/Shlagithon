@@ -13,7 +13,7 @@ use App\Models\Tag;
 class TagManager implements IRequirementManager
 {
     /**
-     * Insert a tag in database.
+     * Insert a tag and a recipe in database.
      *
      * @param Tag $object
      * @param Recipe $recipe
@@ -34,6 +34,29 @@ class TagManager implements IRequirementManager
             $stmt->bindValue(":tagId", self::findIdBy($object->getLabel()), PDO::PARAM_INT);
             $stmtRt = $stmt->execute();
             return $stmtT && $stmtRt;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * Insert a tag and in database.
+     *
+     * @param Tag $object
+     *
+     * @return boolean
+     */
+    public static function insertTag($object): bool
+    {
+        if (get_class($object) === "App\\Models\\Tag") {
+            if (self::exists($object->getLabel())) {
+                return false;
+            }
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO tag(t_label) VALUES (:label);");
+            $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
+            $stmt = $stmt->execute();
+            return $stmt;
         } else {
             return false;
         }
@@ -121,5 +144,19 @@ class TagManager implements IRequirementManager
     public static function exists($identifier): bool
     {
         return self::findOneBy($identifier) ? true : false;
+    }
+
+
+    /**
+     * Remove a tag from database.
+     *
+     * @param int $identifier
+     * @return bool
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM tag WHERE t_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

@@ -13,7 +13,7 @@ use App\Models\Recipe;
 class IngredientManager implements IRequirementManager
 {
     /**
-     * Insert a ingredient in database.
+     * Insert an ingredient and a recipe in database.
      *
      * @param Ingredient $object
      * @param Recipe $recipe
@@ -35,6 +35,28 @@ class IngredientManager implements IRequirementManager
             $stmt->bindValue(":quantity", $object->getQuantity(), PDO::PARAM_STR);
             $stmtRR = $stmt->execute();
             return $stmtReq && $stmtRR;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Insert an ingredient in database.
+     *
+     * @param Ingredient $object
+     *
+     * @return boolean
+     */
+    public static function insertIngredient($object): bool
+    {
+        if (get_class($object) === "App\\Models\\Ingredient") {
+            if (self::exists($object->getLabel())) {
+                return false;
+            }
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement(req_label, req_type) VALUES (:label, 'INGREDIENT');");
+            $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
+            $stmtReq = $stmt->execute();
+            return $stmtReq;
         } else {
             return false;
         }
@@ -83,14 +105,14 @@ class IngredientManager implements IRequirementManager
      */
     public static function findOneBy($identifier, bool $convertIntoObject = true)
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE req_label = :label AND req_type = 'INGREDIENT';");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement WHERE req_label = :label AND req_type = 'INGREDIENT';");
         $stmt->bindValue(":label", $identifier, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity"]) : null;
+        return $result ? new Ingredient($result["req_id"], $result["req_label"], 0) : null;
     }
 
     /**
@@ -122,12 +144,12 @@ class IngredientManager implements IRequirementManager
     }
 
     /**
-     * Fetch all ingredients by recipe.
-     *
-     * @param Recipe $recipe
-     *
-     * @return array
-     */
+ * Fetch all ingredients by recipe.
+ *
+ * @param Recipe $recipe
+ *
+ * @return array
+ */
     public static function findAllByRecipe(Recipe $recipe): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE rr_fk_recipe_id = :recipeId AND req_type = 'INGREDIENT';");
@@ -139,5 +161,18 @@ class IngredientManager implements IRequirementManager
             array_push($objects, new Ingredient($result["req_id"], $result["req_label"], $result["rr_quantity"]));
         }
         return $objects;
+    }
+
+
+    /**
+     * Remove an ingredient from database.
+     *
+     * @param int $identifier
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM requirement WHERE req_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

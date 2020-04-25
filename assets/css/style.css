@@ -46,7 +46,7 @@ a:hover {
 }
 
 .title {
-  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../pizza_cover2.jpg) no-repeat 50% fixed;
+  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../covers/pizza_cover2.jpg) no-repeat 50% fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;
@@ -55,7 +55,7 @@ a:hover {
 }
 
 .cover-registration {
-  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../pizza_cover.jpg) no-repeat 50% fixed;
+  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../covers/pizza_cover.jpg) no-repeat 50% fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;
@@ -64,7 +64,7 @@ a:hover {
 }
 
 .cover-login {
-  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../cover.jpg) no-repeat 50% fixed;
+  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../covers/cover.jpg) no-repeat 50% fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;

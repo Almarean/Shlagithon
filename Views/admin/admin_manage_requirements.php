@@ -30,7 +30,7 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/ajax_manage_requirements.js"></script>
+    <script src="/Shlagithon/assets/js/ajax/ajax_manage_requirements.js"></script>
 </body>
 
 </html>

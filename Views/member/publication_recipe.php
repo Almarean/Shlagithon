@@ -148,7 +148,7 @@
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
     <script src="/Shlagithon/assets/js/recipe_publication.js"></script>
-    <script src="/Shlagithon/assets/js/ajax_publication_recipe.js"></script>
+    <script src="/Shlagithon/assets/js/ajax/ajax_publication_recipe.js"></script>
 </body>
 
 </html>

@@ -41,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-    </sect>
+    </section>
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>

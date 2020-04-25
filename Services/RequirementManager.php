@@ -45,4 +45,20 @@ class RequirementManager
         }
         return $objects;
     }
+
+    /**
+     * Link an allergen to a requirement in the database.
+     *
+     * @param Requirement $requirement
+     * @param Allergen $allergen
+     *
+     * @return boolean
+     */
+    public static function insertRequirementAllergen(Requirement $requirement, Allergen $allergen): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement_allergen (ra_fk_requirement_id, ra_fk_allergen_id) VALUES (:requirementId, :allergenId);");
+        $stmt->bindValue(":requirementId", $requirement->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":allergenId", $allergen->getId(), PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

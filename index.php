@@ -59,8 +59,8 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/consult-ticket":
             require __DIR__ . "/Controllers/ConsultTicketController.php";
             break;
-        case "/allergenes":
-            require __DIR__ . "/Controllers/AdminAllergenesController.php";
+        case "/requirements":
+            require __DIR__ . "/Controllers/AdminRequirementsController.php";
             break;
         // Verify the email address.
         case "/verify":
@@ -77,8 +77,8 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/favorite-recipe":
             require __DIR__ . "/Tools/ajax_favorite_recipe.php";
             break;
-        case "/filter-allergenes":
-            require __DIR__ . "/Tools/ajax_allergenes.php";
+        case "/filter-requirements":
+            require __DIR__ . "/Tools/ajax_manage_requirements.php";
             break;
         default:
             http_response_code(404);

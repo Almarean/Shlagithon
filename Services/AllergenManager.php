@@ -121,4 +121,34 @@ class AllergenManager implements IManager
     {
         return self::findOneBy($identifier) ? true : false;
     }
+
+    /**
+     * Remove an allergen from database.
+     *
+     * @param int $identifier
+     *
+     * @return bool
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM allergen WHERE a_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    /**
+     * Fetch an allergen by the given ID.
+     *
+     * @param int $identifier
+     *
+     * @return Allergen|null
+     */
+    public static function findOneById(int $identifier): ?Allergen
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM allergen WHERE a_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? new Allergen($result["a_id"], $result["a_label"]) : null;
+    }
 }

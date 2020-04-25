@@ -96,4 +96,19 @@ class PDOManager
             self::$_instance = null;
         }
     }
+
+    /**
+     * Find the last inserted ID in the table.
+     *
+     * @param string $table
+     *
+     * @return integer
+     */
+    public function getLastInsertId(string $table): int
+    {
+        $stmt = self::getInstance()->getPDO()->prepare("SELECT (auto_increment - 1) as lastId FROM information_schema.tables WHERE table_name = :table;");
+        $stmt->bindValue(":table", $table, PDO::PARAM_STR);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["lastId"] : 0;
+    }
 }

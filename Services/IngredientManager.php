@@ -4,6 +4,7 @@ namespace App\Services;
 
 use PDO;
 use App\Interfaces\IRequirementManager;
+use App\Models\Allergen;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 
@@ -41,13 +42,14 @@ class IngredientManager implements IRequirementManager
     }
 
     /**
-     * Insert an ingredient in database.
+     * Insert an ingredient in database associate to the allergen.
      *
      * @param Ingredient $object
+     * @param Allergen $allergen
      *
      * @return boolean
      */
-    public static function insertIngredient($object): bool
+    public static function insertIngredient($object, Allergen $allergen = null): bool
     {
         if (get_class($object) === "App\\Models\\Ingredient") {
             if (self::exists($object->getLabel())) {
@@ -55,8 +57,13 @@ class IngredientManager implements IRequirementManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement(req_label, req_type) VALUES (:label, 'INGREDIENT');");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            $stmtReq = $stmt->execute();
-            return $stmtReq;
+            $stmtIngredient = $stmt->execute();
+            if ($allergen) {
+                $ingredient = self::findOneBy($object->getLabel());
+                return $stmtIngredient && RequirementManager::insertRequirementAllergen($ingredient, $allergen);
+            } else {
+                return $stmtIngredient;
+            }
         } else {
             return false;
         }
@@ -144,12 +151,12 @@ class IngredientManager implements IRequirementManager
     }
 
     /**
- * Fetch all ingredients by recipe.
- *
- * @param Recipe $recipe
- *
- * @return array
- */
+     * Fetch all ingredients by recipe.
+     *
+     * @param Recipe $recipe
+     *
+     * @return array
+     */
     public static function findAllByRecipe(Recipe $recipe): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM requirement INNER JOIN recipe_requirement ON requirement.req_id = recipe_requirement.rr_fk_requirement_id WHERE rr_fk_recipe_id = :recipeId AND req_type = 'INGREDIENT';");
@@ -162,7 +169,6 @@ class IngredientManager implements IRequirementManager
         }
         return $objects;
     }
-
 
     /**
      * Remove an ingredient from database.

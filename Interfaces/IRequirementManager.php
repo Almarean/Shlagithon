@@ -18,4 +18,6 @@ interface IRequirementManager
     public static function findIdBy($identifier): ?int;
 
     public static function exists($identifier): bool;
+
+    public static function deleteOneById($identifier): bool;
 }

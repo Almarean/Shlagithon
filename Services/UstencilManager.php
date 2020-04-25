@@ -55,8 +55,7 @@ class UstencilManager implements IRequirementManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement(req_label, req_type) VALUES (:label, 'USTENCIL');");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt;
+            return $stmt->execute();
         } else {
             return false;
         }

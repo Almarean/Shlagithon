@@ -55,8 +55,7 @@ class TagManager implements IRequirementManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO tag(t_label) VALUES (:label);");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            $stmt = $stmt->execute();
-            return $stmt;
+            return $stmt->execute();
         } else {
             return false;
         }
@@ -146,11 +145,11 @@ class TagManager implements IRequirementManager
         return self::findOneBy($identifier) ? true : false;
     }
 
-
     /**
      * Remove a tag from database.
      *
      * @param int $identifier
+     *
      * @return bool
      */
     public static function deleteOneById($identifier): bool

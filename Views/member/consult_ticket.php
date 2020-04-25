@@ -36,8 +36,7 @@
                             <p class="border p-3 rounded bg-dark text-white"><?php echo $ticketAnswer->getText(); ?></p>
                         </div>
                     </div>
-                <?php } ?>
-            <?php } ?>
+                <?php } } ?>
         </div>
 
         <?php if (!$ticket->getIsResolved()) { ?>
@@ -50,6 +49,9 @@
                     <button type="submit" class="btn btn-dark" id="apply" name="apply" value="<?php echo $ticket->getId(); ?>" title="SendTicket">Envoyer</button>
                 </div>
             </form>
+            <div class="text-center mt-3">
+                <a href="show-tickets?ticket-id=<?php echo $ticket->getId(); ?>" class="btn btn-success" title="Resolved"><i class="fas fa-check"></i> Mettre en résolu</a>
+            </div>
         <?php } else { ?>
             <div class="col-md-6 m-auto">
                 <div class="alert alert-success text-center" role="alert">Cette demande est résolue !</div>

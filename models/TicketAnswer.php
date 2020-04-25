@@ -42,7 +42,6 @@ class TicketAnswer
      */
     private $author;
 
-
     /**
      * TicketAnswer constructor.
      *

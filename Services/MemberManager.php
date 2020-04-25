@@ -229,7 +229,7 @@ class MemberManager implements IManager
     public static function updateLastConnectionDate(int $identifier): bool
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE member SET m_last_connection_date = :lastConnectionDate WHERE m_id = :id;");
-        $stmt->bindValue(":lastConnectionDate", date("Y-m-d h:i:s"), PDO::PARAM_STR);
+        $stmt->bindValue(":lastConnectionDate", date("Y-m-d H:i:s"), PDO::PARAM_STR);
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         return $stmt->execute();
     }

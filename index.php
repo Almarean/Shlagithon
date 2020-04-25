@@ -2,6 +2,7 @@
 
 $request = $_SERVER["REQUEST_URI"];
 session_start();
+date_default_timezone_set('Europe/Paris');
 require_once __DIR__ . "/load.php";
 if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
     $request = $matches[1];

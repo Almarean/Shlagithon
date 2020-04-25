@@ -11,8 +11,8 @@
     <section class="container mt-5">
         <h1 class="text-center">Gérer les prérequis</h1>
         <div id="comments"></div>
-        <div>
-            <form action="?" method="POST">
+        <div class="mt-5">
+            <div class="row">
                 <div class="col-md-3">
                     <label for="select-requirement">Je souhaite ajouter des :</label>
                     <select name="select-filter" id="select-requirement" class="form-control rounded">
@@ -23,7 +23,7 @@
                         <option value="tag">Tags</option>
                     </select>
                 </div>
-            </form>
+            </div>
             <div id="requirements-list"></div>
         </div>
     </section>

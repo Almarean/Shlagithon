@@ -2,14 +2,19 @@ $(document).ready(function () {
     // Display content in relation to the value in the select.
     $("#select-requirement").change(function () {
         let selectVal = $("#select-requirement").val();
-        $.ajax({
-            url: "requirements",
-            type: "POST",
-            data: "category=" + selectVal,
-            success: function (response) {
-                $("#requirements-list").html(renderTemplate(selectVal, JSON.parse(response)));
-            }
-        });
+        $("#comments").html("");
+        if ($.trim(selectVal) !== "") {
+            $.ajax({
+                url: "requirements",
+                type: "POST",
+                data: "category=" + selectVal,
+                success: function (response) {
+                    $("#requirements-list").html(renderTemplate(selectVal, JSON.parse(response)));
+                }
+            });
+        } else {
+            $("#requirements-list").html("");
+        }
     });
 
     // Remove a requirement from the list.

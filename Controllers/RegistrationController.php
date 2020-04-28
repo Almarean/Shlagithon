@@ -8,6 +8,10 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+if (isset($_SESSION["member"])) {
+    header("Location: home");
+}
+
 if (count($_POST) > 0) {
     $errors = [];
     $email = $_POST["email"];

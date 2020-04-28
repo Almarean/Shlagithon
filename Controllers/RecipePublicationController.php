@@ -9,6 +9,7 @@ use App\Models\Tag;
 use App\Models\Ustencil;
 use App\Services\IngredientManager;
 use App\Services\RecipeManager;
+use App\Services\RequirementManager;
 use App\Services\StepManager;
 use App\Services\TagManager;
 use App\Services\UstencilManager;
@@ -45,25 +46,24 @@ if (count($_POST) > 0) {
         $recipe = null;
         if (!strlen($_POST["advice"]) > 0) {
             $recipe = new Recipe(0, $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"]);
-            RecipeManager::insert($recipe);
         } else {
             $recipe = new Recipe(0, $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $member, $_POST["type"], $_POST["advice"]);
-            RecipeManager::insert($recipe);
         }
+        RecipeManager::insert($recipe);
+        $recipe = RecipeManager::findOneBy($recipe->getName());
         foreach (json_decode($_POST["ustencils"]) as $ustencil) {
-            UstencilManager::insert(new Ustencil(0, $ustencil->name, $ustencil->quantity), $recipe);
+            RequirementManager::insertRequirementRecipe(UstencilManager::findOneBy($ustencil->name), $recipe, $ustencil->quantity);
         }
         foreach (json_decode($_POST["ingredients"]) as $ingredient) {
-            IngredientManager::insert(new Ingredient(0, $ingredient->name, $ingredient->quantity), $recipe);
+            RequirementManager::insertRequirementRecipe(IngredientManager::findOneBy($ingredient->name), $recipe, $ingredient->quantity);
         }
         foreach (json_decode($_POST["tags"]) as $tag) {
             TagManager::insert(new Tag(0, $tag->name), $recipe);
         }
         $steps = json_decode($_POST["steps"]);
         for ($i = 0; $i < count($steps); $i++) {
-            StepManager::insert(new Step($steps[$i]->description, $i + 1, RecipeManager::findOneBy($_POST["name"])));
+            StepManager::insert(new Step($steps[$i]->description, $i + 1, $recipe));
         }
-        // header("Location: publication?success");
         echo json_encode("success");
     } else {
         echo json_encode($errors);

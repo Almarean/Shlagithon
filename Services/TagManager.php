@@ -39,7 +39,6 @@ class TagManager implements IRequirementManager
         }
     }
 
-
     /**
      * Insert a tag and in database.
      *

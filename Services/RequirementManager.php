@@ -61,4 +61,22 @@ class RequirementManager
         $stmt->bindValue(":allergenId", $allergen->getId(), PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    /**
+     * Link a requirement to a recipe in the database.
+     *
+     * @param Requirement $requirement
+     * @param Recipe $recipe
+     * @param string $quantity
+     *
+     * @return boolean
+     */
+    public static function insertRequirementRecipe(Requirement $requirement, Recipe $recipe, string $quantity): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO recipe_requirement (rr_fk_recipe_id, rr_fk_requirement_id, rr_quantity) VALUES (:recipeId, :requirementId, :quantity);");
+        $stmt->bindValue(":recipeId", $recipe->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":requirementId", $requirement->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":quantity", $quantity, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
 }

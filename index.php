@@ -8,21 +8,13 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
     $request = $matches[1];
     switch ($request) {
         case "/registration":
-            if (isset($_SESSION["member"])) {
-                header("Location: home");
-            } else {
-                require __DIR__ . "/Controllers/RegistrationController.php";
-            }
+            require __DIR__ . "/Controllers/RegistrationController.php";
             break;
         case "/home":
             require __DIR__ . "/Controllers/HomepageController.php";
             break;
         case "/login":
-            if (isset($_SESSION["member"])) {
-                header("Location: home");
-            } else {
-                require __DIR__ . "/Controllers/LoginController.php";
-            }
+            require __DIR__ . "/Controllers/LoginController.php";
             break;
         case "/logout":
             require __DIR__ . "/Controllers/LogoutController.php";

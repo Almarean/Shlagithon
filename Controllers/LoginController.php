@@ -5,6 +5,10 @@ namespace App\Controllers;
 use App\Models\Member;
 use App\Services\MemberManager;
 
+if (isset($_SESSION["member"])) {
+    header("Location: home");
+}
+
 if (count($_POST) > 0) {
     $email = htmlspecialchars($_POST["email"]);
     $password = htmlspecialchars($_POST["password"]);

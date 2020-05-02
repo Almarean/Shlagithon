@@ -19,7 +19,7 @@
                 </form>
                 <div class="mt-3">
                     {% for tag in tags %}
-                        <span id="tag-{{ tag.id }}" class="badge badge-pill badge-light pointer">{{ tag.label }}</span>
+                        <span class="badge badge-pill badge-light pointer" data-type="tag">{{ tag.label }}</span>
                     {% endfor %}
                 </div>
             </div>

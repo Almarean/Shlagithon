@@ -299,7 +299,7 @@ class RecipeManager implements IManager
     }
 
     /**
-     * Find all recipes associated with the tag
+     * Find all recipes associated with the tag.
      *
      * @param String $tagName
      *

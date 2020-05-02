@@ -81,5 +81,5 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
             break;
     }
 } else {
-    require __DIR__ . "/Controllers/HomepageController.php";
+    header("Location: home");
 }

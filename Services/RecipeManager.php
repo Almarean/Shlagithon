@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Tag;
 use PDO;
 use App\Interfaces\IManager;
 use App\Models\Member;
@@ -298,22 +299,25 @@ class RecipeManager implements IManager
     }
 
     /**
-     * Find all recipes that
+     * Find all recipes associated with the tag
      *
-     * @param array $tags
+     * @param String $tagName
      *
      * @return array
      */
-    // public static function findRecipesByTag(array $tags): array
-    // {
-    //     $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe INNER JOIN recipe_tag ON recipe.rec_id = recipe_tag.rt_fk_recipe_id ");
-
-    //     $stmt->execute();
-    //     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     $objects = [];
-    //     foreach ($results as $result) {
-    //         array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
-    //     }
-    //     return $objects;
-    // }
+    public static function findRecipeByTagName(String $tagName, bool $convertIntoObject = false): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe INNER JOIN recipe_tag ON recipe.rec_id = recipe_tag.rt_fk_recipe_id WHERE recipe_tag.rt_fk_tag_id = :tag");
+        $stmt->bindValue(":tag", TagManager::findIdBy($tagName), PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($convertIntoObject) {
+            $objects = [];
+            foreach ($results as $result) {
+                array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
+            }
+            $results = $objects;
+        }
+        return $results;
+    }
 }

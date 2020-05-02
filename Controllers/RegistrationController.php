@@ -35,11 +35,11 @@ if (count($_POST) > 0) {
         try {
             if ($env === "prod") {
                 $mail = new PHPMailer();
-                $mail->Host = 'thomaslaure@alwaysdata.net';
+                $mail->Host = 'smtp-thomaslaure.alwaysdata.net';
                 $mail->Port = 587; // 465
                 $mail->Username = 'thomaslaure@alwaysdata.net';
                 $mail->Password = '';
-                $mail->SetFrom('smtp-thomaslaure.alwaysdata.net');
+                $mail->SetFrom('thomaslaure@alwaysdata.net');
                 $verifyLink = "https://thomaslaure.alwaysdata.net/Shlagithon/index.php/verify?email=";
             } else {
                 $mail = new PHPMailer(true);

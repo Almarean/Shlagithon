@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Ticket;
-
 use App\Services\TicketManager;
 
 if (!isset($_SESSION["member"])) {

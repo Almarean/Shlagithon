@@ -6,7 +6,7 @@ $(document).ready(function () {
     $.ajax({
       url: "filter-recipes",
       type: "GET",
-      data: "filter=" + filter,
+      data: "filter=" + filter + "&type=word",
       success: function (response) {
         renderTemplate($.parseJSON(response), $("#filtered-recipes"), filter);
       }
@@ -15,11 +15,11 @@ $(document).ready(function () {
 
   // Filter the recipes by a given tag.
   $("span[data-type='tag']").on("click", function (event) {
-    let tag = this.innerHTML;
+    let tag = $(event.target).html();
     $.ajax({
-      url: "filter-tag",
-      type: "POST",
-      data: "tag=" + tag,
+      url: "filter-recipes",
+      type: "GET",
+      data: "filter=" + tag + "&type=tag",
       success: function (response) {
         renderTemplate($.parseJSON(response), $("#filtered-recipes"), tag);
       }

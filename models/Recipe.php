@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Member;
-use App\Models\Tag;
 use App\Models\Requirement;
+use App\Models\Tag;
 
 /**
  * Class Recipe.

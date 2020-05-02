@@ -20,11 +20,15 @@ class Ingredient extends Requirement
     /**
      * Constructor of the Ingredient class.
      *
+     * @param integer $id
      * @param string $label
+     * @param string $quantity
      */
-    public function __construct(string $label)
+    public function __construct(int $id, string $label, string $quantity)
     {
+        $this->id = $id;
         $this->label = ucwords($label);
+        $this->quantity = $quantity;
         $this->allergens = [];
     }
 
@@ -47,7 +51,7 @@ class Ingredient extends Requirement
      */
     public function setAllergens(array $allergens): self
     {
-        $this->allergens[] = $allergens;
+        $this->allergens = $allergens;
         return $this;
     }
 

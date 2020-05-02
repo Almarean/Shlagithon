@@ -1,11 +1,133 @@
-footer div > div {
-    font-size: 2rem;
-}
-
-#member-tab{
-    margin: 20px;
+footer div>div {
+  font-size: 2rem;
 }
 
 .logo {
-    font-size: 4rem;
+  font-size: 4rem;
+}
+
+.img-recipe {
+  position: relative;
+  max-width: 50px;
+  float: left;
+  margin-right: 15px;
+}
+
+footer {
+  bottom: 0;
+}
+
+body>.container,
+body>.container-fluid {
+  padding-bottom: 12rem;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.card-footer {
+  background-color: transparent;
+  border: none;
+}
+
+.carousel-inner {
+  max-width: 900px;
+  max-height: 600px
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bg-light,
+.btn-light {
+  background-color: whitesmoke !important;
+}
+
+.title {
+  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../covers/pizza_cover2.jpg) no-repeat 50% fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cover-registration {
+  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../covers/pizza_cover.jpg) no-repeat 50% fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cover-login {
+  background: linear-gradient(90deg, rgba(119, 124, 128, .4), rgba(59, 62, 64, .7)), url(../covers/cover.jpg) no-repeat 50% fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-search {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  border-top: solid orange;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: transparent;
+  border-color: #dee2e6 #dee2e6 transparent;
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom: solid whitesmoke;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid orange;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  border-color: #e9ecef #e9ecef whitesmoke;
+}
+
+footer {
+  border-bottom: solid orange;
+}
+
+#scroll-top-button:hover,
+#scroll-down-button:hover {
+  border-color: orange;
+}
+
+.shadow-card {
+  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, .7);
+}
+
+.above {
+  z-index: 100;
+}
+
+@media all and (min-width: 1024px) {
+  .hover-zoom {
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-size: 110%;
+    background-position: center;
+  }
+
+  .hover-zoom:hover {
+    background-size: 100%;
+  }
 }

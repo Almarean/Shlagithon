@@ -3,23 +3,51 @@
 namespace App\Services;
 
 use PDO;
-use App\Interfaces\IManager;
+use App\Interfaces\IRequirementManager;
 use App\Models\Recipe;
 use App\Models\Ustencil;
 
 /**
- * Class UstencilManager implements IManager.
+ * Class UstencilManager implements IRequirementManager.
  */
-class UstencilManager implements IManager
+class UstencilManager implements IRequirementManager
 {
     /**
-     * Insert a ustencil in database.
+     * Insert a ustencil and a recipe in database.
+     *
+     * @param Ustencil $object
+     * @param Recipe $recipe
+     *
+     * @return boolean
+     */
+    public static function insert($object, Recipe $recipe): bool
+    {
+        if (get_class($object) === "App\\Models\\Ustencil") {
+            if (self::exists($object->getLabel())) {
+                return false;
+            }
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement(req_label, req_type) VALUES (:label, 'USTENCIL');");
+            $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
+            $stmtReq = $stmt->execute();
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO recipe_requirement(rr_fk_recipe_id, rr_fk_requirement_id, rr_quantity) VALUES (:recipeId, :requirementId, :quantity);");
+            $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_INT);
+            $stmt->bindValue(":requirementId", self::findIdBy($object->getLabel()), PDO::PARAM_INT);
+            $stmt->bindValue(":quantity", $object->getQuantity(), PDO::PARAM_STR);
+            $stmtRR = $stmt->execute();
+            return $stmtReq && $stmtRR;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Insert an ustencil in database.
      *
      * @param Ustencil $object
      *
      * @return boolean
      */
-    public static function insert($object): bool
+    public static function insertUstencil($object): bool
     {
         if (get_class($object) === "App\\Models\\Ustencil") {
             if (self::exists($object->getLabel())) {
@@ -34,6 +62,23 @@ class UstencilManager implements IManager
     }
 
     /**
+     * Find the quantity of a ustencil in a recipe.
+     *
+     * @param Recipe $recipe
+     * @param Ustencil $ustencil
+     *
+     * @return string
+     */
+    public static function findQuantityByRecipeAndRequirement(Recipe $recipe, Ustencil $ustencil): string
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe_requirement WHERE rr_fk_recipe_id = :recipeId AND rr_fk_requirement_id = :requirementId;");
+        $stmt->bindValue(":recipeId", $recipe->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":requirementId", $ustencil->getId(), PDO::PARAM_INT);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result["rr_quantity"] : "0";
+    }
+
+    /**
      * Fetch all ustencils in database.
      *
      * @return array
@@ -44,7 +89,7 @@ class UstencilManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
-            array_push($objects, new Ustencil($result["req_label"]));
+            array_push($objects, new Ustencil($result["req_id"], $result["req_label"], 0));
         }
         return $objects;
     }
@@ -66,7 +111,7 @@ class UstencilManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Ustencil($result["req_label"]) : null;
+        return $result ? new Ustencil($result["req_id"], $result["req_label"], 0) : null;
     }
 
     /**
@@ -112,8 +157,21 @@ class UstencilManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Ustencil($result["req_label"]));
+            array_push($objects, new Ustencil($result["req_id"], $result["req_label"], $result["rr_quantity"]));
         }
         return $objects;
+    }
+
+    /**
+     * Remove an ustencil from database.
+     *
+     * @param int $identifier
+     * @return bool
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM requirement WHERE req_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

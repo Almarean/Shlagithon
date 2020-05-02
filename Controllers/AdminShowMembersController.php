@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Member;
 use App\Services\MemberManager;
 
 if (!isset($_SESSION["member"])) {
@@ -12,12 +11,12 @@ if (!isset($_SESSION["member"])) {
 }
 
 $members = MemberManager::findAllByDateCreation();
-if (isset($_GET["deleteLogin"])) {
-    MemberManager::deleteOneById($_GET["deleteLogin"]);
-    header("Location: members-editor");
+if (isset($_GET["delete"])) {
+    MemberManager::changeDeletionOneById($_GET["delete"]);
+    header("Location: members");
 }
-if(isset($_GET['editId'])){
-    header("Location: member-editor?editId=" . $_GET['editId']);
+if (isset($_GET["edit"])) {
+    header("Location: member?edit=" . $_GET["edit"]);
 }
 
 require __DIR__ . "/../Views/admin/admin_show_members.php";

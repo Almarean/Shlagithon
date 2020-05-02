@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Services;
 
 use PDO;
 use App\Interfaces\IManager;
+use App\Models\Recipe;
 use App\Models\Step;
 use App\Services\PDOManager;
 use App\Services\RecipeManager;
@@ -61,7 +62,7 @@ class StepManager implements IManager
      */
     public static function findAllByRecipe(Recipe $recipe): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM step WHERE s_fk_recipe_id = :recipeId;");
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM step WHERE s_fk_recipe_id = :recipeId ORDER BY s_order ASC;");
         $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_STR);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

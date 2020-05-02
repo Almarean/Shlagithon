@@ -6,6 +6,7 @@ use PDO;
 use App\Interfaces\IManager;
 use App\Models\Allergen;
 use App\Models\Ingredient;
+use App\Models\Requirement;
 use App\Services\PDOManager;
 
 /**
@@ -17,6 +18,7 @@ class AllergenManager implements IManager
      * Insert an allergen in database.
      *
      * @param Allergen $object
+     * @param Requirement $requirement
      *
      * @return boolean
      */
@@ -28,7 +30,9 @@ class AllergenManager implements IManager
             }
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO allergen(a_label) VALUES (:label);");
             $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            return $stmt->execute();
+            $stmtA = $stmt->execute();
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO requirement_allergen(ra_fk_requirement_id, ra_fk_allergen_id) VALUES (:requirementId, :allergenId);");
+            return $stmtA;
         } else {
             return false;
         }
@@ -45,7 +49,7 @@ class AllergenManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {
-            array_push($objects, new Allergen($result["a_label"]));
+            array_push($objects, new Allergen($result["a_id"], $result["a_label"]));
         }
         return $objects;
     }
@@ -67,7 +71,7 @@ class AllergenManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Allergen($result["a_label"]) : null;
+        return $result ? new Allergen($result["a_id"], $result["a_label"]) : null;
     }
 
     /**
@@ -101,7 +105,7 @@ class AllergenManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Allergen($result["a_label"]));
+            array_push($objects, new Allergen($result["a_id"], $result["a_label"]));
         }
         return $objects;
     }
@@ -116,5 +120,35 @@ class AllergenManager implements IManager
     public static function exists($identifier): bool
     {
         return self::findOneBy($identifier) ? true : false;
+    }
+
+    /**
+     * Remove an allergen from database.
+     *
+     * @param int $identifier
+     *
+     * @return bool
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM allergen WHERE a_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    /**
+     * Fetch an allergen by the given ID.
+     *
+     * @param int $identifier
+     *
+     * @return Allergen|null
+     */
+    public static function findOneById(int $identifier): ?Allergen
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM allergen WHERE a_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? new Allergen($result["a_id"], $result["a_label"]) : null;
     }
 }

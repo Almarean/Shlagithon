@@ -1,0 +1,52 @@
+{% extends "base.twig" %}
+
+{% block title %}Patokechup | Login{% endblock %}
+
+{% block body %}
+{% include("templates/header_client.twig") %}
+
+<div class="container-fluid cover-login">
+    <div class="container my-5">
+        <section class="bg-light rounded py-5 shadow-card">
+            <div class="text-center logo"><i class="fas fa-cookie-bite"></i></div>
+            <h1 class="h3 mb-3 font-weight-normal text-center">Se connecter</h1>
+            <div class="col-md-4 m-auto">
+                {% if errors and errors|length > 0 %}
+                <div class="text-center">
+                    {% for error in errors %}
+                        <p class="text-danger"><i class="fas fa-exclamation-triangle"></i>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if email and success %}
+                    {% if success == 1 %}
+                        <p class="text-success text-center"><i class="far fa-envelope-open"></i> Un mail de confirmation vous a été envoyé.</p>
+                    {% else %}
+                        <p class="text-danger text-center"><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue lors de l'envoi du mail de confirmation.</p>
+                    {% endif %}
+                {% endif %}
+                {% if confirmed %}
+                    {% if confirmed == 1 %}
+                        <p class="text-success text-center"><i class="fas fa-check"></i> Votre compte a été confirmé.</p>
+                    {% else %}
+                        <p class="text-danger text-center"><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue lors de la confirmation de votre compte.</p>
+                    {% endif %}
+                {% endif %}
+                <form class="form-signin" action="?" method="POST">
+                    <label for="input-email" class="sr-only">E-mail</label>
+                    {% if email %}
+                        <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" value="{{ email }}" required autofocus>
+                    {% else %}
+                        <input type="email" id="input-email" class="form-control" placeholder="E-mail" name="email" required autofocus>
+                    {% endif %}
+                    <label for="input-password" class="sr-only">Mot de passe</label>
+                    <input type="password" id="input-password" class="form-control" placeholder="Mot de passe" name="password" autocomplete="current-password" required>
+                    <button class="btn btn-lg btn-dark btn-block mt-5" type="submit">Se connecter</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% include("templates/footer.php") %}
+{% endblock %}

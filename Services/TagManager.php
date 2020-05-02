@@ -3,23 +3,50 @@
 namespace App\Services;
 
 use PDO;
+use App\Interfaces\IRequirementManager;
 use App\Models\Recipe;
 use App\Models\Tag;
-use App\Interfaces\IManager;
 
 /**
- * Class TagManager implements IManager.
+ * Class TagManager implements IRequirementManager.
  */
-class TagManager implements IManager
+class TagManager implements IRequirementManager
 {
     /**
-     * Insert a tag in database.
+     * Insert a tag and a recipe in database.
+     *
+     * @param Tag $object
+     * @param Recipe $recipe
+     *
+     * @return boolean
+     */
+    public static function insert($object, Recipe $recipe): bool
+    {
+        if (get_class($object) === "App\\Models\\Tag") {
+            if (self::exists($object->getLabel())) {
+                return false;
+            }
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO tag(t_label) VALUES (:label);");
+            $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
+            $stmtT = $stmt->execute();
+            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO recipe_tag(rt_fk_recipe_id, rt_fk_tag_id) VALUES (:recipeId, :tagId);");
+            $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_INT);
+            $stmt->bindValue(":tagId", self::findIdBy($object->getLabel()), PDO::PARAM_INT);
+            $stmtRt = $stmt->execute();
+            return $stmtT && $stmtRt;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Insert a tag and in database.
      *
      * @param Tag $object
      *
      * @return boolean
      */
-    public static function insert($object): bool
+    public static function insertTag($object): bool
     {
         if (get_class($object) === "App\\Models\\Tag") {
             if (self::exists($object->getLabel())) {
@@ -44,7 +71,7 @@ class TagManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Tag($result["t_label"]));
+            array_push($objects, new Tag($result["t_id"], $result["t_label"]));
         }
         return $objects;
     }
@@ -64,7 +91,7 @@ class TagManager implements IManager
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {
-            array_push($objects, new Tag($result["t_label"]));
+            array_push($objects, new Tag($result["t_id"], $result["t_label"]));
         }
         return $objects;
     }
@@ -86,7 +113,7 @@ class TagManager implements IManager
         if (!$convertIntoObject) {
             return $result;
         }
-        return $result ? new Tag($result["t_label"]) : null;
+        return $result ? new Tag($result["t_id"], $result["t_label"]) : null;
     }
 
     /**
@@ -115,5 +142,19 @@ class TagManager implements IManager
     public static function exists($identifier): bool
     {
         return self::findOneBy($identifier) ? true : false;
+    }
+
+    /**
+     * Remove a tag from database.
+     *
+     * @param int $identifier
+     *
+     * @return bool
+     */
+    public static function deleteOneById($identifier): bool
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("DELETE FROM tag WHERE t_id = :id;");
+        $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `requirement` (
     `req_label` varchar(255) NOT NULL,
     `req_type` ENUM('USTENCIL', 'INGREDIENT') NOT NULL,
     PRIMARY KEY (`req_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `member`;
 CREATE TABLE IF NOT EXISTS `member` (
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `member` (
     `m_creation_date` datetime NOT NULL,
     `m_last_connection_date` datetime NULL,
     PRIMARY KEY (`m_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `recipe`;
 CREATE TABLE IF NOT EXISTS `recipe` (
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
     `rec_type` ENUM('ENTREE', 'PLAT', 'DESSERT', 'AUTRE') NOT NULL,
     `rec_fk_member_id` int(11) NOT NULL,
     PRIMARY KEY (`rec_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `recipe_requirement`;
 CREATE TABLE IF NOT EXISTS `recipe_requirement` (
@@ -52,14 +52,14 @@ CREATE TABLE IF NOT EXISTS `recipe_requirement` (
     `rr_fk_requirement_id` int(11) NOT NULL,
     `rr_quantity` varchar(255) NOT NULL,
     PRIMARY KEY (`rr_fk_recipe_id`, `rr_fk_requirement_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `recipe_member`;
 CREATE TABLE IF NOT EXISTS `recipe_member` (
     `rm_fk_recipe_id` int(11) NOT NULL,
     `rm_fk_member_id` int(11) NOT NULL,
     PRIMARY KEY(`rm_fk_recipe_id`, `rm_fk_member_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `step`;
 CREATE TABLE IF NOT EXISTS `step` (
@@ -68,35 +68,35 @@ CREATE TABLE IF NOT EXISTS `step` (
     `s_order` int(11) NOT NULL,
     `s_fk_recipe_id` int(11) NOT NULL,
     PRIMARY KEY(`s_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE IF NOT EXISTS `tag` (
     `t_id` int(11) NOT NULL AUTO_INCREMENT,
     `t_label` varchar(255) NOT NULL,
     PRIMARY KEY(`t_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `recipe_tag`;
 CREATE TABLE IF NOT EXISTS `recipe_tag` (
     `rt_fk_recipe_id` int(11) NOT NULL,
     `rt_fk_tag_id` int(11) NOT NULL,
     PRIMARY KEY(`rt_fk_recipe_id`, `rt_fk_tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `requirement_allergen`;
 CREATE TABLE IF NOT EXISTS `requirement_allergen` (
     `ra_fk_requirement_id` int(11) NOT NULL,
     `ra_fk_allergen_id` int(11) NOT NULL,
     PRIMARY KEY(`ra_fk_requirement_id`, `ra_fk_allergen_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `allergen`;
 CREATE TABLE IF NOT EXISTS `allergen` (
     `a_id` int(11) NOT NULL AUTO_INCREMENT,
     `a_label` varchar(255) NOT NULL,
     PRIMARY KEY(`a_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `c_fk_member_id` int(11) NOT NULL,
     `c_fk_recipe_id` int(11) NOT NULL,
     PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_allergen` FOREIGN KEY (`ra_fk_allergen_id`) REFERENCES `allergen`(`a_id`) ON DELETE CASCADE;
 ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_requirement` FOREIGN KEY (`ra_fk_requirement_id`) REFERENCES `requirement`(`req_id`) ON DELETE CASCADE;

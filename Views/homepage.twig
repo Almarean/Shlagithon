@@ -21,6 +21,9 @@
                     {% for tag in tags %}
                         <span class="badge badge-pill badge-light pointer" data-type="tag">{{ tag.label }}</span>
                     {% endfor %}
+                    {% if tags|length > 0 %}
+                        <span class="badge badge-pill badge-dark pointer" id="reset-filter"><i class="fas fa-times"></i></span>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-8">

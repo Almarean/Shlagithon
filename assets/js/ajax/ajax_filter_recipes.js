@@ -25,6 +25,11 @@ $(document).ready(function () {
       }
     });
   });
+
+  // Reset the HTML generate by the filter.
+  $("span#reset-filter").on("click", function () {
+    $("#filtered-recipes").html("");
+  });
 });
 
 /**

@@ -53,10 +53,10 @@
                 <p class="lead text-justify"><?php echo $recipe->getDescription(); ?></p>
             </div>
             <div class="text-center">
-                <img src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="img-fluid rounded" alt="image">
+                <img src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="img-fluid rounded img-detail" alt="image">
             </div>
             <div class="row mx-auto mt-5">
-                <article class="col-md-3">
+                <article class="col-md-4">
                     <h5>Ustensiles</h5>
                     <ul>
                         <?php foreach ($ustencils as $ustencil) {
@@ -64,7 +64,7 @@
                         } ?>
                     </ul>
                 </article>
-                <article class="col-md-3">
+                <article class="col-md-4">
                     <h5>Ingrédients</h5>
                     <ul>
                         <?php foreach ($ingredients as $ingredient) {
@@ -72,15 +72,7 @@
                         } ?>
                     </ul>
                 </article>
-                <article class="col-md-3">
-                    <h5>Etapes</h5>
-                    <ol>
-                        <?php foreach ($recipe->getSteps() as $step) {
-                            echo "<li>" . $step->getDescription() . "</li>";
-                        } ?>
-                    </ol>
-                </article>
-                <article class="col-md-3">
+                <article class="col-md-4">
                     <h5>À propos de cette recette</h5>
                     <ul>
                         <?php foreach ($allergens as $allergen) {
@@ -89,6 +81,14 @@
                     </ul>
                 </article>
             </div>
+            <article class="col-md-12 my-5">
+                <h5>Etapes</h5>
+                <ol>
+                    <?php foreach ($recipe->getSteps() as $step) {
+                        echo "<li>" . $step->getDescription() . "</li>";
+                    } ?>
+                </ol>
+            </article>
             <?php if ($recipe->getAdvice()) { ?>
                 <div class="col-md-6 m-auto">
                     <p class="text-justify"><i class="far fa-lightbulb"></i> <?php echo $recipe->getAdvice(); ?></p>

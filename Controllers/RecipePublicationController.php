@@ -28,9 +28,6 @@ if (count($_POST) > 0) {
     if (strlen($_POST["name"]) < 5) {
         $errors[] = "Le nom est trop court.";
     }
-    if (strlen($_POST["description"]) < 20) {
-        $errors[] = "La description est trop courte.";
-    }
     $file = pathinfo(strtolower($_FILES["image"]["name"]));
     $imageName = $file["filename"];
     $imageExtension = $file["extension"];

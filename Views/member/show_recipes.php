@@ -44,7 +44,7 @@
                                     <div class="ml-1 d-inline"><a href="?favorite-id=<?php echo $recipe->getId(); ?>" class="table-link" title="Favorite"><i class="fas fa-star-half-alt"></i></a></div>
                                 <?php } else { ?>
                                     <div class="ml-1 d-inline"><a href="?edit=<?php echo $recipe->getId(); ?>" class="table-link" title="EditRecipe"><i class="fas fa-pencil-alt"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $recipe->getId(); ?>" class="table-link text-danger" title="DeleteRecipe"><i class="fas fa-trash"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $recipe->getId(); if (isset($_GET["admin"])) { echo "&admin"; } ?>" class="table-link text-danger" title="DeleteRecipe"><i class="fas fa-trash"></i></a></div>
                                 <?php } ?>
                             </td>
                         </tr>

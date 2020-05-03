@@ -3,9 +3,9 @@ $("#button-add-ustencil").on("click", function () {
   if (!ustencilQuantity > 0) {
     ustencilQuantity = 1;
   }
-  let ustencilValue = $.trim($("#input-ustencil").val());
+  let ustencilValue = $.trim($("#input-ustencil").val().toLowerCase());
   let ustencils = $.map($(".ustencil"), function (ustencil) {
-    return $.trim($(ustencil).text());
+    return $.trim($(ustencil).text().toLowerCase());
   });
   if (ustencilValue.length > 0 && $.inArray(ustencilValue, ustencils)) {
     $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + ustencilValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
@@ -19,12 +19,12 @@ $("#button-add-ingredient").on("click", function () {
   if (!ingredientQuantity > 0) {
     ingredientQuantity = 1;
   }
-  let ingredientValue = $.trim($("#input-ingredient").val());
+  let ingredientValue = $.trim($("#input-ingredient").val().toLowerCase());
   let ingredients = $.map($(".ingredient"), function (ingredient) {
-    return $.trim($(ingredient).text());
+    return $.trim($(ingredient).text().toLowerCase());
   });
   if (ingredientValue.length > 0 && $.inArray(ingredientValue, ingredients)) {
-    let unit = $("#select-unit").val();
+    let unit = $("#select-unit").val().toLowerCase();
     $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
     $("#input-ingredient").val("");
     enableApplyButton();
@@ -78,10 +78,8 @@ function enableApplyButton() {
  * @param {*} event
  */
 function removeElement(event) {
-  if (event.target.nodeName === "svg") {
-    $(event.target).parent().remove();
-  } else if (event.target.nodeName === "path") {
-    $(event.target).parent().parent().remove();
+  if (event.target.nodeName === "I") {
+    $(event.target).closest("li").remove();
   }
   enableApplyButton();
 }

@@ -85,7 +85,7 @@ class UstencilManager implements IRequirementManager
      */
     public static function findAll(): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'USTENCIL';");
+    $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'USTENCIL' ORDER BY req_label ASC;");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach($results as $result) {

@@ -133,18 +133,47 @@ CREATE TABLE IF NOT EXISTS `member` (
     PRIMARY KEY (`m_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
+-- ALTER TABLE `requirement_allergen` DROP FOREIGN KEY `fk_requirement_allergen_allergen`;
 ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_allergen` FOREIGN KEY (`ra_fk_allergen_id`) REFERENCES `allergen`(`a_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `requirement_allergen` DROP FOREIGN KEY `fk_requirement_allergen_requirement`;
 ALTER TABLE `requirement_allergen` ADD CONSTRAINT `fk_requirement_allergen_requirement` FOREIGN KEY (`ra_fk_requirement_id`) REFERENCES `requirement`(`req_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe_requirement` DROP FOREIGN KEY `fk_recipe_requirement_requirement`;
 ALTER TABLE `recipe_requirement` ADD CONSTRAINT `fk_recipe_requirement_requirement` FOREIGN KEY (`rr_fk_requirement_id`) REFERENCES `requirement`(`req_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe_requirement` DROP FOREIGN KEY `fk_recipe_requirement_recipe`;
 ALTER TABLE `recipe_requirement` ADD CONSTRAINT `fk_recipe_requirement_recipe` FOREIGN KEY (`rr_fk_recipe_id`) REFERENCES `recipe`(`rec_id`) ON DELETE CASCADE;
-ALTER TABLE `step` ADD CONSTRAINT `fk_step` FOREIGN KEY (`s_fk_recipe_id`) REFERENCES `recipe`(`rec_id`);
-ALTER TABLE `recipe_tag` ADD CONSTRAINT `fk_recipe_tag_tag` FOREIGN KEY (`rt_fk_tag_id`) REFERENCES `tag`(`t_id`);
-ALTER TABLE `recipe_tag` ADD CONSTRAINT `fk_recipe_tag_recipe` FOREIGN KEY (`rt_fk_recipe_id`) REFERENCES `recipe`(`rec_id`);
-ALTER TABLE `recipe` ADD CONSTRAINT `fk_recipe` FOREIGN KEY (`rec_fk_member_id`) REFERENCES `member`(`m_id`);
+
+-- ALTER TABLE `step` DROP FOREIGN KEY `fk_step`;
+ALTER TABLE `step` ADD CONSTRAINT `fk_step` FOREIGN KEY (`s_fk_recipe_id`) REFERENCES `recipe`(`rec_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe_tag` DROP FOREIGN KEY `fk_recipe_tag_tag`;
+ALTER TABLE `recipe_tag` ADD CONSTRAINT `fk_recipe_tag_tag` FOREIGN KEY (`rt_fk_tag_id`) REFERENCES `tag`(`t_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe_tag` DROP FOREIGN KEY `fk_recipe_tag_recipe`;
+ALTER TABLE `recipe_tag` ADD CONSTRAINT `fk_recipe_tag_recipe` FOREIGN KEY (`rt_fk_recipe_id`) REFERENCES `recipe`(`rec_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe` DROP FOREIGN KEY `fk_recipe`;
+ALTER TABLE `recipe` ADD CONSTRAINT `fk_recipe` FOREIGN KEY (`rec_fk_member_id`) REFERENCES `member`(`m_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe_member` DROP FOREIGN KEY `fk_recipe_member_recipe`;
 ALTER TABLE `recipe_member` ADD CONSTRAINT `fk_recipe_member_recipe` FOREIGN KEY (`rm_fk_recipe_id`) REFERENCES `recipe`(`rec_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `recipe_member` DROP FOREIGN KEY `fk_recipe_member_member`;
 ALTER TABLE `recipe_member` ADD CONSTRAINT `fk_recipe_member_member` FOREIGN KEY (`rm_fk_member_id`) REFERENCES `member`(`m_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `comment` DROP FOREIGN KEY `fk_comment_member`;
 ALTER TABLE `comment` ADD CONSTRAINT `fk_comment_member` FOREIGN KEY (`c_fk_member_id`) REFERENCES `member`(`m_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `comment` DROP FOREIGN KEY `fk_comment_recipe`;
 ALTER TABLE `comment` ADD CONSTRAINT `fk_comment_recipe` FOREIGN KEY (`c_fk_recipe_id`) REFERENCES `recipe`(`rec_id`) ON DELETE CASCADE;
-ALTER TABLE `ticket` ADD CONSTRAINT `fk_ticket_member_id` FOREIGN KEY (`ti_fk_member_id`) REFERENCES `member` (`m_id`);
+
+-- ALTER TABLE `ticket` DROP FOREIGN KEY `fk_ticket_member_id`;
+ALTER TABLE `ticket` ADD CONSTRAINT `fk_ticket_member_id` FOREIGN KEY (`ti_fk_member_id`) REFERENCES `member` (`m_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `ticket_answer` DROP FOREIGN KEY `fk_ticket_answer_ticket`;
 ALTER TABLE `ticket_answer` ADD CONSTRAINT `fk_ticket_answer_ticket` FOREIGN KEY (`ti_a_fk_ticket_id`) REFERENCES `ticket` (`ti_id`) ON DELETE CASCADE;
+
+-- ALTER TABLE `ticket_answer` DROP FOREIGN KEY `fk_ticket_answer_member`;
 ALTER TABLE `ticket_answer` ADD CONSTRAINT `fk_ticket_answer_member` FOREIGN KEY (`ti_a_fk_member_id`) REFERENCES `member` (`m_id`) ON DELETE CASCADE;

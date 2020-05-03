@@ -119,6 +119,14 @@ footer {
   z-index: 100;
 }
 
+.img-detail {
+  max-height: 500px;
+}
+
+.img-card {
+  max-height: 200px;;
+}
+
 @media all and (min-width: 1024px) {
   .hover-zoom {
     -webkit-transition: all 0.3s ease-in-out;

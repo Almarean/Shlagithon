@@ -23,17 +23,10 @@ class TagManager implements IRequirementManager
     public static function insert($object, Recipe $recipe): bool
     {
         if (get_class($object) === "App\\Models\\Tag") {
-            if (self::exists($object->getLabel())) {
-                return false;
-            }
-            $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO tag(t_label) VALUES (:label);");
-            $stmt->bindValue(":label", $object->getLabel(), PDO::PARAM_STR);
-            $stmtT = $stmt->execute();
             $stmt = PDOManager::getInstance()->getPDO()->prepare("INSERT INTO recipe_tag(rt_fk_recipe_id, rt_fk_tag_id) VALUES (:recipeId, :tagId);");
             $stmt->bindValue(":recipeId", RecipeManager::findIdBy($recipe->getName()), PDO::PARAM_INT);
             $stmt->bindValue(":tagId", self::findIdBy($object->getLabel()), PDO::PARAM_INT);
-            $stmtRt = $stmt->execute();
-            return $stmtT && $stmtRt;
+            return $stmt->execute();
         } else {
             return false;
         }
@@ -67,7 +60,7 @@ class TagManager implements IRequirementManager
      */
     public static function findAll(): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM tag;");
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM tag ORDER BY t_label ASC;");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {

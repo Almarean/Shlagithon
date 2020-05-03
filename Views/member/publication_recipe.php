@@ -12,7 +12,7 @@
         <section>
             <h1 class="text-center">Publier une recette</h1>
             <div class="row">
-                <div class="col-md-6 mt-3">
+                <div class="col-lg-6 mt-3">
                     <div id="comments"></div>
                     <div class="my-3">
                         <h5>Ajouter des ustensiles</h5>
@@ -25,7 +25,7 @@
                                 <label for="input-ustencil" hidden>Ajouter un ustensile</label>
                                 <select name="input-ustencil" aria-label="ustencil" aria-describedby="button-add-ustencil" class="form-control rounded-left" id="input-ustencil">
                                     <?php foreach ($ustencils as $ustencil) { ?>
-                                        <option value="<?php echo $ustencil->getLabel(); ?>"><?php echo $ustencil->getLabel(); ?></option>
+                                        <option value="<?php echo $ustencil->getLabel(); ?>"><?php echo strtolower($ustencil->getLabel()); ?></option>
                                     <?php } ?>
                                 </select>
                                 <div class="input-group-append">
@@ -45,8 +45,12 @@
                             <div class="form-group col-md-3">
                                 <label for="select-unit" hidden>Unité</label>
                                 <select class="form-control" id="select-unit">
-                                    <option value="Gramme.s">Grammes</option>
-                                    <option value="Kilogramme.s">Kilogrammes</option>
+                                    <option value="g">g</option>
+                                    <option value="kg">kg</option>
+                                    <option value="verre.s">verre.s</option>
+                                    <option value="pincée.s">pincée.s</option>
+                                    <option value="litre.s">l</option>
+                                    <option value="millilitre.s">ml</option>
                                     <option value="" selected="selected">Rien</option>
                                 </select>
                             </div>
@@ -54,7 +58,7 @@
                                 <label for="input-ingredient" hidden>Ajouter un ingrédient</label>
                                 <select name="input-ingredient" aria-label="ingredient" aria-describedby="button-add-ingredient" class="form-control rounded-left" id="input-ingredient">
                                     <?php foreach ($ingredients as $ingredient) { ?>
-                                        <option value="<?php echo $ingredient->getLabel(); ?>"><?php echo $ingredient->getLabel(); ?></option>
+                                        <option value="<?php echo $ingredient->getLabel(); ?>"><?php echo strtolower($ingredient->getLabel()); ?></option>
                                     <?php } ?>
                                 </select>
                                 <div class="input-group-append">
@@ -91,7 +95,7 @@
                         <ol id="steps"></ol>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <form id="form-recipe" action="?" method="POST" enctype="multipart/form-data">
                         <div class="form-group mt-3 mx-auto">
                             <label for="image">Image de la recette</label>

@@ -24,6 +24,7 @@ if (isset($_GET["id"])) {
         if (isset($_POST["comment"]) && strlen(trim($_POST["comment"])) > 0) {
             $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe, date("Y-m-d H:i:s"));
             CommentManager::insert($newComment);
+            header("Location: recipe-details?id=2");
         }
     }
     $recipe->setSteps(StepManager::findAllByRecipe($recipe));
@@ -35,7 +36,7 @@ if (isset($_GET["id"])) {
             $allergens = array_merge($allergens, $requirement->getAllergens());
         }
     }
-    $allergens = array_unique($allergens);
+    $allergens = array_unique($allergens, SORT_REGULAR);
     $ustencils = array_filter($requirements, function ($requirement) {
         return get_class($requirement) === "App\\Models\\Ustencil";
     });

@@ -22,7 +22,11 @@ if (isset($_GET["admin"]) && $member->getType() === "ADMIN") {
 
 if (isset($_GET["delete"])) {
     RecipeManager::deleteOneById($_GET["delete"]);
-    header("Location: recipes");
+    if (isset($_GET["admin"])) {
+        header("Location: recipes?admin");
+    } else {
+        header("Location: recipes");
+    }
 }
 if (isset($_GET["edit"])) {
     header("Location: recipe?edit=" . $_GET["edit"]);

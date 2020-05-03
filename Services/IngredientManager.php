@@ -93,7 +93,7 @@ class IngredientManager implements IRequirementManager
      */
     public static function findAll(): array
     {
-        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'INGREDIENT';");
+        $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM requirement WHERE req_type = 'INGREDIENT' ORDER BY req_label ASC;");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objects = [];
         foreach ($results as $result) {

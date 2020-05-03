@@ -83,7 +83,7 @@
                         <h5>Ajouter des étapes</h5>
                         <div class="input-group mb-3">
                             <label for="input-step" hidden>Ajouter une étape</label>
-                            <textarea class="form-control" id="input-step" name="description" id="description" placeholder="Ajouter une étape" rows="5" required></textarea>
+                            <textarea class="form-control" id="input-step" name="step" placeholder="Ajouter une étape" rows="5" required></textarea>
                             <div class="input-group-append">
                                 <button class="btn btn-dark" type="button" id="button-add-step" title="AddStep"><i class="fas fa-plus"></i></button>
                             </div>

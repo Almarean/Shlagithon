@@ -16,8 +16,8 @@ $("#button-add-ustencil").on("click", function () {
 
 $("#button-add-ingredient").on("click", function () {
   let ingredientQuantity = parseInt($("#ingredient-quantity").val());
-  if (!ingredientQuantity > 0) {
-    ingredientQuantity = 1;
+  if (ingredientQuantity.length === 0) {
+    ingredientQuantity = 0;
   }
   let ingredientValue = $.trim($("#input-ingredient").val().toLowerCase());
   let ingredients = $.map($(".ingredient"), function (ingredient) {
@@ -25,7 +25,11 @@ $("#button-add-ingredient").on("click", function () {
   });
   if (ingredientValue.length > 0 && $.inArray(ingredientValue, ingredients)) {
     let unit = $("#select-unit").val().toLowerCase();
-    $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+    if (ingredientQuantity !== 0) {
+      $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+    } else {
+      $("#ingredients").append("<li><span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+    }
     $("#input-ingredient").val("");
     enableApplyButton();
   }

@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group col-md-6 m-auto">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" rows="5" required><?php echo $recipe->getDescription(); ?></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="5"><?php echo $recipe->getDescription(); ?></textarea>
                 </div>
                 <div class="form-row col-md-6 mx-auto mt-3">
                     <div class="col">

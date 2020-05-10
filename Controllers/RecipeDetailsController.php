@@ -24,7 +24,7 @@ if (isset($_GET["id"])) {
         if (isset($_POST["comment"]) && strlen(trim($_POST["comment"])) > 0) {
             $newComment = new Comment(0, $_POST["comment"], unserialize($_SESSION["member"]), $recipe, date("Y-m-d H:i:s"));
             CommentManager::insert($newComment);
-            header("Location: recipe-details?id=2");
+            header("Location: recipe-details?id=" . $_GET["id"]);
         }
     }
     $recipe->setSteps(StepManager::findAllByRecipe($recipe));

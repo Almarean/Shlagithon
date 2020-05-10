@@ -40,18 +40,21 @@
                         <div class="row">
                             <div class="form-group col-md-2">
                                 <label for="ingredient-quantity" hidden>Quantité de l'ingrédient</label>
-                                <input type="number" class="form-control" id="ingredient-quantity" value="1" min="1" max="2000">
+                                <input type="number" class="form-control" id="ingredient-quantity" value="0" min="0" max="2000">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="select-unit" hidden>Unité</label>
                                 <select class="form-control" id="select-unit">
+                                    <option value="" selected="selected">Rien</option>
                                     <option value="g">g</option>
                                     <option value="kg">kg</option>
                                     <option value="verre.s">verre.s</option>
                                     <option value="pincée.s">pincée.s</option>
-                                    <option value="litre.s">l</option>
-                                    <option value="millilitre.s">ml</option>
-                                    <option value="" selected="selected">Rien</option>
+                                    <option value="l">l</option>
+                                    <option value="cl">cl</option>
+                                    <option value="ml">ml</option>
+                                    <option value="c à s">cuillière.s à soupe</option>
+                                    <option value="c à c">cuillière.s à café</option>
                                 </select>
                             </div>
                             <div class="form-group input-group col-md-7">

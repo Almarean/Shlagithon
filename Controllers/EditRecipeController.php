@@ -13,7 +13,7 @@ if (isset($_GET["edit"])) {
 }
 
 if (isset($_POST["validate"])) {
-    if (isset($_POST["name"]) && $_POST["description"] && $_POST["time"] && $_POST["difficulty"] && $_POST["nbPersons"]) {
+    if (isset($_POST["name"]) && $_POST["time"] && $_POST["difficulty"] && $_POST["nbPersons"]) {
         $errors = [];
         if (isset($_FILES["image"])) {
             $file = pathinfo(strtolower($_FILES["image"]["name"]));

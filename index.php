@@ -73,6 +73,13 @@ if (preg_match("/index.php(\/[^ \?]+)\?*/", $request, $matches)) {
         case "/filter-requirements":
             require __DIR__ . "/Tools/ajax_manage_requirements.php";
             break;
+        // API
+        case "/api/recipes":
+            require __DIR__ . "/Tools/api_recipes.php";
+            break;
+        case "/api/users":
+            require __DIR__ . "/Tools/api_users.php";
+            break;
         default:
             http_response_code(404);
             break;

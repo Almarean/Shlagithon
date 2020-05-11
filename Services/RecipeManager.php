@@ -53,10 +53,13 @@ class RecipeManager implements IManager
      *
      * @return array
      */
-    public static function findAll(): array
+    public static function findAll(bool $convertIntoObject = true): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->query("SELECT * FROM recipe;");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $results;
+        }
         $objects = [];
         foreach ($results as $result) {
             $author = MemberManager::findOneByID($result["rec_fk_member_id"]);
@@ -120,12 +123,15 @@ class RecipeManager implements IManager
      *
      * @return Recipe|null
      */
-    public static function findOneById(int $id): ?Recipe
+    public static function findOneById(int $id, bool $convertIntoObject = true)
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_id = :recipeId;");
         $stmt->bindValue(":recipeId", $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$convertIntoObject) {
+            return $result;
+        }
         return $result ? new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result['rec_image'], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]) : null;
     }
 

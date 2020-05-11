@@ -443,4 +443,17 @@ class Member
             return $this->favoriteRecipes;
         }
     }
+
+    public function getApiFormat() :array
+    {
+        return array(
+          "id" => $this->getId(),
+          "name" => $this->getName(),
+          "firstname" => $this->getId(),
+          "type" => $this->getType(),
+          "creation_date" => $this->getCreationDate(),
+          "last_connection_date" => $this->getLastConnectionDate(),
+          "recipes_written" => $this->getWrittenRecipes()
+        );
+    }
 }

@@ -16,7 +16,7 @@ $("#button-add-ustencil").on("click", function () {
 
 $("#button-add-ingredient").on("click", function () {
   let ingredientQuantity = parseInt($("#ingredient-quantity").val());
-  if (ingredientQuantity.length === 0) {
+  if (!$("#ingredient-quantity").val()) {
     ingredientQuantity = 0;
   }
   let ingredientValue = $.trim($("#input-ingredient").val().toLowerCase());

@@ -8,7 +8,12 @@ $(document).ready(function () {
       type: "GET",
       data: "filter=" + filter + "&type=word",
       success: function (response) {
-        renderTemplate($.parseJSON(response), $("#filtered-recipes"), filter);
+        let data = $.parseJSON(response);
+        if (data.length > 0) {
+          renderTemplate($.parseJSON(response), $("#filtered-recipes"), filter);
+        } else {
+          renderEmptyTemplate($("#filtered-recipes"));
+        }
       }
     });
   });
@@ -21,7 +26,12 @@ $(document).ready(function () {
       type: "GET",
       data: "filter=" + tag + "&type=tag",
       success: function (response) {
-        renderTemplate($.parseJSON(response), $("#filtered-recipes"), tag);
+        let data = $.parseJSON(response);
+        if (data.length > 0) {
+          renderTemplate($.parseJSON(response), $("#filtered-recipes"), tag);
+        } else {
+          renderEmptyTemplate($("#filtered-recipes"));
+        }
       }
     });
   });
@@ -76,4 +86,20 @@ function renderTemplate(data, div, filter) {
       </a>`
     );
   });
+}
+
+/**
+ * Render en empty template.
+ *
+ * @param {jQuery object} div
+ */
+function renderEmptyTemplate(div) {
+  div.html("");
+  div.append(
+    `<div class="card w-100">
+      <div class="card-body m-auto">
+        <p class="card-text">Aucun résultat</p>
+      </div>
+    </div>`
+  );
 }

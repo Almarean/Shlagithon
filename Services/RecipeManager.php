@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Tag;
 use PDO;
 use App\Interfaces\IManager;
 use App\Models\Member;
@@ -259,13 +258,20 @@ class RecipeManager implements IManager
      *
      * @return bool
      */
-    public static function updateRecipe(int $identifier, string $name, string $description, string $image, int $difficulty, int $time, int $nbPersons, string $advice, string $type): bool
+    public static function updateRecipe(int $identifier, string $name, string $description, int $difficulty, int $time, int $nbPersons, string $advice, string $type, string $image = null): bool
     {
-        $stmt = PDOManager::getInstance()->getPDO()->prepare("UPDATE recipe SET rec_name = :name, rec_description = :description, rec_image = :image, rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice, rec_type = :type WHERE rec_id = :id;");
+        if (!$image) {
+            $query = "UPDATE recipe SET rec_name = :name, rec_description = :description, rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice, rec_type = :type WHERE rec_id = :id;";
+        } else {
+            $query = "UPDATE recipe SET rec_name = :name, rec_description = :description, rec_image = :image, rec_difficulty = :difficulty, rec_time = :timeToCook, rec_nb_persons = :nbPersons, rec_advice = :advice, rec_type = :type WHERE rec_id = :id;";
+        }
+        $stmt = PDOManager::getInstance()->getPDO()->prepare($query);
         $stmt->bindValue(":id", $identifier, PDO::PARAM_INT);
         $stmt->bindValue(":name", $name, PDO::PARAM_STR);
         $stmt->bindValue(":description", $description, PDO::PARAM_STR);
-        $stmt->bindValue(":image", $image, PDO::PARAM_LOB);
+        if ($image) {
+            $stmt->bindValue(":image", $image, PDO::PARAM_LOB);
+        }
         $stmt->bindValue(":difficulty", $difficulty, PDO::PARAM_INT);
         $stmt->bindValue(":timeToCook", $time, PDO::PARAM_INT);
         $stmt->bindValue(":nbPersons", $nbPersons, PDO::PARAM_INT);

@@ -23,8 +23,11 @@ if (isset($_POST["validate"])) {
                 $md5Image = md5($imageName) . time() . "." . $imageExtension;
                 $targetFolder = __DIR__ . "/../assets/images/" . $md5Image;
                 move_uploaded_file($_FILES["image"]["tmp_name"], $targetFolder);
-                RecipeManager::updateRecipe($_POST["validate"], $_POST["name"], $_POST["description"], $md5Image, $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $_POST["advice"], $_POST["type"]);
-            } else {
+                RecipeManager::updateRecipe($_POST["validate"], $_POST["name"], $_POST["description"], $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $_POST["advice"], $_POST["type"], $md5Image);
+            } elseif ($_FILES["image"]["size"] === 0) {
+                RecipeManager::updateRecipe($_POST["validate"], $_POST["name"], $_POST["description"], $_POST["difficulty"], $_POST["time"], $_POST["nbPersons"], $_POST["advice"], $_POST["type"]);
+            }
+            else {
                 $errors[] = "Le format de l'image doit être valide.";
             }
         }

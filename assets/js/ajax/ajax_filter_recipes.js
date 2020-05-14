@@ -6,11 +6,11 @@ $(document).ready(function () {
     $.ajax({
       url: "filter-recipes",
       type: "GET",
-      data: "filter=" + filter + "&type=word",
+      data: "category=word&filter=" + filter,
       success: function (response) {
         let data = $.parseJSON(response);
         if (data.length > 0) {
-          renderTemplate($.parseJSON(response), $("#filtered-recipes"), filter);
+          renderTemplate(data, $("#filtered-recipes"), filter);
         } else {
           renderEmptyTemplate($("#filtered-recipes"));
         }
@@ -24,11 +24,29 @@ $(document).ready(function () {
     $.ajax({
       url: "filter-recipes",
       type: "GET",
-      data: "filter=" + tag + "&type=tag",
+      data: "category=tag&filter=" + tag,
       success: function (response) {
         let data = $.parseJSON(response);
         if (data.length > 0) {
-          renderTemplate($.parseJSON(response), $("#filtered-recipes"), tag);
+          renderTemplate(data, $("#filtered-recipes"), tag);
+        } else {
+          renderEmptyTemplate($("#filtered-recipes"));
+        }
+      }
+    });
+  });
+
+  // Filter the recipes by a given type.
+  $("span[data-type='type']").on("click", function (event) {
+    let type = $(event.target).attr("id");
+    $.ajax({
+      url: "filter-recipes",
+      type: "GET",
+      data: "category=type&filter=" + type,
+      success: function (response) {
+        let data = $.parseJSON(response);
+        if (data.length > 0) {
+          renderTemplate(data, $("#filtered-recipes"), type);
         } else {
           renderEmptyTemplate($("#filtered-recipes"));
         }

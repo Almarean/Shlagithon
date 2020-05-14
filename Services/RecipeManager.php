@@ -249,12 +249,12 @@ class RecipeManager implements IManager
      * @param int $identifier
      * @param string $name
      * @param string $description
-     * @param string $image
      * @param int $difficulty
      * @param int $time
      * @param int $nbPersons
      * @param string $advice
      * @param string $type
+     * @param string $image
      *
      * @return bool
      */
@@ -284,6 +284,7 @@ class RecipeManager implements IManager
      * Find all recipes that contain the specified text in their name.
      *
      * @param string $text
+     * @param boolean $convertIntoObject
      *
      * @return array
      */
@@ -307,14 +308,39 @@ class RecipeManager implements IManager
     /**
      * Find all recipes associated with the tag.
      *
-     * @param String $tagName
+     * @param string $tagName
+     * @param boolean $convertIntoObject
      *
      * @return array
      */
-    public static function findRecipeByTagName(String $tagName, bool $convertIntoObject = false): array
+    public static function findRecipesByTagName(string $tagName, bool $convertIntoObject = false): array
     {
         $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe INNER JOIN recipe_tag ON recipe.rec_id = recipe_tag.rt_fk_recipe_id WHERE recipe_tag.rt_fk_tag_id = :tag");
         $stmt->bindValue(":tag", TagManager::findIdBy($tagName), PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($convertIntoObject) {
+            $objects = [];
+            foreach ($results as $result) {
+                array_push($objects, new Recipe($result["rec_id"], $result["rec_name"], $result["rec_description"], $result["rec_image"], $result["rec_difficulty"], $result["rec_time"], $result["rec_nb_persons"], MemberManager::findOneByID($result["rec_fk_member_id"]), $result["rec_type"], $result["rec_advice"]));
+            }
+            $results = $objects;
+        }
+        return $results;
+    }
+
+    /**
+     * Find all recipes associated with the type.
+     *
+     * @param string $type
+     * @param boolean $convertIntoObject
+     *
+     * @return array
+     */
+    public static function findRecipesByType(string $type, bool $convertIntoObject = false): array
+    {
+        $stmt = PDOManager::getInstance()->getPDO()->prepare("SELECT * FROM recipe WHERE rec_type = :type LIMIT 0, 100;");
+        $stmt->bindValue(":type", $type, PDO::PARAM_STR);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if ($convertIntoObject) {

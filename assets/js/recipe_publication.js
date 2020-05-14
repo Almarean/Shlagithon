@@ -3,14 +3,17 @@ $("#button-add-ustencil").on("click", function () {
   if (!ustencilQuantity > 0) {
     ustencilQuantity = 1;
   }
-  let ustencilValue = $.trim($("#input-ustencil").val().toLowerCase());
-  let ustencils = $.map($(".ustencil"), function (ustencil) {
-    return $.trim($(ustencil).text().toLowerCase());
-  });
-  if (ustencilValue.length > 0 && $.inArray(ustencilValue, ustencils)) {
-    $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + ustencilValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
-    $("#input-ustencil").val("");
-    enableApplyButton();
+  let ustencilValue = $.trim($("#input-ustencil").val());
+  if (ustencilValue) {
+    ustencilValue = ustencilValue.toLowerCase();
+    let ustencils = $.map($(".ustencil"), function (ustencil) {
+      return $.trim($(ustencil).text().toLowerCase());
+    });
+    if (ustencilValue.length > 0 && $.inArray(ustencilValue, ustencils)) {
+      $("#ustencils").append("<li><span class='ustencil-quantity'>" + ustencilQuantity + "</span> <span class='ustencil'>" + ustencilValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+      $("#input-ustencil").val("");
+      enableApplyButton();
+    }
   }
 });
 
@@ -19,19 +22,22 @@ $("#button-add-ingredient").on("click", function () {
   if (!$("#ingredient-quantity").val()) {
     ingredientQuantity = 0;
   }
-  let ingredientValue = $.trim($("#input-ingredient").val().toLowerCase());
-  let ingredients = $.map($(".ingredient"), function (ingredient) {
-    return $.trim($(ingredient).text().toLowerCase());
-  });
-  if (ingredientValue.length > 0 && $.inArray(ingredientValue, ingredients)) {
-    let unit = $("#select-unit").val().toLowerCase();
-    if (ingredientQuantity !== 0) {
-      $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
-    } else {
-      $("#ingredients").append("<li><span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+  let ingredientValue = $.trim($("#input-ingredient").val());
+  if (ingredientValue) {
+    ingredientValue = ingredientValue.toLowerCase();
+    let ingredients = $.map($(".ingredient"), function (ingredient) {
+      return $.trim($(ingredient).text().toLowerCase());
+    });
+    if (ingredientValue.length > 0 && $.inArray(ingredientValue, ingredients)) {
+      let unit = $("#select-unit").val().toLowerCase();
+      if (ingredientQuantity !== 0) {
+        $("#ingredients").append("<li><span class='ingredient-quantity'>" + ingredientQuantity + " " + unit + "</span> <span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+      } else {
+        $("#ingredients").append("<li><span class='ingredient'>" + ingredientValue + "</span> <i class='fas fa-minus text-danger pointer'></li>");
+      }
+      $("#input-ingredient").val("");
+      enableApplyButton();
     }
-    $("#input-ingredient").val("");
-    enableApplyButton();
   }
 });
 
@@ -41,7 +47,7 @@ $("#button-add-tag").on("click", function () {
     return $.trim($(tag).text());
   });
   if (tagValue.length > 0 && $.inArray(tagValue, tags)) {
-    $("#tags").append("<span class='badge badge-pill badge-dark ml-2 pointer'>" + tagValue + "</span>");
+    $("#tags").append("<span class='badge badge-pill badge-dark ml-2'>" + tagValue + " <i class='fas fa-times pointer'></i></span>");
     $("#input-tag").val("");
   }
 });
@@ -55,15 +61,10 @@ $("#button-add-step").on("click", function () {
   }
 });
 
-$("#ustencils").click(event => removeElement(event));
-$("#ingredients").click(event => removeElement(event));
-$("#steps").click(event => removeElement(event));
-
-$("#tags").click(function (event) {
-  if (event.target.nodeName === "SPAN") {
-    $(event.target).remove();
-  }
-});
+$("#ustencils").click(event => removeLiElement(event));
+$("#ingredients").click(event => removeLiElement(event));
+$("#steps").click(event => removeLiElement(event));
+$("#tags").click(event => removeSpanElement(event));
 
 /**
  * Enable the apply button if we can find ustencils and ingredients.
@@ -77,13 +78,25 @@ function enableApplyButton() {
 }
 
 /**
- * Remove an element from a list.
+ * Remove a LI element.
  *
  * @param {*} event
  */
-function removeElement(event) {
+function removeLiElement(event) {
   if (event.target.nodeName === "I") {
     $(event.target).closest("li").remove();
+  }
+  enableApplyButton();
+}
+
+/**
+ * Remove a SPAN element.
+ *
+ * @param {*} event
+ */
+function removeSpanElement(event) {
+  if (event.target.nodeName === "I") {
+    $(event.target).closest("span").remove();
   }
   enableApplyButton();
 }

@@ -6,7 +6,8 @@ use App\Services\MemberManager;
 
 header("Content-Type: application/json;charset=utf-8");
 header("Cache-Control: private, no-cache, no-store, must-revalidate");
-if(isset($_GET['id']) && $_GET["id"] != ""){
+
+if (isset($_GET['id']) && $_GET["id"] !== "") {
     $result = MemberManager::findOneById($_GET['id'], false);
     if($result != null && $result != false){
         http_response_code(200);
@@ -25,7 +26,7 @@ if(isset($_GET['id']) && $_GET["id"] != ""){
     }
 } else {
     $result = MemberManager::findAll(false);
-    if($result != null && $result != false){
+    if ($result !== null && $result !== false) {
         foreach ($result as $key => $value) {
             $result[$key] = $value->getApiFormat();
         }

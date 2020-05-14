@@ -11,8 +11,10 @@
     <section class="container mt-5">
         <?php if (isset($_GET["favorite"])) { ?>
             <h1 class="text-center">Recettes favorites</h1>
-        <?php } else { ?>
+        <?php } elseif (isset($_GET["admin"])) { ?>
             <h1 class="text-center">Recettes publiées</h1>
+        <?php } else { ?>
+            <h1 class="text-center">Mes recettes</h1>
         <?php } ?>
         <div class="mt-5 table-responsive">
             <table class="table">
@@ -44,7 +46,7 @@
                                     <div class="ml-1 d-inline"><a href="?favorite-id=<?php echo $recipe->getId(); ?>" class="table-link" title="Favorite"><i class="fas fa-star-half-alt"></i></a></div>
                                 <?php } else { ?>
                                     <div class="ml-1 d-inline"><a href="?edit=<?php echo $recipe->getId(); ?>" class="table-link" title="EditRecipe"><i class="fas fa-pencil-alt"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $recipe->getId(); if (isset($_GET["admin"])) { echo "&admin"; } ?>" class="table-link text-danger" title="DeleteRecipe"><i class="fas fa-trash"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $recipe->getId(); if (isset($_GET["admin"])) { echo "&admin"; } ?>" class="table-link text-danger delete" title="DeleteRecipe"><i class="fas fa-trash"></i></a></div>
                                 <?php } ?>
                             </td>
                         </tr>
@@ -56,6 +58,7 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
+    <script src="/Shlagithon/assets/js/confirm_delete.js"></script>
 </body>
 
 </html>

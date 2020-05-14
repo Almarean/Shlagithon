@@ -42,10 +42,10 @@
             <div class="lead text-center mt-5" id="button-action">
                 <?php
                 if (isset($inArray) && $inArray === true) { ?>
-                    <button class="btn btn-dark" id="button-delete-favorite" title="DeleteFavorite" value="<?php echo $recipe->getId(); ?>"><i class="fas fa-star"></i> Supprimer des favoris</button>
+                    <button class="btn btn-dark" id="button-delete-favorite" title="DeleteFavorite" value="<?php echo $recipe->getId(); ?>"><i class="fas fa-star text-warning"></i> Supprimer des favoris</button>
                     <button class="btn btn-dark" id="button-add-favorite" title="AddFavorite" value="<?php echo $recipe->getId(); ?>" hidden><i class="far fa-star"></i> Ajouter aux favoris</button>
                 <?php } else { ?>
-                    <button class="btn btn-dark" id="button-delete-favorite" title="DeleteFavorite" value="<?php echo $recipe->getId(); ?>" hidden><i class="fas fa-star"></i> Supprimer des favoris</button>
+                    <button class="btn btn-dark" id="button-delete-favorite" title="DeleteFavorite" value="<?php echo $recipe->getId(); ?>" hidden><i class="fas fa-star text-warning"></i> Supprimer des favoris</button>
                     <button class="btn btn-dark" id="button-add-favorite" title="AddFavorite" value="<?php echo $recipe->getId(); ?>"><i class="far fa-star"></i> Ajouter aux favoris</button>
                 <?php } ?>
             </div>
@@ -55,9 +55,9 @@
             <div class="text-center">
                 <img src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="img-fluid rounded img-detail" alt="image">
             </div>
-            <div class="row mx-auto mt-5">
+            <div class="row mx-auto mt-5 border border-dark rounded p-3">
                 <article class="col-md-4">
-                    <h5>Ustensiles</h5>
+                    <h5><i class="fas fa-utensils"></i> Ustensiles</h5>
                     <ul>
                         <?php foreach ($ustencils as $ustencil) {
                             echo "<li>" . $ustencil->getQuantity() . " " . strtolower($ustencil->getLabel()) . "</li>";
@@ -65,7 +65,7 @@
                     </ul>
                 </article>
                 <article class="col-md-4">
-                    <h5>Ingrédients</h5>
+                    <h5><i class="fas fa-carrot"></i> Ingrédients</h5>
                     <ul>
                         <?php foreach ($ingredients as $ingredient) {
                             echo "<li>" . $ingredient->getQuantity() . " " . strtolower($ingredient->getLabel()) . "</li>";
@@ -73,7 +73,7 @@
                     </ul>
                 </article>
                 <article class="col-md-4">
-                    <h5>À propos de cette recette</h5>
+                    <h5><i class="fas fa-info"></i> À propos de cette recette</h5>
                     <ul>
                         <?php foreach ($allergens as $allergen) {
                             echo "<li>" . $allergen->getLabel() . "</li>";
@@ -82,7 +82,7 @@
                 </article>
             </div>
             <article class="col-md-12 my-5">
-                <h5>Etapes</h5>
+                <h5><i class="fas fa-ellipsis-v"></i> Etapes</h5>
                 <ol>
                     <?php foreach ($recipe->getSteps() as $step) {
                         echo "<li>" . $step->getDescription() . "</li>";
@@ -96,7 +96,7 @@
             <?php } ?>
             <div class="row mx-auto mt-5">
                 <div class="col-md-12">
-                    <h4 class="text-center">Commentaires</h4>
+                    <h4 class="text-center"><i class="far fa-comment-dots"></i> Commentaires</h4>
                     <div class="container">
                         <?php if (!empty($commentaries)) { ?>
                             <?php foreach ($commentaries as $commentary) { ?>

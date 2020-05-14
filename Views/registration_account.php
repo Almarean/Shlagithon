@@ -45,6 +45,9 @@
                             <input type="password" class="form-control" id="input-confirm-password" name="confirmPassword" autocomplete="new-password" required>
                             <p id="confirm-password-comment" class="font-weight-light"></p>
                         </div>
+                        <div class="text-center">
+                            <div class="g-recaptcha d-inline-block" data-sitekey="6LchM_cUAAAAADeQAGFApGK7z0rNKKzfbTm-KFD-"></div>
+                        </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-dark" title="Registration">S'inscrire</button>
                         </div>
@@ -57,6 +60,7 @@
     <?php include __DIR__ . "/templates/footer.php"; ?>
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
     <script src="/Shlagithon/assets/js/check_password.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 
 </html>

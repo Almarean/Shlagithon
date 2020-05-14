@@ -14,6 +14,12 @@ if (isset($_SESSION["member"])) {
 
 if (count($_POST) > 0) {
     $errors = [];
+    if (isset($_POST['g-recaptcha-response'])) {
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=" . urlencode("6LchM_cUAAAAAGxAmsd65pJPlsD49OYfT13ddXdH") .  "&response=" . urlencode($_POST['g-recaptcha-response']) . "&remoteip=" . $_SERVER['REMOTE_ADDR'];
+        $responseKeys = json_decode(file_get_contents($url), true);
+    } else {
+        $errors[] = "Vérifiez le Captcha.";
+    }
     $email = $_POST["email"];
     $password = $_POST["password"];
     if (strlen($password) < 8 || !preg_match("/[0-9]+/", $password) || !preg_match("/[a-z]+/", $password) || !preg_match("/[A-Z]+/", $password)) {
@@ -28,7 +34,7 @@ if (count($_POST) > 0) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Le format de l'e-mail n'est pas valide.";
     }
-    if (!count($errors) > 0) {
+    if (count($errors) === 0 && $responseKeys["success"]) {
         $member = new Member(0, $_POST["name"], $_POST["firstname"], $email, $password, "MEMBER");
         MemberManager::insert($member);
         $env = "dev";

@@ -9,6 +9,8 @@ require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/Exception.php";
 require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/PHPMailer.php";
 require_once __DIR__ . "/vendor/phpmailer/phpmailer/src/SMTP.php";
 
+require_once __DIR__ . "/libs/recaptchalib.php";
+
 require_once __DIR__ . "/Models/Tag.php";
 require_once __DIR__ . "/Models/Allergen.php";
 require_once __DIR__ . "/Models/Requirement.php";

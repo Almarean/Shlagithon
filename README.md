@@ -73,8 +73,8 @@ Cet environnement permet d'assurer aux développeurs un développement plus rapi
 ## Livrables
 
 Les développeurs livreront les éléments suivants :
-* Les documents permettant la bonne compréhension de la base de données et le fonctionnement de l'application (MCD, MLD, diagramme de classes UML)
-* Les documents décrivant l'intégralité du projet et son processus (note de cadrage, planning détaillé, identité visuelle)
+* Les documents permettant la bonne compréhension de la base de données et le fonctionnement de l'application (MCD, MLD)
+* Les documents décrivant l'intégralité du projet et son processus (note de cadrage, planning détaillé)
 * Le cahier des charges qui permettra aux utilisateurs de comprendre le fonctionnement global de la solution.
 * La solution demandée.
 

@@ -18,7 +18,7 @@ $(document).ready(function () {
   });
 
   // Remove a requirement from the list.
-  $(document).on("click", ".list-group-item .remove", function (event) {
+  $(document).on("click", ".list-group-item .delete", function (event) {
     let target = $(event.target);
     if (!target.is("a")) {
       target = target.closest("a");
@@ -59,7 +59,7 @@ $(document).ready(function () {
           if (response !== "0") {
             $("#list-group-requirements").append(
               `<li class="list-group-item">${requirement}
-                <a type="button" class="text-danger float-right pointer remove" data-type="${type}" data-id="${response}" title="RemoveRequirement"><i class="fas fa-trash"></i></a>
+                <a type="button" class="text-danger float-right pointer delete" data-type="${type}" data-id="${response}" title="RemoveRequirement"><i class="fas fa-trash"></i></a>
               </li>`);
           } else {
             $("#comments").html(`<div class="alert alert-danger text-center" role="alert">Une anomalie est survenue dans l'insertion.</div>`);
@@ -83,7 +83,7 @@ function renderTemplate(type, data) {
   let listTemplate = "";
   for (let [key, requirement] of Object.entries(data["requirements"])) {
     listTemplate += `<li class="list-group-item">${requirement.label}
-                      <a type="button" class="text-danger float-right pointer remove" data-type="${type}" data-id="${requirement.id}" title="RemoveRequirement"><i class="fas fa-trash"></i></a>
+                      <a type="button" class="text-danger float-right pointer delete" data-type="${type}" data-id="${requirement.id}" title="RemoveRequirement"><i class="fas fa-trash"></i></a>
                     </li>`;
   }
   let listAllergensTemplate = "";

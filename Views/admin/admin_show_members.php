@@ -35,7 +35,7 @@
                                 <td><?php if ($member->getIsDeleted()) { echo "Oui"; } ?></td>
                                 <td>
                                     <div class="ml-1 d-inline"><a href="?edit=<?php echo $member->getId(); ?>" class="table-link" title="EditMember"><i class="fas fa-pencil-alt"></i></a></div>
-                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $member->getId(); ?>" class="table-link text-danger" title="DeleteMember"><i class="fas fa-trash"></i></a></div>
+                                    <div class="ml-1 d-inline"><a href="?delete=<?php echo $member->getId(); ?>" class="table-link text-danger delete" title="DeleteMember"><i class="fas fa-trash"></i></a></div>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -47,6 +47,7 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
+    <script src="/Shlagithon/assets/js/confirm_delete.js"></script>
 </body>
 
 </html>

@@ -87,7 +87,7 @@ function renderTemplate(data, div, filter) {
       `<a href="recipe-details?filter=${filter}&id=${value["rec_id"]}" class="card text-dark mb-4 w-100">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="/Shlagithon/assets/images/${value["rec_image"]}" class="card-img w-100" alt="image">
+            <img src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/images/${value["rec_image"]}" class="card-img w-100" alt="image">
           </div>
           <div class="col-md-8">
             <div class="card-body">

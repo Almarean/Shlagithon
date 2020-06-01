@@ -33,7 +33,7 @@
                 <tbody>
                     <?php foreach ($recipes as $recipe) { ?>
                         <tr>
-                            <td><img class="img-recipe" src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" alt="image"></td>
+                            <td><img class="img-recipe" src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" alt="image"></td>
                             <td><?php echo $recipe->getName(); ?></td>
                             <td><?php echo $recipe->getDifficulty(); ?></td>
                             <td><?php echo $recipe->getTime(); ?></td>
@@ -58,7 +58,7 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/confirm_delete.js"></script>
+    <script src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/js/confirm_delete.js"></script>
 </body>
 
 </html>

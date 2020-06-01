@@ -53,7 +53,7 @@
                 <p class="lead text-justify"><?php echo $recipe->getDescription(); ?></p>
             </div>
             <div class="text-center">
-                <img src="/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="img-fluid rounded img-detail" alt="image">
+                <img src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/images/<?php echo $recipe->getImage(); ?>" class="img-fluid rounded img-detail" alt="image">
             </div>
             <div class="row mx-auto mt-5 border border-dark rounded p-3">
                 <article class="col-md-4">
@@ -139,7 +139,7 @@
 
     <?php include __DIR__ . "/templates/footer.php"; ?>
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/ajax/ajax_favorite_recipe.js"></script>
+    <script src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/js/ajax/ajax_favorite_recipe.js"></script>
 </body>
 
 </html>

@@ -30,8 +30,8 @@
 
     <?php include __DIR__ . "/../templates/footer.php"; ?>
     <?php include __DIR__ . "/../templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/ajax/ajax_manage_requirements.js"></script>
-    <script src="/Shlagithon/assets/js/confirm_delete.js"></script>
+    <script src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/js/ajax/ajax_manage_requirements.js"></script>
+    <script src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/js/confirm_delete.js"></script>
 </body>
 
 </html>

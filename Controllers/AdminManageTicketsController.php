@@ -20,5 +20,4 @@ if (isset($_POST["filter"])) {
     }
 }
 
-
 require __DIR__ . "/../Views/admin/admin_manage_tickets.php";

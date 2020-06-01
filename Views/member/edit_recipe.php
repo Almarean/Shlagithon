@@ -30,7 +30,7 @@
                     ?>
                     <label for="image">Image de la recette</label>
                     <div class="mt-2">
-                        <img src="<?php echo "/Shlagithon/assets/images/" . $recipe->getImage(); ?>" alt="image" class="mx-auto img-thumbnail">
+                        <img src="<?php echo "https://thomaslaure.alwaysdata.net/Shlagithon/assets/images/" . $recipe->getImage(); ?>" alt="image" class="mx-auto img-thumbnail">
                         <input type="file" name="image" id="image">
                     </div>
                 </div>

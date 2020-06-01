@@ -17,10 +17,10 @@
 <meta property="twitter:title" content="Patoketchup">
 <meta property="twitter:description" content="Patoketchup, une communauté qui vous régale, un site qui permet à tous de partager des recettes.">
 <meta property="twitter:image" content="">
-<link rel="shortcut icon" href="/Shlagithon/assets/patoketchup.ico">
-<link rel="apple-touch-icon" href="/Shlagithon/assets/patoketchup.ico">
-<meta name="msapplication-square310x310logo" content="/Shlagithon/assets/patoketchup.ico">
-<link rel="stylesheet" href="/Shlagithon/assets/css/resources/bootstrap.min.css">
+<link rel="shortcut icon" href="https://thomaslaure.alwaysdata.net/Shlagithon/assets/patoketchup.ico">
+<link rel="apple-touch-icon" href="https://thomaslaure.alwaysdata.net/Shlagithon/assets/patoketchup.ico">
+<meta name="msapplication-square310x310logo" content="https://thomaslaure.alwaysdata.net/Shlagithon/assets/patoketchup.ico">
+<link rel="stylesheet" href="https://thomaslaure.alwaysdata.net/Shlagithon/assets/css/resources/bootstrap.min.css">
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-<link rel="stylesheet" href="/Shlagithon/assets/css/all.min.css">
-<link rel="stylesheet" href="/Shlagithon/assets/css/style.css">
+<link rel="stylesheet" href="https://thomaslaure.alwaysdata.net/Shlagithon/assets/css/all.min.css">
+<link rel="stylesheet" href="https://thomaslaure.alwaysdata.net/Shlagithon/assets/css/style.css">

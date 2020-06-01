@@ -59,7 +59,7 @@
 
     <?php include __DIR__ . "/templates/footer.php"; ?>
     <?php include __DIR__ . "/templates/scriptsjs.php"; ?>
-    <script src="/Shlagithon/assets/js/check_password.js"></script>
+    <script src="https://thomaslaure.alwaysdata.net/Shlagithon/assets/js/check_password.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 

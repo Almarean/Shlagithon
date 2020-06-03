@@ -104,7 +104,7 @@
                                     <div class="col-sm-12">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " . $commentary->getAuthor()->getName(); ?></strong>, <span class="text-muted">le <?php echo date_format(date_create($commentary->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($commentary->getWritingDate()), "H\hm"); ?></span>
+                                                <strong><?php echo $commentary->getAuthor()->getFirstname() . " " . $commentary->getAuthor()->getName(); ?></strong>, <span class="text-muted">le <?php echo date_format(date_create($commentary->getWritingDate()), "d/m/Y"); ?> à <?php echo date_format(date_create($commentary->getWritingDate()), "H\hi"); ?></span>
                                             </div>
                                             <div class="panel-body">
                                                 <?php echo $commentary->getText(); ?>
